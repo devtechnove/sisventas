@@ -1,0 +1,15 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~@mdi/font/scss/materialdesignicons.scss';
+
+@zmdi-font-path: "../fonts";
+@zmdi-icon-prefix: zmdi;
+@import '~material-design-iconic-font/dist/css/material-design-iconic-font.css';
+
+
+
