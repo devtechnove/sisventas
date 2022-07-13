@@ -7,7 +7,7 @@
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Start Date <span class="text-danger">*</span></label>
+                                    <label>Fecha de inicio <span class="text-danger">*</span></label>
                                     <input wire:model.defer="start_date" type="date" class="form-control" name="start_date">
                                     @error('start_date')
                                     <span class="text-danger mt-1">{{ $message }}</span>
@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>End Date <span class="text-danger">*</span></label>
+                                    <label>Fecha fin <span class="text-danger">*</span></label>
                                     <input wire:model.defer="end_date" type="date" class="form-control" name="end_date">
                                     @error('end_date')
                                     <span class="text-danger mt-1">{{ $message }}</span>
@@ -28,7 +28,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
-                                Filter Report
+                                Filtrar datos
                             </button>
                         </div>
                     </form>
@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($sales_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small ">{{ $total_sales }} Sales</div>
+                        <div class="text-uppercase font-weight-bold small ">{{ $total_sales }} Ventas</div>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,9 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($sale_returns_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">{{ $total_sale_returns }} Sale Returns</div>
+                        <div class="text-uppercase font-weight-bold small">{{ $total_sale_returns }}
+                          Devoluciones
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,7 +77,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($profit_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">Profit</div>
+                        <div class="text-uppercase font-weight-bold small">LUCRO</div>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($purchases_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">{{ $total_purchases }} Purchases</div>
+                        <div class="text-uppercase font-weight-bold small">{{ $total_purchases }} Compras</div>
                     </div>
                 </div>
             </div>
@@ -103,7 +105,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($purchase_returns_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">{{ $total_purchase_returns }} Purchase Returns</div>
+                        <div class="text-uppercase font-weight-bold small">{{ $total_purchase_returns }} Devolución de compras</div>
                     </div>
                 </div>
             </div>
@@ -117,7 +119,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($expenses_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">Expenses</div>
+                        <div class="text-uppercase font-weight-bold small">Gastos</div>
                     </div>
                 </div>
             </div>
@@ -131,7 +133,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($payments_received_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">Payments Received</div>
+                        <div class="text-uppercase font-weight-bold small">Pagos recibidos</div>
                     </div>
                 </div>
             </div>
@@ -145,7 +147,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($payments_sent_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">Payments Sent</div>
+                        <div class="text-uppercase font-weight-bold small">Pagos enviados</div>
                     </div>
                 </div>
             </div>
@@ -159,7 +161,7 @@
                     </div>
                     <div>
                         <div class="text-value text-primary">{{ format_currency($payments_net_amount) }}</div>
-                        <div class="text-uppercase font-weight-bold small">Payments Net</div>
+                        <div class="text-uppercase font-weight-bold small">Total de pagos</div>
                     </div>
                 </div>
             </div>
