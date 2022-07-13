@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Sales Details')
+@section('title', 'Detalle de ventas')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('sales.index') }}">Sales</a></li>
-        <li class="breadcrumb-item active">Details</li>
+        <li class="breadcrumb-item"><a href="{{ route('sales.index') }}">Ventas</a></li>
+        <li class="breadcrumb-item active">Detalles de la venta</li>
     </ol>
 @endsection
 
@@ -17,42 +17,42 @@
                 <div class="card">
                     <div class="card-header d-flex flex-wrap align-items-center">
                         <div>
-                            Reference: <strong>{{ $sale->reference }}</strong>
+                            Referencia: <strong>{{ $sale->reference }}</strong>
                         </div>
                         <a target="_blank" class="btn btn-sm btn-secondary mfs-auto mfe-1 d-print-none" href="{{ route('sales.pdf', $sale->id) }}">
-                            <i class="bi bi-printer"></i> Print
+                            <i class="bi bi-printer"></i> Imprimir
                         </a>
                         <a target="_blank" class="btn btn-sm btn-info mfe-1 d-print-none" href="{{ route('sales.pdf', $sale->id) }}">
-                            <i class="bi bi-save"></i> Save
+                            <i class="bi bi-save"></i> Guuardar
                         </a>
                     </div>
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-sm-4 mb-3 mb-md-0">
-                                <h5 class="mb-2 border-bottom pb-2">Company Info:</h5>
+                                <h5 class="mb-2 border-bottom pb-2">Información de la empresa:</h5>
                                 <div><strong>{{ settings()->company_name }}</strong></div>
                                 <div>{{ settings()->company_address }}</div>
-                                <div>Email: {{ settings()->company_email }}</div>
-                                <div>Phone: {{ settings()->company_phone }}</div>
+                                <div>Correo: {{ settings()->company_email }}</div>
+                                <div>Teléfono: {{ settings()->company_phone }}</div>
                             </div>
 
                             <div class="col-sm-4 mb-3 mb-md-0">
-                                <h5 class="mb-2 border-bottom pb-2">Customer Info:</h5>
+                                <h5 class="mb-2 border-bottom pb-2">Información del cliente:</h5>
                                 <div><strong>{{ $customer->customer_name }}</strong></div>
                                 <div>{{ $customer->address }}</div>
-                                <div>Email: {{ $customer->customer_email }}</div>
-                                <div>Phone: {{ $customer->customer_phone }}</div>
+                                <div>Correo: {{ $customer->customer_email }}</div>
+                                <div>Teléfono: {{ $customer->customer_phone }}</div>
                             </div>
 
                             <div class="col-sm-4 mb-3 mb-md-0">
-                                <h5 class="mb-2 border-bottom pb-2">Invoice Info:</h5>
-                                <div>Invoice: <strong>INV/{{ $sale->reference }}</strong></div>
-                                <div>Date: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</div>
+                                <h5 class="mb-2 border-bottom pb-2">Información de la factura:</h5>
+                                <div>Factura: <strong>INV/{{ $sale->reference }}</strong></div>
+                                <div>Fecha de registro: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</div>
                                 <div>
-                                    Status: <strong>{{ $sale->status }}</strong>
+                                    Estado de la factura: <strong>{{ $sale->status }}</strong>
                                 </div>
                                 <div>
-                                    Payment Status: <strong>{{ $sale->payment_status }}</strong>
+                                    Estado del pago: <strong>{{ $sale->payment_status }}</strong>
                                 </div>
                             </div>
 
@@ -62,11 +62,11 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th class="align-middle">Product</th>
-                                    <th class="align-middle">Net Unit Price</th>
-                                    <th class="align-middle">Quantity</th>
-                                    <th class="align-middle">Discount</th>
-                                    <th class="align-middle">Tax</th>
+                                    <th class="align-middle">Producto</th>
+                                    <th class="align-middle">Precio</th>
+                                    <th class="align-middle">Cantidad</th>
+                                    <th class="align-middle">Descuento</th>
+                                    <th class="align-middle">Impuesto</th>
                                     <th class="align-middle">Sub Total</th>
                                 </tr>
                                 </thead>
@@ -107,19 +107,19 @@
                                 <table class="table">
                                     <tbody>
                                     <tr>
-                                        <td class="left"><strong>Discount ({{ $sale->discount_percentage }}%)</strong></td>
+                                        <td class="left"><strong>Descuento ({{ $sale->discount_percentage }}%)</strong></td>
                                         <td class="right">{{ format_currency($sale->discount_amount) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="left"><strong>Tax ({{ $sale->tax_percentage }}%)</strong></td>
+                                        <td class="left"><strong>Impuesto ({{ $sale->tax_percentage }}%)</strong></td>
                                         <td class="right">{{ format_currency($sale->tax_amount) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="left"><strong>Shipping</strong></td>
+                                        <td class="left"><strong>Envío</strong></td>
                                         <td class="right">{{ format_currency($sale->shipping_amount) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="left"><strong>Grand Total</strong></td>
+                                        <td class="left"><strong>Total pagado</strong></td>
                                         <td class="right"><strong>{{ format_currency($sale->total_amount) }}</strong></td>
                                     </tr>
                                     </tbody>

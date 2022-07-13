@@ -203,27 +203,28 @@ class SaleController extends Controller
             $due_amount = $request->total_amount - $request->paid_amount;
 
             if ($due_amount == $request->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             foreach ($sale->saleDetails as $sale_detail) {
-                 $product = Product::find($sale_detail->id);
+                //dd($sale_detail);
+                 $product = Product::find($sale_detail->product_id);
                 $linea = new LineaProducto();
-                $linea->producto_id = $sale_detail->id;
+                $linea->producto_id = $sale_detail->product_id;
                 $linea->usuario_id = \Auth::id();
                 $linea->comprobante_id = $sale->id;
                 $linea->descripcion = "x $sale_detail->qty  $product->product_name  -  TOTAL $ $request->total_amount";
                 $linea->fecha = date("Y-m-d H:i:s");;
                 $linea->precioUnitario = $sale_detail->price;
                 $linea->cantidad = $sale_detail->price;
-                $linea->subTotal = $sale_detail->options->sub_total;
+                $linea->subTotal = $sale_detail->sub_total;
                 $linea->total = $request->total_amount;
                 $linea->save();
-                if ($sale->status == 'Shipped' || $sale->status == 'Completed') {
+                if ($sale->status == 'Enviado' || $sale->status == 'Completado') {
                     $product = Product::findOrFail($sale_detail->product_id);
                     $product->update([
                         'product_quantity' => $product->product_quantity + $sale_detail->quantity

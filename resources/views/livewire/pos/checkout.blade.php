@@ -12,24 +12,21 @@
                         </div>
                     </div>
                 @endif
-
-                <div class="form-group">
-                    <label for="customer_id">Cliente <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <a href="{{ route('customers.create') }}" class="btn btn-primary">
-                                <i class="bi bi-person-plus"></i>
-                            </a>
-                        </div>
-                        <select wire:model="customer_id" id="customer_id" class="form-control">
-                            <option value="" selected>Selecciona el cliente</option>
-                            @foreach($customers as $customer)
+                  <div class="form-group">
+                        <label for="customer_id">Clientes <span class="text-danger">*</span></label>
+                       <div class="input-group">
+                        <select class="form-control" wire:model="customer_id" id="customer_id" required>
+                            @foreach(\Modules\People\Entities\Customer::all() as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                             @endforeach
                         </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#proveedorCreateModal">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-
+                 </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -136,6 +133,73 @@
             <div class="form-group d-flex justify-content-center flex-wrap mb-0">
                 <button wire:click="resetCart" type="button" class="btn btn-pill btn-danger mr-3"><i class="bi bi-x"></i> Reiniciar</button>
                 <button wire:loading.attr="disabled" wire:click="proceed" type="button" class="btn btn-pill btn-primary" {{  $total_amount == 0 ? 'disabled' : '' }}><i class="bi bi-check"></i> Proceder</button>
+            </div>
+        </div>
+    </div>
+
+           <!-- Create Modal -->
+    <div class="modal fade" id="proveedorCreateModal" tabindex="-1" role="dialog" aria-labelledby="proveedorCreateModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="proveedorCreateModalLabel">Nuevo cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('customers.store') }}" method="POST">
+                    @csrf
+                     <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_name">Nombre completo <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_email">Correo <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="customer_email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_phone" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="city">Ciudad <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="city" required>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="to_modal" value="true">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="country">País <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="country" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="address">Dirección <span class="text-danger">*</span></label>
+                                        <textarea name="address" class="form-control" id="" cols="15" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

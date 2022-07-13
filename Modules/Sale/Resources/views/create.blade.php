@@ -78,7 +78,7 @@
                                         <select class="form-control" name="status" id="status" required>
                                             <option value="Pendiente">Pendiente</option>
                                             <option value="Enviado">Enviado</option>
-                                            <option value="Compleado">Compleado</option>
+                                            <option value="Completado">Completado</option>
                                         </select>
                                     </div>
                                 </div>

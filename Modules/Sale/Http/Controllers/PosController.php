@@ -29,19 +29,48 @@ class PosController extends Controller
 
 
     public function store(StorePosSaleRequest $request) {
-        DB::transaction(function () use ($request) {
+
+
+         $mytime =  \Carbon\Carbon::now('America/Caracas');
+         $fecha=$mytime->format('Y-m-d');
+
+              $caja_aperturada = DB::table('cajas')
+            ->where([
+                //['caja','=',$request->get('caja')],
+                ['fecha','=',$fecha],
+                ['estado','=','Abierta']
+            ])
+            ->first();
+
+         if ($caja_aperturada) {
+
+          DB::transaction(function () use ($request) {
             $due_amount = $request->total_amount - $request->paid_amount;
 
             if ($due_amount == $request->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = '´Pagado';
             }
+
+            $mytime =  \Carbon\Carbon::now('America/Caracas');
+            $fecha=$mytime->format('Y-m-d');
+
+              $caja = DB::table('cajas')
+              ->where([
+                //['caja','=',$request->get('caja')],
+                ['fecha','=',$fecha],
+                ['estado','=','Abierta']
+            ])
+            ->first();
 
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
+                'idcaja' => $caja->id,
+                'mes' => date('m'),
+                'year' => date('Y'),
                 'reference' => 'PSL',
                 'customer_id' => $request->customer_id,
                 'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
@@ -93,8 +122,16 @@ class PosController extends Controller
             }
         });
 
-        toast('POS Sale Created!', 'success');
+            toast('POS Sale Created!', 'success');
 
-        return redirect()->route('sales.index');
+            return redirect()->route('sales.index');
+            }
+            else
+            {
+            toast('¡Debes aperturar la caja!', 'error');
+
+            return redirect()->to('/panel/abrir_caja');
+            }
+
     }
 }

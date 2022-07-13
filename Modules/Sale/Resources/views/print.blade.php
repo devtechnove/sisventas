@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sale Details</title>
+    <title>Detalle de venta</title>
     <link rel="stylesheet" href="{{ public_path('b3/bootstrap.min.css') }}">
 </head>
 <body>
@@ -17,8 +17,8 @@
                 <div class="row">
                      <div class="col-xs-12 mb-3 mt-3 mb-md-0 text-center" >
                             <div style="margin-right: 5em;">{{ settings()->company_address }}</div>
-                            <div style="margin-right: 5em;">Email: {{ settings()->company_email }}</div>
-                            <div style="margin-right: 5em;">Phone: {{ settings()->company_phone }}</div>
+                            <div style="margin-right: 5em;">Correo: {{ settings()->company_email }}</div>
+                            <div style="margin-right: 5em;">Teléfono: {{ settings()->company_phone }}</div>
                         </div>
                 </div>
             </div>
