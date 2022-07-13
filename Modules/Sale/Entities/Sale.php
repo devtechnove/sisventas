@@ -15,6 +15,10 @@ class Sale extends Model
         return $this->hasMany(SaleDetails::class, 'sale_id', 'id');
     }
 
+    public function details() {
+        return $this->belongsTo(SaleDetails::class, 'sale_id', 'id');
+    }
+
     public function salePayments() {
         return $this->hasMany(SalePayment::class, 'sale_id', 'id');
     }

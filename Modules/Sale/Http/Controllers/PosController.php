@@ -14,6 +14,7 @@ use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
 use Modules\Sale\Http\Requests\StorePosSaleRequest;
+use Modules\Product\Entities\LineaProducto;
 
 class PosController extends Controller
 {
@@ -80,7 +81,7 @@ class PosController extends Controller
                 'paid_amount' => $request->paid_amount * 100,
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
-                'status' => 'Completed',
+                'status' => 'Completado',
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
@@ -104,6 +105,18 @@ class PosController extends Controller
                 ]);
 
                 $product = Product::findOrFail($cart_item->id);
+
+                $linea = new LineaProducto();
+                $linea->producto_id = $cart_item->id;
+                $linea->usuario_id = \Auth::id();
+                $linea->comprobante_id = $sale->id;
+                $linea->descripcion = "x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
+                $linea->fecha = date("Y-m-d H:i:s");;
+                $linea->precioUnitario = $cart_item->price;
+                $linea->cantidad = $cart_item->qty;
+                $linea->subTotal = $cart_item->options->sub_total;
+                $linea->total = $request->total_amount;
+                $linea->save();
                 $product->update([
                     'product_quantity' => $product->product_quantity - $cart_item->qty
                 ]);

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Customer;
+use Modules\Sale\Entities\Sale;
 
 class CustomersController extends Controller
 {
@@ -59,8 +60,8 @@ class CustomersController extends Controller
 
     public function show(Customer $customer) {
         abort_if(Gate::denies('show_customers'), 403);
-
-        return view('people::customers.show', compact('customer'));
+        $venta = Sale::with('saleDetails')->where('customer_id',$customer->id)->get();
+        return view('people::customers.show', compact('customer','venta'));
     }
 
 

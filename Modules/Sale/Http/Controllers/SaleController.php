@@ -122,7 +122,7 @@ class SaleController extends Controller
                 $linea->descripcion = "x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
                 $linea->fecha = date("Y-m-d H:i:s");;
                 $linea->precioUnitario = $cart_item->price;
-                $linea->cantidad = $cart_item->price;
+                $linea->cantidad = $cart_item->qty;
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
                 $linea->save();

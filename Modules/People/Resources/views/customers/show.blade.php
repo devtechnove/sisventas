@@ -13,37 +13,93 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>Customer Name</th>
+                                    <th>Nombre completo</th>
                                     <td>{{ $customer->customer_name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Customer Email</th>
+                                    <th>Correo electrónico</th>
                                     <td>{{ $customer->customer_email }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Customer Phone</th>
+                                    <th>Teléfono</th>
                                     <td>{{ $customer->customer_phone }}</td>
                                 </tr>
                                 <tr>
-                                    <th>City</th>
+                                    <th>Ciudad</th>
                                     <td>{{ $customer->city }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Country</th>
+                                    <th>País</th>
                                     <td>{{ $customer->country }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Address</th>
+                                    <th>Dirección</th>
                                     <td>{{ $customer->address }}</td>
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Movimiento del cliente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                        <table class="table table-sm table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" >Fecha</th>
+                                    <th class="text-center" >Hora</th>
+                                    <th class="text-center" >Cant.</th>
+                                    <th class="text-center">Descripción</th>
+                                    <th class="text-center">Comprobante</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($venta as $detalle)
+
+                                   @php
+                                      $detalles = \DB::table('linea_productos')->where('comprobante_id',$detalle->id)->first();
+                                   @endphp
+
+                                    <tr>
+
+                                        <td>{{ date_format( date_create($detalle->date), 'd/m/Y' ) }}</td>
+                                        <td>{{ date_format( date_create($detalle->created_at), 'H:i:s' ) }}</td>
+                                        <td align="center">{{ $detalles->cantidad}} UNID</td>
+                                        <td title="{{$detalles->descripcion}}">
+                                            @if(strlen($detalles->descripcion) > 36)
+                                                {{ substr($detalles->descripcion, 0, 36) . "..."}}
+                                            @else
+                                                {{ $detalles->descripcion }}
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if($detalles->comprobante_id)
+                                                <a href="/sales/{{$detalles->comprobante_id}}">
+                                                    {{ $detalle->status }}
+                                                </a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
             </div>
