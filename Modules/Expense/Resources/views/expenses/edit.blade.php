@@ -18,9 +18,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     @include('utils.alerts')
-                    <div class="form-group">
-                        <button class="btn btn-primary">Update Expense <i class="bi bi-check"></i></button>
-                    </div>
+
                 </div>
                 <div class="col-lg-12">
                     <div class="card">
@@ -28,13 +26,13 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="reference">Reference <span class="text-danger">*</span></label>
+                                        <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required value="{{ $expense->reference }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="date">Date <span class="text-danger">*</span></label>
+                                       <label for="date">Fecha de registro <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="date" required value="{{ $expense->getAttributes()['date'] }}">
                                     </div>
                                 </div>
@@ -43,7 +41,7 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="category_id">Category <span class="text-danger">*</span></label>
+                                        <label for="category_id">Categoría <span class="text-danger">*</span></label>
                                         <select name="category_id" id="category_id" class="form-control" required>
                                             @foreach(\Modules\Expense\Entities\ExpenseCategory::all() as $category)
                                                 <option {{ $category->id == $expense->category_id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->category_name }}</option>
@@ -53,15 +51,20 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="amount">Amount <span class="text-danger">*</span></label>
+                                         <label for="amount">Monto <span class="text-danger">*</span></label>
                                         <input id="amount" type="text" class="form-control" name="amount" required value="{{ $expense->amount }}">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="details">Details</label>
+                                <label for="details">Detalle del gasto</label>
                                 <textarea class="form-control" rows="6" name="details">{{ $expense->details }}</textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                              <button class="btn btn-primary">Actualizar gasto <i class="bi bi-save"></i></button>
                             </div>
                         </div>
                     </div>
