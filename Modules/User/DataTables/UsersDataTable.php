@@ -25,15 +25,15 @@ class UsersDataTable extends DataTable
             })
             ->addColumn('status', function ($data) {
                 if ($data->is_active == 1) {
-                    $html = '<span class="badge badge-success">Active</span>';
+                    $html = '<span class="badge badge-success">Activo</span>';
                 } else {
-                    $html = '<span class="badge badge-warning">Deactivated</span>';
+                    $html = '<span class="badge badge-danger">Inactivo</span>';
                 }
 
                 return $html;
             })
             ->addColumn('image', function ($data) {
-                $url = $data->getFirstMediaUrl('avatars');
+                $url = asset('images/perfiles/'.$data->image);
 
                 return '<img src="' . $url . '" style="width:50px;height:50px;" class="img-thumbnail rounded-circle"/>';
             })
@@ -44,8 +44,7 @@ class UsersDataTable extends DataTable
         return $model->newQuery()
             ->with(['roles' => function ($query) {
                 $query->select('name')->get();
-            }])
-            ->where('id', '!=', auth()->id());
+            }]);
     }
 
     public function html() {

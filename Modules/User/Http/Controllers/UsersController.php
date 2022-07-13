@@ -31,35 +31,58 @@ class UsersController extends Controller
     public function store(Request $request) {
         abort_if(Gate::denies('access_user_management'), 403);
 
+
+
+      if ($request->has('document')) {
+
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:255|confirmed'
         ]);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'is_active' => $request->is_active
-        ]);
+
+        $file = $request->document;
+
+        $ext = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+
+
+
+        $fileName = strtotime(date('Y-m-d H:i:s'));
+        $fileName = $fileName . '.' . $ext;
+
+        $file->move(public_path('images/perfiles'), $fileName);
+
+        $user = new User();
+        $user->name      = $request->name;
+        $user->image     = $fileName;
+        $user->email     = $request->email;
+        $user->password  = Hash::make($request->password);
+        $user->is_active = $request->is_active;
+        $user->save();
 
         $user->assignRole($request->role);
 
-        if ($request->has('image')) {
-            $tempFile = Upload::where('folder', $request->image)->first();
-
-            if ($tempFile) {
-                $user->addMedia(Storage::path('public/temp/' . $request->image . '/' . $tempFile->filename))->toMediaCollection('avatars');
-
-                Storage::deleteDirectory('public/temp/' . $request->image);
-                $tempFile->delete();
-            }
-        }
-
         toast("User Created & Assigned '$request->role' Role!", 'success');
-
         return redirect()->route('users.index');
+
+      }
+      else
+      {
+            $user = new User();
+            $user->name      = $request->name;
+            //$user->image     = $fileName;
+            $user->email     = $request->email;
+            $user->password  = Hash::make($request->password);
+            $user->is_active = $request->is_active;
+            $user->save();
+
+            $user->assignRole($request->role);
+
+            toast("User Created & Assigned '$request->role' Role!", 'success');
+            return redirect()->route('users.index');
+      }
+
     }
 
 
@@ -70,40 +93,55 @@ class UsersController extends Controller
     }
 
 
-    public function update(Request $request, User $user) {
+    public function update(Request $request, $id) {
         abort_if(Gate::denies('access_user_management'), 403);
 
-        $request->validate([
+           $user =  User::find($id);
+           $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|max:255|unique:users,email,'.$user->id,
         ]);
 
-        $user->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'is_active' => $request->is_active
-        ]);
+           if ($request->has('document')) {
 
-        $user->syncRoles($request->role);
 
-        if ($request->has('image')) {
-            $tempFile = Upload::where('folder', $request->image)->first();
+             $file = $request->document;
+             $ext = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
 
-            if ($user->getFirstMedia('avatars')) {
-                $user->getFirstMedia('avatars')->delete();
-            }
+             $fileName = strtotime(date('Y-m-d H:i:s'));
+             $fileName = $fileName . '.' . $ext;
 
-            if ($tempFile) {
-                $user->addMedia(Storage::path('public/temp/' . $request->image . '/' . $tempFile->filename))->toMediaCollection('avatars');
+             $file->move(public_path('images/perfiles'), $fileName);
 
-                Storage::deleteDirectory('public/temp/' . $request->image);
-                $tempFile->delete();
-            }
-        }
+             $user->name      = $request->name;
+             $user->image     = $fileName;
+             $user->email     = $request->email;
+             //$user->password  = Hash::make($request->password);
+             $user->is_active = $request->is_active;
+             $user->save();
 
-        toast("User Updated & Assigned '$request->role' Role!", 'info');
+              toast("User Updated & Assigned '$request->role' Role!", 'info');
+             return redirect()->route('users.index');
+           }
+           else
+           {
+            //dd($request);
+            $user->name      = $request->name;
+            //$user->image     = $fileName;
+            $user->email     = $request->email;
+            //$user->password  = Hash::make($request->password);
+            $user->is_active = $request->is_active;
+            $user->save();
 
-        return redirect()->route('users.index');
+           $user->syncRoles($request->role);
+
+           toast("User Updated & Assigned '$request->role' Role!", 'info');
+          return redirect()->route('users.index');
+       }
+
+
+
+
     }
 
 
