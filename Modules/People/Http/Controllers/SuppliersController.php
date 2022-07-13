@@ -76,6 +76,7 @@ class SuppliersController extends Controller
 
     public function show(Supplier $supplier) {
         abort_if(Gate::denies('show_suppliers'), 403);
+        //dd(\DB::table('purchases')->where('supplier_id',$supplier->id)->get());
 
         return view('people::suppliers.show', compact('supplier'));
     }

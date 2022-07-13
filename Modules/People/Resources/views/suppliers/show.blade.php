@@ -13,7 +13,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -40,6 +40,45 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Movimiento del cliente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                        <table class="table table-sm table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" >Fecha</th>
+                                    <th class="text-center" >Hora</th>
+                                    <th class="text-center">Compra</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $compras = \DB::table('purchases')->where('supplier_id',$supplier->id)->get();
+                                @endphp
+                                @foreach ($compras as $detalle)
+                                    <td>{{ date_format( date_create($detalle->date), 'd/m/Y' ) }}</td>
+                                    <td>{{ date_format( date_create($detalle->created_at), 'H:i:s' ) }}</td>
+                                      <td class="text-center">
+                                            @if($detalle->id)
+                                                <a href="/purchases/{{$detalle->id}}">
+                                                    {{ $detalle->status }}
+                                                </a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
             </div>

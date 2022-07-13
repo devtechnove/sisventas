@@ -40,11 +40,11 @@ class PurchaseController extends Controller
         DB::transaction(function () use ($request) {
             $due_amount = $request->total_amount - $request->paid_amount;
             if ($due_amount == $request->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             $purchase = Purchase::create([
@@ -165,11 +165,11 @@ class PurchaseController extends Controller
         DB::transaction(function () use ($request, $purchase) {
             $due_amount = $request->total_amount - $request->paid_amount;
             if ($due_amount == $request->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             foreach ($purchase->purchaseDetails as $purchase_detail) {
