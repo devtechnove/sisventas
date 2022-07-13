@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Create Sale Return')
+@section('title', 'Devolución de ventas')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('sale-returns.index') }}">Sale Returns</a></li>
-        <li class="breadcrumb-item active">Add</li>
+        <li class="breadcrumb-item"><a href="{{ route('sale-returns.index') }}">Devolución de ventas</a></li>
+        <li class="breadcrumb-item active">Nueva devolución</li>
     </ol>
 @endsection
 
@@ -29,26 +29,33 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="reference">Reference <span class="text-danger">*</span></label>
+                                        <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="SLRN">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="from-group">
-                                        <div class="form-group">
-                                            <label for="customer_id">Customer <span class="text-danger">*</span></label>
+                                 <div class="col-lg-4">
+                                      <div class="form-group">
+                                            <label for="customer_id">Clientes <span class="text-danger">*</span></label>
+                                           <div class="input-group">
                                             <select class="form-control" name="customer_id" id="customer_id" required>
+                                                 <option value="">Seleccione el cliente</option>
                                                 @foreach(\Modules\People\Entities\Customer::all() as $customer)
+
                                                     <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#proveedorCreateModal">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                        </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="from-group">
                                         <div class="form-group">
-                                            <label for="date">Date <span class="text-danger">*</span></label>
+                                            <label for="date">Fecha de registro <span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" name="date" required value="{{ now()->format('Y-m-d') }}">
                                         </div>
                                     </div>
@@ -60,31 +67,31 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="status">Status <span class="text-danger">*</span></label>
+                                        <label for="status">Estado de devolución <span class="text-danger">*</span></label>
                                         <select class="form-control" name="status" id="status" required>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Shipped">Shipped</option>
-                                            <option value="Completed">Completed</option>
+                                            <option value="Pendiente">Pendiente</option>
+                                            <option value="Enviado">Enviado</option>
+                                            <option value="Completado">Completado</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="from-group">
                                         <div class="form-group">
-                                            <label for="payment_method">Payment Method <span class="text-danger">*</span></label>
+                                            <label for="payment_method">Método de pago <span class="text-danger">*</span></label>
                                             <select class="form-control" name="payment_method" id="payment_method" required>
-                                                <option value="Cash">Cash</option>
-                                                <option value="Credit Card">Credit Card</option>
-                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Efectivo">Efectivo</option>
+                                                <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+                                                <option value="Transferencia bancaria">Transferencia bancaria</option>
                                                 <option value="Cheque">Cheque</option>
-                                                <option value="Other">Other</option>
+                                                <option value="Otros">Otros</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="paid_amount">Amount Received <span class="text-danger">*</span></label>
+                                        <label for="paid_amount">Monto recibido <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input id="paid_amount" type="text" class="form-control" name="paid_amount" required>
                                             <div class="input-group-append">
@@ -98,18 +105,84 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note">Note (If Needed)</label>
+                                <label for="note">Nota (Sólo si es necesario)</label>
                                 <textarea name="note" id="note" rows="5" class="form-control"></textarea>
                             </div>
 
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary">
-                                    Create Sale Return <i class="bi bi-check"></i>
+                                    Guardar <i class="bi bi-save"></i>
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+         <!-- Create Modal -->
+    <div class="modal fade" id="proveedorCreateModal" tabindex="-1" role="dialog" aria-labelledby="proveedorCreateModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="proveedorCreateModalLabel">Nuevo cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('customers.store') }}" method="POST">
+                    @csrf
+                     <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_name">Nombre completo <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_email">Correo <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="customer_email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_phone" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="city">Ciudad <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="city" required>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="to_modal" value="true">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="country">País <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="country" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="address">Dirección <span class="text-danger">*</span></label>
+                                        <textarea name="address" class="form-control" id="" cols="15" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
