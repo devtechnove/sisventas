@@ -139,40 +139,27 @@
                 </div>
                 <form action="{{ route('customers.store') }}" method="POST">
                     @csrf
-                     <div class="modal-body">
+                    <div class="modal-body">
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_name">Nombre completo <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="customer_name" required>
+                                        <label for="customer_name">Nombre <span class="text-danger">*</span></label>
+                                        <input type="text" value="{{ old('customer_name') }}" class="form-control" name="customer_name" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_email">Correo <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="customer_email" required>
+                                        <label for="customer_email">Documento <span class="text-danger">*</span></label>
+                                        <input type="text" value="{{ old('customer_documento') }}" class="form-control" name="customer_documento" required>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="customer_phone" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="city">Ciudad <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="city" required>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="to_modal" value="true">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="country">País <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="country" required>
+                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
+                                        <input type="text" value="{{ old('customer_phone') }}" class="form-control" name="customer_phone" required>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +168,10 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="address">Dirección <span class="text-danger">*</span></label>
-                                        <textarea name="address" class="form-control" id="" cols="15" rows="5"></textarea>
+                                        <textarea name="address" id="" cols="30" rows="5" class="form-control">
+                                            {{ old('address') }}
+                                        </textarea>
+
                                     </div>
                                 </div>
                             </div>

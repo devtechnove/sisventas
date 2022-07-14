@@ -19,7 +19,7 @@
 </head>
 
 <body class="c-app flex-row align-items-center">
-
+ @include('sweetalert::alert', ['cdn' => "{{ url('/app-assets/') }}"])
     <!-- [ auth-signup ] start -->
 <div class="auth-wrapper auth-v3">
     <div class="auth-content">
@@ -35,11 +35,6 @@
 
                     <div class=" ">
                          <div class="{{ Route::has('register') ? 'col-md-8' : 'col-md-5' }}">
-                            @if(Session::has('account_deactivated'))
-                                <div class="alert alert-danger" role="alert">
-                                    {{ Session::get('account_deactivated') }}
-                                </div>
-                            @endif
                          <!-- Brand logo-->
                         <a href="{{ url('/login') }}" class="brand-logo">
                           <img src="{{ asset('images/logo/6230af0fd25cc.png') }}" height="100" alt="">
@@ -49,6 +44,15 @@
                         <div class="card-body">
                         <form method="post" action="{{ url('/login') }}">
                             @csrf
+                            <div class="row">
+                                <div class="col-sm-12">
+                                      @if(Session::has('account_deactivated'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ Session::get('account_deactivated') }}
+                                </div>
+                                 @endif
+                                </div>
+                            </div>
                             <h1>Iniciar sesión</h1>
                             <p class="text-muted">Ingresa tu correo y contraseña.</p>
                             <div class="input-group mb-3">

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Settings')
+@section('title', 'Editar configuración')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active">Settings</li>
+        <li class="breadcrumb-item active">Configuración</li>
     </ol>
 @endsection
 
@@ -16,7 +16,7 @@
                 @include('utils.alerts')
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">General Settings</h5>
+                        <h5 class="mb-0">Configuración general</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('settings.update') }}" method="POST">

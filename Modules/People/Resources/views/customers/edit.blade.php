@@ -26,35 +26,14 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_name">Nombre<span class="text-danger">*</span></label>
+                                        <label for="customer_name">Nombre completo<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="customer_name" required value="{{ $customer->customer_name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_email">Correo electrónico <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="customer_email" required value="{{ $customer->customer_email }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="customer_phone" required value="{{ $customer->customer_phone }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="city">Ciudad <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="city" required value="{{ $customer->city }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="country">País <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="country" required value="{{ $customer->country }}">
+                                        <label for="customer_documento">Documento del cliente <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_documento" required value="{{ $customer->customer_documento }}">
                                     </div>
                                 </div>
                             </div>
@@ -62,8 +41,21 @@
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                        <label for="customer_phone">Teléfono <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_phone" required value="{{ $customer->customer_phone }}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                             <div class="form-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
                                         <label for="address">Dirección <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="address" required value="{{ $customer->address }}">
+                                        <textarea name="address" id="" cols="30" rows="5" class="form-control">
+                                            {{ $customer->address }}
+                                        </textarea>
+
                                     </div>
                                 </div>
                             </div>

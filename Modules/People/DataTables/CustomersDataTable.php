@@ -51,7 +51,7 @@ class CustomersDataTable extends DataTable
             Column::make('customer_name')
                 ->className('text-center align-middle'),
 
-            Column::make('customer_email')
+            Column::make('customer_documento')
                 ->className('text-center align-middle'),
 
             Column::make('customer_phone')

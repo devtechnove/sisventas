@@ -23,20 +23,12 @@
                                     <td>{{ $customer->customer_name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Correo electrónico</th>
-                                    <td>{{ $customer->customer_email }}</td>
+                                    <th>Documento del cliente</th>
+                                    <td>{{ $customer->customer_documento }}</td>
                                 </tr>
                                 <tr>
                                     <th>Teléfono</th>
                                     <td>{{ $customer->customer_phone }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Ciudad</th>
-                                    <td>{{ $customer->city }}</td>
-                                </tr>
-                                <tr>
-                                    <th>País</th>
-                                    <td>{{ $customer->country }}</td>
                                 </tr>
                                 <tr>
                                     <th>Dirección</th>
