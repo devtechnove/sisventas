@@ -18,9 +18,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     @include('utils.alerts')
-                    <div class="form-group">
-                        <button class="btn btn-primary">Update Currency <i class="bi bi-check"></i></button>
-                    </div>
+
                 </div>
                 <div class="col-lg-12">
                     <div class="card">
@@ -28,13 +26,13 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="currency_name">Currency Name <span class="text-danger">*</span></label>
+                                        <label for="currency_name">Nombre de la moneda<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="currency_name" required value="{{ $currency->currency_name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="code">Currency Code <span class="text-danger">*</span></label>
+                                        <label for="code">Código de la moneda <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="code" required value="{{ $currency->code }}">
                                     </div>
                                 </div>
@@ -43,23 +41,28 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="symbol">Symbol <span class="text-danger">*</span></label>
+                                        <label for="symbol">Símbolo <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="symbol" required value="{{ $currency->symbol }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="thousand_separator">Thousand Separator <span class="text-danger">*</span></label>
+                                        <label for="thousand_separator">Separador de miles <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="thousand_separator" required value="{{ $currency->thousand_separator }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="decimal_separator">Decimal Separator <span class="text-danger">*</span></label>
+                                         <label for="decimal_separator">Separador de decimales <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="decimal_separator" required value="{{ $currency->decimal_separator }}">
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                               <button class="btn btn-primary">Actualizar registro <i class="bi bi-save"></i></button>
+                             </div>
                         </div>
                     </div>
                 </div>
