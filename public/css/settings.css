@@ -1,0 +1,44 @@
+ .buttons-excel
+        {
+            box-shadow: none;
+            font-weight: 500;
+            display: inline-block;
+            font-weight: 400;
+            color: #6e6b7b;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 0.786rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1;
+            border-radius: 0.358rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background 0s, border 0s;
+            background-color: #7367f0;
+            box-shadow: inset 0 -3px 0 0 rgb(34 41 47 / 20%);
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+         .buttons-print
+            {
+            box-shadow: none;
+            font-weight: 500;
+            display: inline-block;
+            font-weight: 400;
+            color: #6e6b7b;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 0.786rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1;
+            border-radius: 0.358rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background 0s, border 0s;
+            background-color: #00A910;
+            box-shadow: inset 0 -3px 0 0 rgb(34 41 47 / 20%);
+            color: #fff;
+            transition: all 0.2s ease;
+        }

@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
     ],
 
     /*
@@ -240,6 +241,7 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         'PDF' => 'Barryvdh\DomPDF\Facade',
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
     ],
 
 ];

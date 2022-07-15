@@ -47,6 +47,7 @@
     <link href="{{asset('css/some.css')}}" rel="stylesheet">
     <link href="{{asset('css/system.css')}}" rel="stylesheet">
     <link href="{{asset('css/mdb-file-upload.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     @yield('third_party_stylesheets')
 
@@ -54,6 +55,8 @@
 
     @stack('page_css')
     <!-- END: Custom CSS-->
+
+    <link rel="stylesheet" href="/css/settings.css">
 
 </head>
 <!-- END: Head-->
@@ -101,6 +104,19 @@
 
     <!-- BEGIN: Vendor JS-->
     <script src="/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/jszip.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
+    <script src="/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+    <script src="/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
@@ -115,6 +131,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="/js/iconify.js"></script>
+<script src="{{asset('js/mdb-file-upload.min.js')}}"></script>
     <!-- END: Page JS-->
 
     <script>
@@ -130,11 +147,11 @@
 
     @include('sweetalert::alert')
 
-@yield('third_party_scripts')
+    @yield('third_party_scripts')
 
-@livewireScripts
+    @livewireScripts
 
-@stack('page_scripts')
+    @stack('page_scripts')
 </body>
 <!-- END: Body-->
 
