@@ -1,5 +1,3 @@
-<footer class="c-footer">
-    <div>{!! settings()->footer_text !!}</div>
-
-    <div class="mfs-auto d-md-down-none">Powered by&nbsp;<a href="https://laravel.com" target="_blank">Laravel</a></div>
+ <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">{!! settings()->footer_text !!}</p>
 </footer>

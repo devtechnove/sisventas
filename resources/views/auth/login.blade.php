@@ -41,7 +41,7 @@
 
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
 
- @include('sweetalert::alert', ['cdn' => "{{ url('/app-assets/') }}"])
+ @include('sweetalert::alert', ['cdn' => "{{ url('/app-assets/ ') }}"])
     <!-- [ auth-signup ] start -->
 <div class="auth-wrapper auth-v3">
     <div class="auth-content">

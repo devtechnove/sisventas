@@ -97,7 +97,7 @@
                         Vista general de {{ now()->format('F, Y') }}
                     </div>
                     <div class="card-body d-flex justify-content-center">
-                        <div class="chart-container" style="position: relative; height:auto; width:280px">
+                        <div class="chart-container" style="position: relative; height:auto; width:1000px">
                             <canvas id="currentMonthChart"></canvas>
                         </div>
                     </div>

@@ -14,8 +14,8 @@ $(document).ready(function () {
         datasets: [{
           label: 'Ventas',
           data: response.sales.original.data,
-          backgroundColor: ['#6366F1'],
-          borderColor: ['#6366F1'],
+          backgroundColor: ['#F16363'],
+          borderColor: ['#F16363'],
           borderWidth: 1
         }, {
           label: 'Compras',
@@ -56,13 +56,13 @@ $(document).ready(function () {
       data: {
         labels: response.months,
         datasets: [{
-          label: 'Payment Sent',
+          label: 'Pagos realizados',
           data: response.payment_sent,
           fill: false,
           borderColor: '#EA580C',
           tension: 0
         }, {
-          label: 'Payment Received',
+          label: 'Pagos recibidos',
           data: response.payment_received,
           fill: false,
           borderColor: '#2563EB',
