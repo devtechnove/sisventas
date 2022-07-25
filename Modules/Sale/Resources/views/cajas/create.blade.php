@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Inicio</a>
             </li>
-            <li class="breadcrumb-item"><a href="{{ url('/admin/panel/contabilidad') }}">Listado de cajas</a>
+            <li class="breadcrumb-item"><a href="{{ url('/panel/contabilidad') }}">Listado de cajas</a>
             <li class="breadcrumb-item active"> Apertura de caja
             </li>
         </ol>

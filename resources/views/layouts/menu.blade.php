@@ -23,13 +23,15 @@
                         </li>
                     </ul>
                 </li>
-                 @can('access_caja')
+                @if (\Auth::user()->hasRole('Super Administrador') || \Auth::user()->hasRole('Administrador') || \Auth::user()->hasRole('Supervisor'))
+
+
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('index.contabilidad') ? 'active' : '' }}" href="{{ url('/panel/contabilidad') }}">
                             <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Cajas
                         </a>
                     </li>
-                @endcan
+                   @endif
                  @can('access_product_categories')
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'active' : '' }}" href="{{ route('product-categories.index') }}">
