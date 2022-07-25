@@ -77,10 +77,14 @@ class SaleController extends Controller
                 ['estado','=','Abierta']
             ])
             ->first();
+            $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))
+             ->first();
+             //dd($tbolivares)
 
             $sale = Sale::create([
                 'date' => $request->date,
                 'idcaja' => $caja->id,
+                'idtasa' => $tbolivares->id,
                 'mes' => date('m'),
                 'year' => date('Y'),
                 'customer_id' => $request->customer_id,

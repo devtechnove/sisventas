@@ -281,7 +281,7 @@ class ContabilidadController extends Controller
             $current_year = $request->get('year');
         }
 
-        $config = DB::table('configuraciones')->first();
+        //$config = DB::table('configuraciones')->first();
 
         $caja_mes_anterior = DB::table('cajas') 
         ->select(DB::raw('sum(cast(monto as double precision))'))
@@ -432,13 +432,13 @@ class ContabilidadController extends Controller
         ->first();
 
 
-        return view('sale::cajas.semanal',compact('caja_1','caja_2','caja_3','caja_4','caja_5','caja_6','caja_7','caja_8','caja_9','caja_10','caja_11','caja_12','current_year','caja_mes_anterior','config','caja_mes_actual'));
+        return view('sale::cajas.semanal',compact('caja_1','caja_2','caja_3','caja_4','caja_5','caja_6','caja_7','caja_8','caja_9','caja_10','caja_11','caja_12','current_year','caja_mes_anterior','caja_mes_actual'));
     }
 
     public function historial(Request $request){
         $buscar = $request->get('buscar');
 
-        $config = DB::table('configuraciones')->first();
+        //$config = DB::table('configuraciones')->first();
 
         $cajas = DB::table('cajas')
         ->where('fecha','LIKE','%'.$buscar.'%')
@@ -446,10 +446,10 @@ class ContabilidadController extends Controller
         ->paginate(15);
 
         if($request->ajax()){
-            return response()->json(view('sale::cajas.historial',compact('cajas','buscar','config'))->render());
+            return response()->json(view('sale::cajas.historial',compact('cajas','buscar'))->render());
         }
 
-        return view('sale::cajas.historial',compact('cajas','buscar','config'));
+        return view('sale::cajas.historial',compact('cajas','buscar'));
     }
 
     public function gastos(){

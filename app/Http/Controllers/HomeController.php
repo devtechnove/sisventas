@@ -20,6 +20,11 @@ class HomeController extends Controller
 {
 
     public function index() {
+
+
+        $tasa = $this->bolivares();
+        //dd($tasa);
+
         $sales = Sale::completed()->sum('total_amount');
         $sale_returns = SaleReturn::completed()->sum('total_amount');
         $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
@@ -39,7 +44,8 @@ class HomeController extends Controller
             'revenue'          => $revenue,
             'sale_returns'     => $sale_returns / 100,
             'purchase_returns' => $purchase_returns / 100,
-            'profit'           => $profit
+            'profit'           => $profit,
+            'tasa'             => $tasa
         ]);
     }
 
@@ -223,5 +229,12 @@ class HomeController extends Controller
 
         return response()->json(['data' => $data, 'days' => $days]);
 
+    }
+
+      public function bolivares()
+    {
+        $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))->count();
+
+        return $tbolivares;
     }
 }

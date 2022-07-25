@@ -10,6 +10,12 @@
                 </div>
             </div>
         @endif
+
+        @php
+             $tasa = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))
+             ->sum('amount');
+             $bolivares = 0;
+          @endphp
         <div class="table-responsive position-relative">
             <div wire:loading.flex class="col-12 position-absolute justify-content-center align-items-center" style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
                 <div class="spinner-border text-primary" role="status">
@@ -26,6 +32,7 @@
                     <th class="align-middle">Descuento</th>
                     <th class="align-middle">Impuesto</th>
                     <th class="align-middle">Sub Total</th>
+                    <th class="align-middle">Total (Bs)</th>
                     <th class="align-middle">Opciones</th>
                 </tr>
                 </thead>
@@ -61,6 +68,12 @@
 
                                 <td class="align-middle">
                                     {{ format_currency($cart_item->options->sub_total) }}
+                                </td>
+                                 <td class="align-middle">
+                                    @php
+                                        $bolivares += $cart_item->options->sub_total * $tasa
+                                    @endphp
+                                    {{ number_format($bolivares,2) }} Bs.
                                 </td>
 
                                 <td class="align-middle text-center">
@@ -121,19 +134,19 @@
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="tax_percentage">Orden de impuesto (%)</label>
-                <input wire:model.lazy="global_tax" type="number" class="form-control" name="tax_percentage" min="0" max="100" value="{{ $global_tax }}" required>
+                <input wire:model.lazy="global_tax" type="text" class="form-control" name="tax_percentage" min="0" max="100" value="{{ $global_tax }}" required>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="discount_percentage">Descuento (%)</label>
-                <input wire:model.lazy="global_discount" type="number" class="form-control" name="discount_percentage" min="0" max="100" value="{{ $global_discount }}" required>
+                <input wire:model.lazy="global_discount" type="text" class="form-control" name="discount_percentage" min="0" max="100" value="{{ $global_discount }}" required>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="shipping_amount">Transporte</label>
-                <input wire:model.lazy="shipping" type="number" class="form-control" name="shipping_amount" min="0" value="0" required step="0.01">
+                <input wire:model.lazy="shipping" type="text" class="form-control" name="shipping_amount" min="0" value="0" required step="0.01">
             </div>
         </div>
     </div>

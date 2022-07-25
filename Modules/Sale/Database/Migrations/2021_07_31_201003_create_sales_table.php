@@ -20,6 +20,7 @@ class CreateSalesTable extends Migration
             $table->string('year');
             $table->string('reference');
             $table->unsignedBigInteger('idcaja')->nullable();
+            $table->unsignedBigInteger('idtasa')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('customer_name');
             $table->integer('tax_percentage')->default(0);
@@ -36,6 +37,7 @@ class CreateSalesTable extends Migration
             $table->text('note')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->nullOnDelete();
             $table->foreign('idcaja')->references('id')->on('cajas')->nullOnDelete();
+            $table->foreign('idtasa')->references('id')->on('tasas')->nullOnDelete();
             $table->timestamps();
         });
     }

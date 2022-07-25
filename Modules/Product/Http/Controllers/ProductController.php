@@ -71,7 +71,24 @@ class ProductController extends Controller
      }
      else
      {
+          $product = new Product();
+        $product->category_id = $request->category_id;
+        $product->product_name = $request->product_name;
+        $product->product_code = $request->product_code;
+        $product->product_barcode_symbology = $request->product_barcode_symbology;
+        $product->product_quantity = $request->product_quantity;
+        $product->product_cost = $request->product_cost;
+        $product->product_price = $request->product_price;
+        $product->product_unit = $request->product_unit;
+        $product->product_stock_alert = $request->product_stock_alert;
+        $product->product_order_tax = $request->product_order_tax;
+        $product->product_tax_type = $request->product_tax_type;
+        $product->product_note = $request->product_note;
+        //$product->product_image = $fileName;
+        $product->save();
 
+        toast('Product Created!', 'success');
+        return redirect()->route('products.index');
      }
 
     }

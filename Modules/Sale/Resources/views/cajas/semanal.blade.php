@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 @section('content')
 <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
@@ -8,7 +8,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Inicio</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="{{ url('admin/panel/contabilidad') }}">Listado de cajas</a>
+                        <li class="breadcrumb-item"><a href="{{ url('panel/contabilidad') }}">Listado de cajas</a>
                         <li class="breadcrumb-item active"> Ventas globales por mes
                         </li>
                     </ol>
@@ -63,11 +63,11 @@
                                         <tbody>
                                             <tr>
                                                 <td>Monto base total mes anterior</td>
-                                                <td class="text-center">{{$config->prefijo_moneda}}{{$caja_mes_anterior->sum}}</td>
+                                                <td class="text-center">${{$caja_mes_anterior->sum}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Monto de cierre total mes anterior</td>
-                                                <td class="text-center">{{$config->prefijo_moneda}}{{$caja_mes_anterior->sum}}</td>
+                                                <td class="text-center">${{$caja_mes_anterior->sum}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Monto base actual</td>
@@ -78,7 +78,7 @@
                                                     <img src="{{asset('images/ventas/up.png')}}" style="width:15px">
                                                     @endif
                                                     &nbsp;
-                                                    {{$config->prefijo_moneda}}{{$caja_mes_actual->sum}}
+                                                    ${{$caja_mes_actual->sum}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -90,7 +90,7 @@
                                                     <img src="{{asset('images/ventas/up.png')}}" style="width:15px">
                                                     @endif
                                                     &nbsp;
-                                                    {{$config->prefijo_moneda}}{{$caja_mes_actual->sum}}
+                                                    ${{$caja_mes_actual->sum}}
                                                 </td>
                                             </tr>
                                             
@@ -100,7 +100,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-10">
-                                      {!! Form::open(array('url'=>'/admin/panel/ganancias/mensual','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}
+                                      {!! Form::open(array('url'=>'/panel/ganancias/mensual','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 Filtrar año
@@ -122,7 +122,10 @@
     </main>
 
 @endsection
-@push('scripts')
+@section('third_party_scripts')
+    <script src="/app-assets/vendors/js/charts/chart.min.js"></script>
+@endsection
+@push('page_scripts')
     <script>
 
 window.onload = function(){

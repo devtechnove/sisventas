@@ -47,7 +47,7 @@
     <link href="{{asset('css/some.css')}}" rel="stylesheet">
     <link href="{{asset('css/system.css')}}" rel="stylesheet">
     <link href="{{asset('css/mdb-file-upload.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="{{asset('css/bootstrap-icons.css')}}" rel="stylesheet">
 
     @yield('third_party_stylesheets')
 

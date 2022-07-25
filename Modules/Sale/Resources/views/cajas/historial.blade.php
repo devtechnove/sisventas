@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 @section('content')
 
 
@@ -10,7 +10,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Inicio</a>
                         </li>
-                       <li class="breadcrumb-item"><a href="{{ url('admin/panel/ventas/historial') }}">Listado de ventas</a>
+                       <li class="breadcrumb-item"><a href="{{ url('/sales') }}">Listado de ventas</a>
                         </li>
                         <li class="breadcrumb-item active"> Detalle de la caja
                         </li>
@@ -97,10 +97,10 @@
                                                    <i class="fas fa-cog"></i>
                                                 </button>
                                                 <div class="dropdown-menu" x-placement="bottom-start" style="will-change: transform; margin: 0px;">
-                                                    <a class="dropdown-item" href="{{route('admin.data_caja.detalle',$item->codigo)}}">
+                                                    <a class="dropdown-item" href="{{route('data_caja.detalle',$item->codigo)}}">
                                                          &nbsp;Ventas</a>
                                                     @if ($item->user_id == auth()->user()->id && $item->estado == 'Abierta')
-                                                        <a class="dropdown-item" href="{{route('admin.cerrar_caja.contabilidad',$item->id)}}">
+                                                        <a class="dropdown-item" href="{{route('cerrar_caja.contabilidad',$item->id)}}">
                                                        
                                                         &nbsp;Cerrar caja</a>
                                                     @else
@@ -130,7 +130,10 @@
     </div>
 
 @endsection
-@push('scripts')
+@section('third_party_scripts')
+    <script src="/app-assets/vendors/js/charts/chart.min.js"></script>
+@endsection
+@push('page_scripts')
     <script>
         window.onload = function(){
            var loader = document.getElementById('loader');
@@ -144,7 +147,7 @@
         $(document).on("click", ".pagination a", function(e) {
             e.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
-            var route = "{{route('admin.historial.contabilidad')}}";
+            var route = "{{route('historial.contabilidad')}}";
             
             $.ajax({
                 route: route,
