@@ -36,7 +36,7 @@
     <link href="{{asset('css/some.css')}}" rel="stylesheet">
     <link href="{{asset('css/system.css')}}" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="{{asset('css/bootstrap-icons.css')}}" rel="stylesheet">
 </head>
 
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">

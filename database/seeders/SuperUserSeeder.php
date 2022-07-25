@@ -24,11 +24,9 @@ class SuperUserSeeder extends Seeder
             'is_active' => 1
         ]);
 
-        $superAdmin = Role::create([
-            'name' => 'Super Admin'
-        ]);
 
-        $user->assignRole($superAdmin);
+
+        $user->assignRole('Super Administrador');
 
 
          $category = Category::create([

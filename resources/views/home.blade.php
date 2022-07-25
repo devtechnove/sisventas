@@ -76,9 +76,9 @@
              </div>
         @endcan
 
-        @can('show_weekly_sales_purchases|show_month_overview')
+       @if (\Auth::user()->hasRole('Super Administrador') || \Auth::user()->hasRole('Administrador') || \Auth::user()->hasRole('Supervisor'))
         <div class="row mb-4">
-            @can('show_weekly_sales_purchases')
+
             <div class="col-lg-7">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header">
@@ -89,8 +89,8 @@
                     </div>
                 </div>
             </div>
-            @endcan
-            @can('show_month_overview')
+
+
             <div class="col-lg-5">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header">
@@ -103,9 +103,10 @@
                     </div>
                 </div>
             </div>
-            @endcan
+
         </div>
-        @endcan
+
+    @endif
 
         @can('show_monthly_cashflow')
         <div class="row">

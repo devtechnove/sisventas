@@ -21,6 +21,13 @@ class HomeController extends Controller
 
     public function index() {
 
+     if (\Auth::user()->hasRole('Vendedor')) {
+
+            return redirect('/sales/create');
+        }
+
+        else
+        {
 
         $tasa = $this->bolivares();
         //dd($tasa);
@@ -47,6 +54,7 @@ class HomeController extends Controller
             'profit'           => $profit,
             'tasa'             => $tasa
         ]);
+       }
     }
 
 

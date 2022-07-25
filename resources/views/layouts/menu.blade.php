@@ -23,7 +23,7 @@
                         </li>
                     </ul>
                 </li>
-                 @can('access_customers')
+                 @can('access_caja')
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('index.contabilidad') ? 'active' : '' }}" href="{{ url('/panel/contabilidad') }}">
                             <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Cajas
@@ -144,8 +144,7 @@
                                         </li>
                                     </ul>
                                 @endcan
-
-                        </li>
+                            </li>
                     @endcan
                     @can('access_sales')
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('sales.*') || request()->routeIs('sale-payments*')  || request()->routeIs('sale-returns*')? 'open' : '' }}">
@@ -297,31 +296,31 @@
                             </li>
                         @endcan
 
-                        @can('access_currencies|access_settings')
+
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('currencies*') ? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                    <i class="c-sidebar-nav-icon bi bi-gear" style="line-height: 1;"></i> Settings
+                                    <i class="c-sidebar-nav-icon bi bi-gear" style="line-height: 1;"></i> Configuraciones
                                 </a>
-                                @can('access_currencies')
+
                                 <ul class="c-sidebar-nav-dropdown-items">
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('currencies*') ? 'active' : '' }}" href="{{ route('currencies.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Currencies
+                                            <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Monedas
                                         </a>
                                     </li>
                                 </ul>
-                                @endcan
-                                @can('access_settings')
-                                <ul class="c-sidebar-nav-dropdown-items">
+
+
+                               {{--  <ul class="c-sidebar-nav-dropdown-items">
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('settings*') ? 'active' : '' }}" href="{{ route('settings.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-sliders" style="line-height: 1;"></i> System Settings
+                                            <i class="c-sidebar-nav-icon bi bi-sliders" style="line-height: 1;"></i> Cambios generales
                                         </a>
                                     </li>
                                 </ul>
-                                @endcan
+                                  --}}
                             </li>
-                        @endcan
+
  </div>
 </div>
     <!-- END: Main Menu-->

@@ -5,6 +5,7 @@ namespace Modules\Setting\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Setting\Entities\Setting;
+use Modules\People\Entities\Customer;
 
 class SettingDatabaseSeeder extends Seeder
 {
@@ -15,6 +16,20 @@ class SettingDatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+       Customer::create([
+
+
+        'customer_name' => 'Cliente genérico',
+        'customer_documento' => '1111111',
+        'customer_phone' => '00000000000',
+        'address' => 'Caracas - Venezuela'
+
+
+       ]);
+
+
         Setting::create([
             'company_name' => 'INFINITY POS',
             'company_email' => 'servitechno777@gmail.com',

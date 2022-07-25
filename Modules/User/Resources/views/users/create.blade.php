@@ -2,12 +2,6 @@
 
 @section('title', 'Nuevo usuario')
 
-@section('third_party_stylesheets')
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-          rel="stylesheet">
-@endsection
-
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
@@ -25,7 +19,7 @@
                     @include('utils.alerts')
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
@@ -84,26 +78,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="product_unit">Imágen del producto <i class="bi bi-question-circle-fill text-info" data-toggle="tooltip" data-placement="top" title="Ingresa la imágen del producto."></i> <span class="text-danger">*</span></label>
-                                <div class="file-upload-wrapper">
-                                    <input type="file" id="input-file-now-custom-1" name="document" class="file-upload" data-default-file="{{asset('images/perfiles/user.png')}}" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
 @endsection
 @push('page_scripts')
-     <script>
-        $('.file-upload').file_upload();
-    </script>
+
 @endpush
 
 
