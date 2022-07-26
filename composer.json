@@ -25,6 +25,7 @@
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.2",
+        "stevebauman/location": "^6.5",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

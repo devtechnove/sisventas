@@ -18,6 +18,7 @@ class CreateLoginsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('user_agent');
+            $table->string('user_location');
             $table->string('session_token', 40);
             $table->string('ip_address', 40);
             $table->string('fecha')->default(date('d/m/Y'));

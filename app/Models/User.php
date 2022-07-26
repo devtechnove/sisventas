@@ -49,6 +49,21 @@ class User extends Authenticatable implements HasMedia
 
     protected $with = ['media'];
 
+
+     /*
+    |
+    | ** Relationships model **
+    |
+    */
+
+    public function logins()
+    {
+        return $this->hasMany('App\Models\Login','user_id');
+    }
+
+
+
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatars')
