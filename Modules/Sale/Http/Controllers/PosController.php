@@ -20,10 +20,32 @@ class PosController extends Controller
 {
 
     public function index() {
-        Cart::instance('sale')->destroy();
+         $mytime =  \Carbon\Carbon::now('America/Caracas');
+         $fecha=$mytime->format('Y-m-d');
+
+         $caja = DB::table('cajas')
+            ->where([
+                //['caja','=',$request->get('caja')],
+                ['fecha','=',$fecha],
+                ['estado','=','Abierta']
+            ])
+            ->first();
+
+        if ($caja) {
+
+              Cart::instance('sale')->destroy();
 
         $customers = Customer::all();
         $product_categories = Category::all();
+
+        return view('sale::pos.index', compact('product_categories', 'customers'));
+        }
+        else
+        {
+             toast('¡Debes aperturar la caja!', 'error');
+            return redirect()->to('panel/abrir_caja');
+        }
+
 
         return view('sale::pos.index', compact('product_categories', 'customers'));
     }

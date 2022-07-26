@@ -96,10 +96,10 @@
                     <div class="card-header">
                         Vista general de {{ now()->format('F, Y') }}
                     </div>
-                    <div class="card-body d-flex justify-content-center">
-                        <div class="chart-container" style="position: relative; height:auto; width:1000px">
-                            <canvas id="currentMonthChart"></canvas>
-                        </div>
+                    <div class="card-body">
+
+                            <canvas id="currentMonthChart" height="250"></canvas>
+
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
 @endsection
 
 @push('page_scripts')
-    <script src="{{ mix('js/chart-config.js') }}"></script>
+    <script src="{{ asset('js/chart-config.js') }}"></script>
     <script>
         var tasa = $('#tasa').val();
 

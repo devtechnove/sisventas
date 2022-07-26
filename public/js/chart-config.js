@@ -14,14 +14,14 @@ $(document).ready(function () {
         datasets: [{
           label: 'Ventas',
           data: response.sales.original.data,
-          backgroundColor: ['#F16363'],
-          borderColor: ['#F16363'],
+          backgroundColor: '#00A404',
+          borderColor: '#00A404',
           borderWidth: 1
         }, {
           label: 'Compras',
           data: response.purchases.original.data,
-          backgroundColor: ['#A5B4FC'],
-          borderColor: ['#A5B4FC'],
+          backgroundColor: '#FF0000',
+          borderColor: '#FF0000',
           borderWidth: 1
         }]
       },
