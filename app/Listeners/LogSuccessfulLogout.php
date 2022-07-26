@@ -31,8 +31,8 @@ class LogSuccessfulLogout
     public function handle(Logout $event)
     {
 
-        $lastToken = Login::where('user_id', \Auth::user()->id)->first();
-        //dd($token);
+        $token = Login::where('user_id', \Auth::user()->id)->get();
+        $lastToken = $token->last();
 
         
         $login = $event->user->logins()->where('session_token', $lastToken->session_token)->first();

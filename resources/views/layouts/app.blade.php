@@ -129,7 +129,8 @@
 
     <!-- BEGIN: Page JS-->
     <script src="/js/iconify.js"></script>
-<script src="{{asset('js/mdb-file-upload.min.js')}}"></script>
+    <script src="/js/system.js"></script>
+    <script src="{{asset('js/mdb-file-upload.min.js')}}"></script>
     <!-- END: Page JS-->
 
     <script>
