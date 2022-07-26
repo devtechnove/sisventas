@@ -30,7 +30,8 @@ class LogSuccessfulLogin
     {
         //dd($_SERVER['REMOTE_ADDR']);
 
-        $yourUserIpAddress = $_SERVER['REMOTE_ADDR'];
+        $yourUserIpAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        dd($yourUserIpAddress);
         $location = Location::get($yourUserIpAddress);
         $login = $login = new LoginModel;
         $login->user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
