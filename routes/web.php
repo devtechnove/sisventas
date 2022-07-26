@@ -29,5 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
          Route::resource('tasa', 'TasaController');
 
+         Route::get('/logins', 'LoginController@index')
+        ->name('logins.index');
 });
 

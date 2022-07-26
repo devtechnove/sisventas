@@ -31,6 +31,12 @@
                             <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Cajas
                         </a>
                     </li>
+
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->routeIs('logins.index') ? 'active' : '' }}" href="{{ url('/logins') }}">
+                            <i class="c-sidebar-nav-icon bi bi-bookmark-check" style="line-height: 1;"></i> Inicio de sesión
+                        </a>
+                    </li>
                    @endif
                  @can('access_product_categories')
                     <li class="c-sidebar-nav-item">

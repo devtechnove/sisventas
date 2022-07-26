@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Login;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -14,7 +19,9 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        $logins = Login::get();
+
+        return view('admin.logins.index',compact('logins'));
     }
 
     /**
