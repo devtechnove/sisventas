@@ -66,7 +66,7 @@
                                 <td class="text-center">{{$item->reference}}</td>
                                 <td class="text-center">${{ $item->total_amount }}</td>
                                 <td class="text-center">
-                                    @if ($item->status == 'Compleado')
+                                    @if ($item->status == 'Completado')
                                         <span class="badge badge-primary">Procesado</span>
                                     @else
                                         <span class="badge badge-danger">Cancelado</span>

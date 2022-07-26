@@ -39,7 +39,7 @@ $(document).ready(function () {
     var currentMonthChart = new Chart(overviewChart, {
       type: 'doughnut',
       data: {
-        labels: ['Sales', 'Purchases', 'Expenses'],
+        labels: ['Ventas', 'Compras', 'Gastos'],
         datasets: [{
           data: [response.sales, response.purchases, response.expenses],
           backgroundColor: ['#F59E0B', '#0284C7', '#EF4444'],

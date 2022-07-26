@@ -53,7 +53,7 @@ class PosController extends Controller
             } elseif ($due_amount > 0) {
                 $payment_status = 'Parcial';
             } else {
-                $payment_status = '´Pagado';
+                $payment_status = 'Pagado';
             }
 
             $mytime =  \Carbon\Carbon::now('America/Caracas');
@@ -67,9 +67,13 @@ class PosController extends Controller
             ])
             ->first();
 
+              $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))
+             ->first();
+
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
                 'idcaja' => $caja->id,
+                'idtasa' => $tbolivares->id,
                 'mes' => date('m'),
                 'year' => date('Y'),
                 'reference' => 'PSL',

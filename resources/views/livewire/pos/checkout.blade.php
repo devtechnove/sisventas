@@ -16,6 +16,7 @@
                         <label for="customer_id">Clientes <span class="text-danger">*</span></label>
                        <div class="input-group">
                         <select class="form-control" wire:model="customer_id" id="customer_id" required>
+                            <option value="">Seleccione un cliente</option>
                             @foreach(\Modules\People\Entities\Customer::all() as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                             @endforeach

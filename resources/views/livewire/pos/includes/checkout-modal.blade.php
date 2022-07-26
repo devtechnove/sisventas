@@ -22,6 +22,9 @@
                             </div>
                         </div>
                     @endif
+                    @php
+                        $tasa = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))->sum('amount');
+                    @endphp
                     <div class="row">
                         <div class="col-lg-7">
                             <input type="hidden" value="{{ $customer_id }}" name="customer_id">
@@ -31,11 +34,18 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="total_amount">Cantidad a pagar <span class="text-danger">*</span></label>
+                                        <label for="total_amount">Cantidad a pagar en USD <span class="text-danger">*</span></label>
                                         <input id="total_amount" type="text" class="form-control" name="total_amount" value="{{ $total_amount }}" readonly required>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="total_amount">Cantidad a pagar en Bs <span class="text-danger">*</span></label>
+                                        <input id="total_amount" type="text" class="form-control" value="{{ number_format($total_amount * $tasa,2) }}" readonly required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="paid_amount">Cantidad recibida <span class="text-danger">*</span></label>
                                         <input id="paid_amount" type="text" class="form-control" name="paid_amount" value="{{ $total_amount }}" required>

@@ -182,8 +182,7 @@ class CajaController extends Controller
         ->where('codigo','=',$codigo)
         ->first();
 
-        $venta = Sale::where('status','<>','Completado')
-        ->where('idcaja',$caja->id)
+        $venta = Sale::where('idcaja',$caja->id)
         ->get();
         //dd($venta);
         return view('sale::ventas.venta_caja',compact('venta','caja'));
