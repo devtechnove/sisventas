@@ -107,11 +107,11 @@ class ContabilidadController extends Controller
 
             $valid_caja = DB::table('cajas')
             ->where([
-                //['caja','=',$request->get('caja')],
+                ['estado','<>','Cerrada'],
                 ['fecha','=',$fecha]
             ])
             ->first();
-            //dd($valid_caja);
+           // dd($valid_caja);
             if($valid_caja){
                 Session::flash('warning', 'Ya se aperturó una caja para ese cajero este día');
                 return redirect()->back();

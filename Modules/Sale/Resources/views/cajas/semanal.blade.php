@@ -17,7 +17,7 @@
         </div>
     </div><br>
             <div id="ui-view"></div>
-            <div>
+            <div class="container-fluid">
                
                 <div class="row" id="contenido" style="display:none">
                     <div class="row">
