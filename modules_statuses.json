@@ -13,5 +13,8 @@
     "SalesReturn": true,
     "PurchasesReturn": true,
     "Quotation": true,
-    "Reports": true
+    "Reports": true,
+    "Cuentas": true,
+    "Proyecto": true,
+    "Personal": true
 }

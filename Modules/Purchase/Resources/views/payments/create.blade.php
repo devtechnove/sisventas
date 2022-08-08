@@ -20,20 +20,34 @@
                     @include('utils.alerts')
 
                 </div>
+                @php
+                    $cuentas = \Modules\Cuentas\Entities\Cuentas::get();
+                @endphp
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="INV/{{ $purchase->reference }}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="date">Fecha de pago <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="date" required value="{{ now()->format('Y-m-d') }}">
+                                    </div>
+                                </div>
+                                  <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="date">Cuenta<span class="text-danger">*</span></label>
+                                        <select name="cuenta_id" id="" class="form-control">
+                                            <option value="">Selecciona</option>
+                                            @foreach ($cuentas as $element)
+                                                <option value="{{ $element->id }}"> {{ $element->nb_nombre }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

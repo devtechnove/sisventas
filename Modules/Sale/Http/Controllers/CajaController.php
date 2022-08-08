@@ -99,6 +99,9 @@ class CajaController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
           try {
 
             /*OBTENER DATOS DE LA CAJA */

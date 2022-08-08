@@ -34,18 +34,34 @@
 
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('logins.index') ? 'active' : '' }}" href="{{ url('/logins') }}">
-                            <i class="c-sidebar-nav-icon bi bi-bookmark-check" style="line-height: 1;"></i> Inicio de sesión
+                            <i class="c-sidebar-nav-icon bi bi-credit-card" style="line-height: 1;"></i> Inicio de sesión
                         </a>
                     </li>
                    @endif
-                 @can('access_product_categories')
-                    <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'active' : '' }}" href="{{ route('product-categories.index') }}">
-                            <i class="c-sidebar-nav-icon bi bi-collection" style="line-height: 1;"></i> Categorías
+                    @can('access_accounts')
+                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('cuentas.*')  ? 'open' : '' }}">
+                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                            <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Cuenta
                         </a>
+                        <ul class="c-sidebar-nav-dropdown-items">
+                            <li class="c-sidebar-nav-item">
+                                <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.index') ? 'active' : '' }}" href="{{ route('cuentas.index') }}">
+                                    <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                </a>
+                            </li>
+                             @can('create_accounts')
+                            <li class="c-sidebar-nav-item">
+                                <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.create') ? 'active' : '' }}" href="{{ route('cuentas.create') }}">
+                                    <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva cuenta
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
                     </li>
                     @endcan
-               @can('access_products')
+
+
+                   @can('access_products')
                     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*')  ? 'open' : '' }}">
                         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                             <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Productos
@@ -63,16 +79,17 @@
                                 </a>
                             </li>
                             @endcan
-                            @can('print_barcodes')
-                               <li class="c-sidebar-nav-item">
-                                   <a class="c-sidebar-nav-link {{ request()->routeIs('barcode.print') ? 'active' : '' }}" href="{{ route('barcode.print') }}">
-                                       <i class="c-sidebar-nav-icon bi bi-printer" style="line-height: 1;"></i> Print Barcode
-                                   </a>
-                               </li>
+                              @can('access_product_categories')
+                            <li class="c-sidebar-nav-item">
+                                <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'active' : '' }}" href="{{ route('product-categories.index') }}">
+                                    <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Categorías
+                                </a>
+                            </li>
                             @endcan
                         </ul>
                     </li>
                     @endcan
+
                     @can('access_adjustments')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('adjustments.*') ? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
@@ -116,7 +133,7 @@
                     </li>
                     @endcan
                     @can('access_purchases')
-                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchases.*') || request()->routeIs('purchase-payments*') || request()->routeIs('purchase-returns.*')? 'open' : '' }}">
+                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchases.*') || request()->routeIs('purchase-payments*')? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                                 <i class="c-sidebar-nav-icon bi bi-bag" style="line-height: 1;"></i> Compras
                             </a>
@@ -136,26 +153,10 @@
                                     </li>
                                 </ul>
                                 @endcan
-                                 <ul class="c-sidebar-nav-dropdown-items">
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link {{ request()->routeIs('purchase-returns.index') ? 'active' : '' }}" href="{{ route('purchase-returns.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Devoluciones
-                                        </a>
-                                    </li>
-                               </ul>
-                                 @can('create_purchase_returns')
-                                    <ul class="c-sidebar-nav-dropdown-items">
-                                        <li class="c-sidebar-nav-item">
-                                            <a class="c-sidebar-nav-link {{ request()->routeIs('purchase-returns.create') ? 'active' : '' }}" href="{{ route('purchase-returns.create') }}">
-                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva devolución
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endcan
                             </li>
                     @endcan
                     @can('access_sales')
-                            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('sales.*') || request()->routeIs('sale-payments*')  || request()->routeIs('sale-returns*')? 'open' : '' }}">
+                            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('sales.*') || request()->routeIs('sale-payments*')? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                                     <i class="c-sidebar-nav-icon bi bi-receipt" style="line-height: 1;"></i> Ventas
                                 </a>
@@ -175,27 +176,33 @@
                                         </li>
                                     </ul>
                                 @endcan
-                                @can('access_sale_returns')
-                                <ul class="c-sidebar-nav-dropdown-items">
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link {{ request()->routeIs('sale-returns.index') ? 'active' : '' }}" href="{{ route('sale-returns.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Devoluciones
-                                        </a>
-                                    </li>
-                                </ul>
-                                 @can('create_sale_returns')
-                                    <ul class="c-sidebar-nav-dropdown-items">
-                                        <li class="c-sidebar-nav-item">
-                                            <a class="c-sidebar-nav-link {{ request()->routeIs('sale-returns.create') ? 'active' : '' }}" href="{{ route('sale-returns.create') }}">
-                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva devolución
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endcan
-                            @endcan
+
 
                             </li>
                         @endcan
+                          @can('access_purchases')
+                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchase-returns.*') || request()->routeIs('sale-returns.*' )? 'open' : '' }}">
+                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="c-sidebar-nav-icon mdi mdi-refresh " style="line-height: 1; font-size:25px;"></i> Devoluciones
+                            </a>
+                             <ul class="c-sidebar-nav-dropdown-items">
+                                <li class="c-sidebar-nav-item">
+                                     <a class="c-sidebar-nav-link {{ request()->routeIs('purchase-returns.index') ? 'active' : '' }}" href="{{ route('purchase-returns.index') }}">
+                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Compras
+                                    </a>
+                                </li>
+                                 @can('create_sale_returns')
+
+                                        <li class="c-sidebar-nav-item">
+                                            <a class="c-sidebar-nav-link {{ request()->routeIs('sale-returns.*') ? 'active' : '' }}" href="{{ route('sale-returns.index') }}">
+                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Ventas
+                                            </a>
+                                        </li>
+
+                                @endcan
+                            </ul>
+
+                    @endcan
                         @can('access_expenses')
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('expenses.*') || request()->routeIs('expense-categories.*') ? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">

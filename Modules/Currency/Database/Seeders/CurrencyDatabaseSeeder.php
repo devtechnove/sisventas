@@ -16,13 +16,17 @@ class CurrencyDatabaseSeeder extends Seeder
      * @return void
      */
     public function run() {
-        Currency::create([
-            'currency_name'      => 'US Dollar',
-            'code'               => Str::upper('USD'),
-            'symbol'             => '$',
+
+
+
+            Currency::create([
+            'currency_name'      => 'Bolívar Soberano',
+            'code'               => Str::upper('VES'),
+            'symbol'             => 'Bs',
             'thousand_separator' => ',',
             'decimal_separator'  => '.',
-            'exchange_rate'      => null
+            'exchange_rate'      => null,
+            'principal'          => true
         ]);
     }
 }

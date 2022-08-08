@@ -15,6 +15,9 @@ use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
 use Modules\Sale\Http\Requests\StorePosSaleRequest;
 use Modules\Product\Entities\LineaProducto;
+use Modules\Cuentas\Entities\MovimientoCuentas;
+use Modules\Cuentas\Entities\Cuentas;
+
 
 class PosController extends Controller
 {
@@ -52,6 +55,7 @@ class PosController extends Controller
 
 
     public function store(StorePosSaleRequest $request) {
+
 
 
          $mytime =  \Carbon\Carbon::now('America/Caracas');
@@ -92,10 +96,14 @@ class PosController extends Controller
               $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))
              ->first();
 
+
+             $cuenta = Cuentas::find($request->cuenta_id);
+
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
                 'idcaja' => $caja->id,
                 'idtasa' => $tbolivares->id,
+                'idcuenta' => $cuenta->id,
                 'mes' => date('m'),
                 'year' => date('Y'),
                 'reference' => 'PSL',
@@ -113,7 +121,13 @@ class PosController extends Controller
                 'note' => $request->note,
                 'tax_amount' => Cart::instance('sale')->tax() * 100,
                 'discount_amount' => Cart::instance('sale')->discount() * 100,
+
             ]);
+
+            $cuentat = 0;
+
+
+
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
                 SaleDetails::create([
@@ -136,16 +150,40 @@ class PosController extends Controller
                 $linea->producto_id = $cart_item->id;
                 $linea->usuario_id = \Auth::id();
                 $linea->comprobante_id = $sale->id;
-                $linea->descripcion = "x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
+                $linea->descripcion = "$product->product_name x $cart_item->qty  -  TOTAL CANCELADO = Bs. $request->total_amount";
                 $linea->fecha = date("Y-m-d H:i:s");;
                 $linea->precioUnitario = $cart_item->price;
                 $linea->cantidad = $cart_item->qty;
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
                 $linea->save();
-                $product->update([
+
+
+                $mov = new MovimientoCuentas();
+                $mov->cuenta_id       = $request->cuenta_id;
+                $mov->fecha_emision   = $fecha;
+                $mov->mes             = date('m');
+                $mov->hora            = date('H:i:s');
+                $mov->ano             = date('Y');
+                $mov->tipo_movimiento = 'Ingreso';
+                $mov->credito         = $request->total_amount;
+                $mov->debito          = '0.00';
+                $mov->descripcion     = $linea->descripcion;
+                $mov->save();
+
+                $cuenta->saldo_actual += $request->total_amount;
+                $cuenta->save();
+
+                if ($product->category_id <> 1) {
+
+                    $true = true;
+                }
+                else
+                {
+                    $product->update([
                     'product_quantity' => $product->product_quantity - $cart_item->qty
-                ]);
+                  ]);
+                }
             }
 
             Cart::instance('sale')->destroy();
@@ -153,6 +191,7 @@ class PosController extends Controller
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
                     'date' => now()->format('Y-m-d'),
+                    'idcuenta' => $request->cuenta_id,
                     'reference' => 'INV/'.$sale->reference,
                     'amount' => $sale->paid_amount,
                     'sale_id' => $sale->id,
@@ -161,16 +200,16 @@ class PosController extends Controller
             }
         });
 
-            toast('POS Sale Created!', 'success');
+        toast('Venta creada satisfactoriamente!', 'success');
 
-            return redirect()->route('sales.index');
-            }
-            else
-            {
-            toast('¡Debes aperturar la caja!', 'error');
+        return redirect()->route('app.pos.index');
+        }
+        else
+        {
+        toast('¡Debes aperturar la caja!', 'error');
 
-            return redirect()->to('/panel/abrir_caja');
-            }
+        return redirect()->to('/panel/abrir_caja');
+        }
 
     }
 }

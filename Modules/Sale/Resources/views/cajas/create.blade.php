@@ -49,13 +49,16 @@
                         {{ csrf_field() }}
     
                         <div class="row">
-                    
+
                             <div class="col-lg-5 col-md-5 col-sm-12">
                                 <input type="hidden" name="monto" id="monto" value="0">
                                 <div class="card card-line-primary">
                                     <div class="card-header centrar">
                                         Apertura de bolso
                                     </div>
+                                    @php
+                                        $mon = \DB::table('currencies')->where('principal', true)->first();
+                                    @endphp
                                     <div class="card-body table-responsive">
                                        <table class="table table-sm">
                                            <thead class="thead-dark">
@@ -64,11 +67,11 @@
                                                <th class="text-center">Valor</th>
                                            </thead>
                                         @foreach ($deno as $key => $item)
-                                           
+
                                             <tbody>
                                                 <td class="text-center">
                                                     {{$item->denominacion}}
-                                                    <input type="hidden" name="denominacion[]" value="{{$item->denominacion}}">
+                                                    <input type="hidden" name="denominacion[]" value="{{$item->denominacion}}"> {{ $mon->code }}
                                                 </td>
                                                 <td class="text-center">
                                                     <input type="number" data-cantidad="{{$key}}" class="cantidad" min="0" id="cantidad-{{$key}}" value="0" style="width:100%;text-align: center;" name="cantidad[]">
@@ -80,19 +83,34 @@
                                                     <input type="hidden" id="subtotal-{{$key}}" style="width:100%" value="0">
                                                 </td>
                                             </tbody>
-                                           
-                                            
+
+
                                         @endforeach
                                        </table>
                                     </div>
 
                                     <div class="card-footer">
-                                        Monto:<span id="total"> 0.00 USD</span>
+                                        Monto:<span id="total"> 0.00  {{ $mon->code }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-12">
-                                
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card card-line-primary">
+
+                                                <div class="card-body">
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                            <label for="select_cuenta">Cuenta</label>
+                                                             {!! Form::select('cuenta_id', $cuenta, null, [
+                                                             'class' => 'form-control','placeholder' =>'Seleccione']) !!}
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12 col-md-7 col-sm-12">
                                         <div class="card card-line-primary">
                                             <div class="card-body"> 

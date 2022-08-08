@@ -52,6 +52,7 @@
                                         </div>
                                         </div>
                                 </div>
+
                                 <div class="col-lg-4">
                                     <div class="from-group">
                                         <div class="form-group">

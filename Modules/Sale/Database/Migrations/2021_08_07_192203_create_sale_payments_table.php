@@ -16,12 +16,14 @@ class CreateSalePaymentsTable extends Migration
         Schema::create('sale_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sale_id');
+            $table->unsignedBigInteger('idcuenta');
             $table->integer('amount');
             $table->date('date');
             $table->string('reference');
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
+            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ class ProductController extends Controller
     }
 
 
-    public function store(StoreProductRequest $request) {
+    public function store(Request $request) {
 
     //dd(($request->has('document')));
 
@@ -108,7 +108,7 @@ class ProductController extends Controller
     }
 
 
-    public function update(UpdateProductRequest $request, Product $product) {
+    public function update(Request $request, Product $product) {
         $product->update($request->except('document'));
 
         if ($request->has('document')) {

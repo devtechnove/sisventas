@@ -16,6 +16,7 @@ class CreateCajasTable extends Migration
         Schema::create('cajas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('codigo');
+            $table->unsignedBigInteger('idcuenta');
             $table->string('fecha');
             $table->string('hora_cierre')->nullable();
             $table->string('hora');
@@ -27,6 +28,7 @@ class CreateCajasTable extends Migration
             $table->double('monto_cierre');
             $table->string('estado');
             $table->string('caja');
+            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
             $table->timestamps();
         });
     }

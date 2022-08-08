@@ -26,13 +26,18 @@
                         <form id="purchase-return-form" action="{{ route('purchase-returns.store') }}" method="POST">
                             @csrf
                             <div class="form-row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="PRRN">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-sm-3">
+                                 <label for="nu_contacto">Cuenta</label>
+                                 {!! Form::select('cuenta_id', $cuentas, null, [
+                                'class' => 'form-control','placeholder' =>'Seleccione']) !!}
+                              </div>
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="supplier_id">Proveedor <span class="text-danger">*</span></label>
@@ -51,7 +56,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="date">Fecha de registro <span class="text-danger">*</span></label>
@@ -64,7 +69,7 @@
                             <livewire:product-cart :cartInstance="'purchase_return'"/>
 
                             <div class="form-row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="status">Estado del retorno <span class="text-danger">*</span></label>
                                         <select class="form-control" name="status" id="status" required>
@@ -74,7 +79,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="payment_method">Payment Method <span class="text-danger">*</span></label>
@@ -88,7 +93,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="paid_amount">Cantidad recibida <span class="text-danger">*</span></label>
                                         <div class="input-group">

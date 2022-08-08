@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Customer;
 use Modules\Product\Entities\Product;
+use Modules\Cuentas\Entities\Cuentas;
 use Modules\SalesReturn\Entities\SaleReturn;
 use Modules\SalesReturn\Entities\SaleReturnDetail;
 use Modules\SalesReturn\Entities\SaleReturnPayment;
@@ -29,8 +30,8 @@ class SalesReturnController extends Controller
         abort_if(Gate::denies('create_sale_returns'), 403);
 
         Cart::instance('sale_return')->destroy();
-
-        return view('salesreturn::create');
+        $cuentas = Cuentas::pluck('nb_nombre','id');
+        return view('salesreturn::create',compact('cuentas'));
     }
 
 

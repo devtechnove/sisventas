@@ -16,12 +16,14 @@ class CreatePurchasePaymentsTable extends Migration
         Schema::create('purchase_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger('cuenta_id');
             $table->integer('amount');
             $table->date('date');
             $table->string('reference');
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('purchase_id')->references('id')->on('purchases')->cascadeOnDelete();
+            $table->foreign('cuenta_id')->references('id')->on('cuentas')->restrictOnDelete();
             $table->timestamps();
         });
     }

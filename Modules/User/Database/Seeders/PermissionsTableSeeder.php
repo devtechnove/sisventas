@@ -32,6 +32,12 @@ class PermissionsTableSeeder extends Seeder
                                 'show_weekly_sales_purchases',
                                 'show_monthly_cashflow',
                                 'show_notifications',
+                                //Accounts
+                                'access_accounts',
+                                'create_accounts',
+                                'show_accounts',
+                                'edit_accounts',
+                                'delete_accounts',
                                 //Products
                                 'access_products',
                                 'create_products',

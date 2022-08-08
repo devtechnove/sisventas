@@ -1,0 +1,13 @@
+{
+    "name": "Cuentas",
+    "alias": "cuentas",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Cuentas\\Providers\\CuentasServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

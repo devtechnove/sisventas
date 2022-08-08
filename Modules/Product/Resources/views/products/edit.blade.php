@@ -85,13 +85,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_quantity">Quantity <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="product_quantity" required value="{{ $product->product_quantity }}" min="1">
+                                        <input type="text" class="form-control" name="product_quantity" required value="{{ $product->product_quantity }}" min="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_stock_alert">Alert Quantity <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="product_stock_alert" required value="{{ $product->product_stock_alert }}" min="0">
+                                        <input type="text" class="form-control" name="product_stock_alert" required value="{{ $product->product_stock_alert }}" min="0">
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="product_order_tax">Tax (%)</label>
-                                        <input type="number" class="form-control" name="product_order_tax" value="{{ $product->product_order_tax }}" min="0" max="100">
+                                        <input type="text" class="form-control" name="product_order_tax" value="{{ $product->product_order_tax }}" min="0" max="100">
                                     </div>
                                 </div>
                                 <div class="col-md-4">

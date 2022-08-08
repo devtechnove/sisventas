@@ -15,9 +15,20 @@ class CurrencyDataTable extends DataTable
     public function dataTable($query) {
         return datatables()
             ->eloquent($query)
+
             ->addColumn('action', function ($data) {
                 return view('currency::partials.actions', compact('data'));
-            });
+            })
+             ->addColumn('principal', function ($data) {
+                if ($data->principal) {
+                    $html = '<span class="badge badge-success">Activo</span>';
+                } else {
+                    $html = '<span class="badge badge-danger">Inactivo</span>';
+                }
+
+                return $html;
+            })
+              ->rawColumns(['principal']);
     }
 
     public function query(Currency $model) {
@@ -59,9 +70,12 @@ class CurrencyDataTable extends DataTable
             Column::make('decimal_separator')
                 ->className('text-center align-middle'),
 
+            Column::make('principal')
+                ->className('text-center align-middle'),
+
             Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
+                ->exportable(true)
+                ->printable(true)
                 ->className('text-center align-middle'),
 
             Column::make('created_at')

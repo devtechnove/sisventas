@@ -116,11 +116,11 @@ class Checkout extends Component
     }
 
     public function updateQuantity($row_id, $product_id) {
-        if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-            session()->flash('message', 'La cantidad de este producto no está disponible');
 
-            return;
-        }
+
+        $producto = \DB::table('products')->where('id',$product_id)->first();
+        //dd($producto);
+        if ($producto->category_id <> 1 ) {
 
         Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
 
@@ -138,6 +138,35 @@ class Checkout extends Component
                 'product_discount_type' => $cart_item->options->product_discount_type,
             ]
         ]);
+        }
+        else
+        {
+            if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
+                session()->flash('message', 'La cantidad de este producto no está disponible');
+
+                return;
+            }
+
+
+        Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
+
+        $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+
+        Cart::instance($this->cart_instance)->update($row_id, [
+            'options' => [
+                'sub_total'             => $cart_item->price * $cart_item->qty,
+                'code'                  => $cart_item->options->code,
+                'stock'                 => $cart_item->options->stock,
+                'unit'                  => $cart_item->options->unit,
+                'product_tax'           => $cart_item->options->product_tax,
+                'unit_price'            => $cart_item->options->unit_price,
+                'product_discount'      => $cart_item->options->product_discount,
+                'product_discount_type' => $cart_item->options->product_discount_type,
+            ]
+        ]);
+        }
+
+
     }
 
     public function updatedDiscountType($value, $name) {

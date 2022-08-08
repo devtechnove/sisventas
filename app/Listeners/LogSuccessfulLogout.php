@@ -31,17 +31,25 @@ class LogSuccessfulLogout
     public function handle(Logout $event)
     {
 
-        $token = Login::where('user_id', \Auth::user()->id)->get();
-        $lastToken = $token->last();
+       try {
 
-        
+         $token = Login::where('user_id', \Auth::user()->id)->get();
+         $lastToken = $token->last();
+
+
         $login = $event->user->logins()->where('session_token', $lastToken->session_token)->first();
 
          if ($login)
         {
-            $login->logout_at = \Carbon\Carbon::now(); 
+            $login->logout_at = \Carbon\Carbon::now();
             $login->save();
         }
+
+       } catch (\Exception $e) {
+        //dd($e);
+          \Alert::alert('¡Uuups!', 'Error interno con el token, ingresa nuevamente.', 'error');
+           return redirect('/login');
+       }
 
         
     }

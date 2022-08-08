@@ -18,6 +18,7 @@ class CreatePurchaseReturnsTable extends Migration
             $table->date('date');
             $table->string('reference');
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->unsignedBigInteger('cuenta_id')->nullable();
             $table->string('supplier_name');
             $table->integer('tax_percentage')->default(0);
             $table->integer('tax_amount')->default(0);
@@ -32,6 +33,7 @@ class CreatePurchaseReturnsTable extends Migration
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
+             $table->foreign('cuenta_id')->references('id')->on('cuentas')->nullOnDelete();
             $table->timestamps();
         });
     }

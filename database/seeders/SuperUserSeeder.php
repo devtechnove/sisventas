@@ -35,6 +35,12 @@ class SuperUserSeeder extends Seeder
 
         ]);
 
+          $category = Category::create([
+            'category_code' => '254864',
+            'category_name' => 'Servicios'
+
+        ]);
+
 
          \DB::table('denominacions')->insert([
             'denominacion' => 'Moneda de 25 centimos',
@@ -52,14 +58,14 @@ class SuperUserSeeder extends Seeder
         ]);
 
          \DB::table('denominacions')->insert([
-            'denominacion' => 'Moneda de 1 Bs',
+            'denominacion' => 'Moneda de 1 ',
             'valor' => '1.00',
             'user_id'=> 1,
 
         ]);
 
          \DB::table('denominacions')->insert([
-            'denominacion' => 'Billete de 5 Bs',
+            'denominacion' => 'Billete de 5 ',
             'valor' => '5.00',
             'user_id'=> 1,
 
@@ -67,7 +73,7 @@ class SuperUserSeeder extends Seeder
 
 
         \DB::table('denominacions')->insert([
-            'denominacion' => 'Billete de 10 Bs',
+            'denominacion' => 'Billete de 10 ',
             'valor' => '10.00',
             'user_id'=> 1,
 
@@ -75,14 +81,14 @@ class SuperUserSeeder extends Seeder
 
 
          \DB::table('denominacions')->insert([
-            'denominacion' => 'Billete de 20 Bs',
+            'denominacion' => 'Billete de 20 ',
             'valor' => '20.00',
             'user_id'=> 1,
 
         ]);
 
         \DB::table('denominacions')->insert([
-            'denominacion' => 'Billete de 50 Bs',
+            'denominacion' => 'Billete de 50 ',
             'valor' => '50.00',
             'user_id'=> 1,
 
@@ -90,7 +96,7 @@ class SuperUserSeeder extends Seeder
 
 
         \DB::table('denominacions')->insert([
-            'denominacion' => 'Billete de 100 Bs',
+            'denominacion' => 'Billete de 100 ',
             'valor' => '100.00',
             'user_id'=> 1,
 

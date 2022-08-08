@@ -32,17 +32,33 @@
                             <input type="hidden" value="{{ $global_discount }}" name="discount_percentage">
                             <input type="hidden" value="{{ $shipping }}" name="shipping_amount">
                             <div class="form-row">
+                                @php
+                                    $moneda = Modules\Currency\Entities\Currency::where('principal',true)->first();
+                                    $cuentas = Modules\Cuentas\Entities\Cuentas::get();
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="total_amount">Cantidad a pagar en USD <span class="text-danger">*</span></label>
+                                        <label for="total_amount">Cantidad a pagar en {{ $moneda->symbol }} <span class="text-danger">*</span></label>
                                         <input id="total_amount" type="text" class="form-control" name="total_amount" value="{{ $total_amount }}" readonly required>
                                     </div>
                                 </div>
 
                                  <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="total_amount">Cantidad a pagar en Bs <span class="text-danger">*</span></label>
-                                        <input id="total_amount" type="text" class="form-control" value="{{ number_format($total_amount * $tasa,2) }}" readonly required>
+                                        <label for="total_amount">Cantidad a pagar en USD <span class="text-danger">*</span></label>
+                                        <input id="total_amount" type="text" class="form-control" value="{{ number_format($total_amount / $tasa,2) }}" readonly required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="cuenta">Cuenta: <span class="text-danger">*</span></label>
+                                       <select name="cuenta_id" id="" class="form-control">
+                                           @foreach ($cuentas as $element)
+                                              <option value="{{ $element->id }}">
+                                                  {{ $element->nb_nombre }}
+                                              </option>
+                                           @endforeach
+                                       </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

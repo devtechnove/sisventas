@@ -16,6 +16,7 @@ use DateTimeZone;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Cuentas\Entities\Cuentas;
 
 class ContabilidadController extends Controller
 {
@@ -51,6 +52,8 @@ class ContabilidadController extends Controller
 
         //$cajas = explode(",",$config->cajas);
 
+         $cuenta = Cuentas::pluck('nb_nombre','id');
+
         
         $mytime = Carbon::now('America/Caracas');
         $fecha=$mytime->format('Y-m-d');
@@ -81,7 +84,7 @@ class ContabilidadController extends Controller
         }
         //dd($nombre_dia);
 
-        return view('sale::cajas.create',compact('deno','caja','fecha','mes_actual','nombre_dia'));
+        return view('sale::cajas.create',compact('deno','caja','fecha','mes_actual','nombre_dia','cuenta'));
     }
 
     public function store_abrir_caja(Request $request){
@@ -89,6 +92,8 @@ class ContabilidadController extends Controller
 
 
         try {
+
+
 
             /*OBTENER DATOS DE LA CAJA */
             $cantidades = $request->get('cantidad');
@@ -131,6 +136,7 @@ class ContabilidadController extends Controller
             $caja->user_id=auth()->user()->id;
             $caja->monto = $request->get('monto');
             $caja->caja = 1;
+            $caja->idcuenta = $request->cuenta_id;
             $caja->estado = 'Abierta';
             $caja->mes=$today['mon'];
             $caja->monto_cierre = '0';
@@ -154,7 +160,9 @@ class ContabilidadController extends Controller
             }
            
 
-            Session::flash('success', 'Se abrió la caja para el día hoy: '. $fecha .' - '. $hora->format('H:i:s'));
+
+             toast(' Se abrió la caja para el día hoy: '. $fecha .' - '. $hora->format('H:i:s'), 'success');
+
             return Redirect::to('panel/contabilidad');
         } catch (\Exception $e) {
             dd($e);

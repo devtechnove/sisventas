@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Supplier;
 use Modules\Product\Entities\Product;
+use Modules\Cuentas\Entities\Cuentas;
 use Modules\PurchasesReturn\Entities\PurchaseReturn;
 use Modules\PurchasesReturn\Entities\PurchaseReturnDetail;
 use Modules\PurchasesReturn\Entities\PurchaseReturnPayment;
@@ -21,6 +22,7 @@ class PurchasesReturnController extends Controller
     public function index(PurchaseReturnsDataTable $dataTable) {
         abort_if(Gate::denies('access_purchase_returns'), 403);
 
+
         return $dataTable->render('purchasesreturn::index');
     }
 
@@ -29,8 +31,8 @@ class PurchasesReturnController extends Controller
         abort_if(Gate::denies('create_purchase_returns'), 403);
 
         Cart::instance('purchase_return')->destroy();
-
-        return view('purchasesreturn::create');
+        $cuentas = Cuentas::pluck('nb_nombre','id');
+        return view('purchasesreturn::create',compact('cuentas'));
     }
 
 
@@ -46,9 +48,11 @@ class PurchasesReturnController extends Controller
                 $payment_status = 'Pagado';
             }
 
+
             $purchase_return = PurchaseReturn::create([
                 'date' => $request->date,
                 'supplier_id' => $request->supplier_id,
+                'cuenta_id' => $request->cuenta_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
@@ -78,6 +82,29 @@ class PurchasesReturnController extends Controller
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
                 $linea->save();
+
+                 $mytime =  \Carbon\Carbon::now('America/Caracas');
+                 $fecha = $mytime->format('Y-m-d');
+
+                 //dd($request);
+
+                $mov = new \Modules\Cuentas\Entities\MovimientoCuentas();
+                $mov->cuenta_id       = $request->cuenta_id;
+                $mov->fecha_emision   = $fecha;
+                $mov->mes             = date('m');
+                $mov->hora            = date('H:i:s');
+                $mov->ano             = date('Y');
+                $mov->tipo_movimiento = 'Ingreso';
+                $mov->credito         = $request->paid_amount;
+                $mov->debito          =  '0.00';
+                $mov->descripcion     =  $linea->descripcion;
+                $mov->save();
+
+                $cuenta =  Cuentas::find($request->cuenta_id);
+                $cuenta->saldo_actual += $request->paid_amount;
+                $cuenta->save();
+
+
                 PurchaseReturnDetail::create([
                     'purchase_return_id' => $purchase_return->id,
                     'product_id' => $cart_item->id,
@@ -92,7 +119,7 @@ class PurchasesReturnController extends Controller
                     'product_tax_amount' => $cart_item->options->product_tax * 100,
                 ]);
 
-                if ($request->status == 'Shipped' || $request->status == 'Completed') {
+                if ($request->status == 'Enviado' || $request->status == 'Completado') {
                     $product = Product::findOrFail($cart_item->id);
                     $product->update([
                         'product_quantity' => $product->product_quantity - $cart_item->qty
@@ -105,6 +132,7 @@ class PurchasesReturnController extends Controller
             if ($purchase_return->paid_amount > 0) {
                 PurchaseReturnPayment::create([
                     'date'               => $request->date,
+                    'cuenta_id'               => $request->cuenta_id,
                     'reference'          => 'INV/' . $purchase_return->reference,
                     'amount'             => $purchase_return->paid_amount,
                     'purchase_return_id' => $purchase_return->id,

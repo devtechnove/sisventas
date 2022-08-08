@@ -56,6 +56,12 @@
     @stack('page_css')
     <!-- END: Custom CSS-->
 
+    <style>
+         .dt-buttons {
+          text-align: center !important;
+        }
+    </style>
+
     <link rel="stylesheet" href="/css/settings.css">
 
 </head>

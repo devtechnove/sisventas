@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_cost');
             $table->integer('product_price');
             $table->string('product_unit')->nullable();
-            $table->integer('product_stock_alert');
+            $table->integer('product_stock_alert')->nullable();
             $table->integer('product_order_tax')->nullable();
             $table->tinyInteger('product_tax_type')->nullable();
             $table->text('product_note')->nullable();

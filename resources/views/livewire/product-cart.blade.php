@@ -22,7 +22,7 @@
                     <span class="sr-only">Cargando...</span>
                 </div>
             </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-sm">
                 <thead class="thead-dark">
                 <tr>
                     <th class="align-middle">Producto</th>
@@ -32,7 +32,7 @@
                     <th class="align-middle">Descuento</th>
                     <th class="align-middle">Impuesto</th>
                     <th class="align-middle">Sub Total</th>
-                    <th class="align-middle">Total (Bs)</th>
+                    <th class="align-middle">Total (USD)</th>
                     <th class="align-middle">Opciones</th>
                 </tr>
                 </thead>
@@ -71,9 +71,9 @@
                                 </td>
                                  <td class="align-middle">
                                     @php
-                                        $bolivares += $cart_item->options->sub_total * $tasa
+                                        $bolivares += $cart_item->options->sub_total / $tasa
                                     @endphp
-                                    {{ number_format($bolivares,2) }} Bs.
+                                    {{ number_format($bolivares,2) }}
                                 </td>
 
                                 <td class="align-middle text-center">

@@ -6,7 +6,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('expenses.index') }}">Gastos</a></li>
-        <li class="breadcrumb-item active">Add</li>
+        <li class="breadcrumb-item active">Registro de gasto</li>
     </ol>
 @endsection
 
@@ -23,18 +23,23 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="EXP">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="date">Fecha de registro <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="date" required value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                     </div>
                                 </div>
+                                  <div class="col-sm-4">
+                                    <label for="nu_contacto">Cuenta <span class="text-danger">*</span></label></label>
+                                        {!! Form::select('cuenta_id', $cuentas, null, [
+                                     'class' => 'form-control','placeholder' =>'Seleccione']) !!}
+                                  </div>
                             </div>
 
                             <div class="form-row">
@@ -58,7 +63,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="details">Detalle del gasto</label>
+                                <label for="details">Detalle del gasto <span class="text-danger">*</span></label></label>
                                 <textarea class="form-control" rows="6" name="details"></textarea>
                             </div>
                         </div>
@@ -79,9 +84,9 @@
     <script>
         $(document).ready(function () {
             $('#amount').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
+                prefix:'{{ $moneda->symbol }}',
+                thousands:'{{ $moneda->thousand_separator }}',
+                decimal:'{{ $moneda->decimal_separator }}',
             });
 
             $('#expense-form').submit(function () {

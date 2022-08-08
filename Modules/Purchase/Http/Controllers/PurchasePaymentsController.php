@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\Purchase\Entities\Purchase;
 use Modules\Purchase\Entities\PurchasePayment;
+use Modules\Cuentas\Entities\Cuentas;
 
 class PurchasePaymentsController extends Controller
 {
@@ -34,6 +35,9 @@ class PurchasePaymentsController extends Controller
     public function store(Request $request) {
         abort_if(Gate::denies('access_purchase_payments'), 403);
 
+
+
+
         $request->validate([
             'date' => 'required|date',
             'reference' => 'required|string|max:255',
@@ -46,6 +50,7 @@ class PurchasePaymentsController extends Controller
         DB::transaction(function () use ($request) {
             PurchasePayment::create([
                 'date' => $request->date,
+                'cuenta_id' => $request->cuenta_id,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
                 'note' => $request->note,
@@ -53,16 +58,40 @@ class PurchasePaymentsController extends Controller
                 'payment_method' => $request->payment_method
             ]);
 
+
+             $mytime =  \Carbon\Carbon::now('America/Caracas');
+             $fecha = $mytime->format('Y-m-d');
+
+             //dd($request);
+
+            $mov = new \Modules\Cuentas\Entities\MovimientoCuentas();
+            $mov->cuenta_id       = $request->cuenta_id;
+            $mov->fecha_emision   = $fecha;
+            $mov->mes             = date('m');
+            $mov->hora            = date('H:i:s');
+            $mov->ano             = date('Y');
+            $mov->tipo_movimiento = 'Ingreso';
+            $mov->credito         = '0.00';
+            $mov->debito          =  $request->amount;
+            $mov->descripcion     = $request->note;
+            $mov->save();
+
+            $cuenta =  Cuentas::find($request->cuenta_id);
+            $cuenta->saldo_actual -= $request->amount;
+            $cuenta->save();
+
+
+
             $purchase = Purchase::findOrFail($request->purchase_id);
 
             $due_amount = $purchase->due_amount - $request->amount;
 
             if ($due_amount == $purchase->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             $purchase->update([
