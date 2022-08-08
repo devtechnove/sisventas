@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('personal')->group(function() {
-    Route::get('/', 'PersonalController@index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('personal', 'PersonalController');
 });

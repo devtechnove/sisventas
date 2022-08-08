@@ -133,6 +133,13 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_caja',
                                 'delete_caja',
 
+                                 //Personal
+                                'access_personal',
+                                'create_personal',
+                                'show_personal',
+                                'edit_personal',
+                                'delete_personal',
+
 
                               ];
 
@@ -245,6 +252,13 @@ class PermissionsTableSeeder extends Seeder
                                 'create_caja',
                                 'edit_caja',
                                 'delete_caja',
+
+                                 //Personal
+                                'access_personal',
+                                'create_personal',
+                                'show_personal',
+                                'edit_personal',
+                                'delete_personal',
 
 
 
@@ -484,6 +498,13 @@ class PermissionsTableSeeder extends Seeder
                                 'create_caja',
                                 'edit_caja',
                                 'delete_caja',
+
+                                 //Personal
+                                'access_personal',
+                                'create_personal',
+                                'show_personal',
+                                'edit_personal',
+                                'delete_personal',
 
 
 

@@ -180,6 +180,27 @@
 
                             </li>
                         @endcan
+                        @can('access_personal')
+                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('personal.*')  ? 'open' : '' }}">
+                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Empleados
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link {{ request()->routeIs('personal.index') ? 'active' : '' }}" href="{{ route('personal.index') }}">
+                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                    </a>
+                                </li>
+                                 @can('create_personal')
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link {{ request()->routeIs('personal.create') ? 'active' : '' }}" href="{{ route('personal.create') }}">
+                                        <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo empleado
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        @endcan
                           @can('access_purchases')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchase-returns.*') || request()->routeIs('sale-returns.*' )? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">

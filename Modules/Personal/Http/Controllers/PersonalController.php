@@ -2,9 +2,12 @@
 
 namespace Modules\Personal\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use Modules\Personal\DataTables\PersonalDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Modules\Personal\Entities\Personal;
 
 class PersonalController extends Controller
 {
@@ -12,9 +15,12 @@ class PersonalController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(PersonalDataTable $dataTable)
     {
-        return view('personal::index');
+
+        abort_if(Gate::denies('access_personal'), 403);
+
+        return $dataTable->render('personal::index');
     }
 
     /**
@@ -23,6 +29,8 @@ class PersonalController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_personal'), 403);
+
         return view('personal::create');
     }
 
@@ -33,7 +41,26 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $personal = new Personal();
+            $personal->name = $request->name;
+            $personal->lastname = $request->lastname;
+            $personal->cedula = $request->cedula;
+            $personal->telefono = $request->telefono;
+            $personal->cargo = $request->cargo;
+            $personal->status = $request->status;
+            $personal->save();
+
+             toast('¡Datos guardados    !', 'success');
+        return redirect()->route('personal.index');
+
+        } catch (\Exception $e) {
+
+
+        toast('¡Error al enviar formulario!', 'error');
+        return redirect()->route('personal.index');
+        }
     }
 
     /**
@@ -51,9 +78,13 @@ class PersonalController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Personal $personal)
     {
-        return view('personal::edit');
+
+
+
+
+        return view('personal::edit',compact('personal'));
     }
 
     /**
@@ -64,7 +95,26 @@ class PersonalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         try {
+
+            $personal =  Personal::find($id);
+            $personal->name = $request->name;
+            $personal->lastname = $request->lastname;
+            $personal->cedula = $request->cedula;
+            $personal->telefono = $request->telefono;
+            $personal->cargo = $request->cargo;
+            $personal->status = $request->status;
+            $personal->save();
+
+             toast('¡Datos guardados    !', 'success');
+        return redirect()->route('personal.index');
+
+        } catch (\Exception $e) {
+
+
+        toast('¡Error al enviar formulario!', 'error');
+        return redirect()->route('personal.index');
+        }
     }
 
     /**
@@ -74,6 +124,18 @@ class PersonalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+             $personal =  Personal::find($id);
+             $personal->delete();
+
+               toast('¡Datos eliminados!', 'success');
+               return redirect()->route('personal.index');
+
+        } catch (\Exception $e) {
+
+            toast('¡Error al enviar formulario!', 'error');
+            return redirect()->route('personal.index');
+        }
     }
 }
