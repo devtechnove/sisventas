@@ -1,0 +1,13 @@
+{
+    "name": "Tarea",
+    "alias": "tarea",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Tarea\\Providers\\TareaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

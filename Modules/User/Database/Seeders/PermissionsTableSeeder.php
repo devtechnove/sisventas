@@ -140,6 +140,12 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_personal',
                                 'delete_personal',
 
+                                 //Tarea
+                                 'access_tarea',
+                                 'create_tarea',
+                                 'show_tarea',
+                                 'edit_tarea',
+                                 'delete_tarea',
 
                               ];
 
@@ -260,6 +266,10 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_personal',
                                 'delete_personal',
 
+                                //Tareas
+                                'access_tarea',
+                                'edit_tarea',
+
 
 
 
@@ -378,6 +388,10 @@ class PermissionsTableSeeder extends Seeder
                                 'create_caja',
                                 'edit_caja',
                                 'delete_caja',
+
+                                //Tareas
+                                'access_tarea',
+                                'edit_tarea',
 
 
 
@@ -506,6 +520,12 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_personal',
                                 'delete_personal',
 
+                                 //Tarea
+                                 'access_tarea',
+                                 'create_tarea',
+                                 'show_tarea',
+                                 'edit_tarea',
+                                 'delete_tarea',
 
 
 

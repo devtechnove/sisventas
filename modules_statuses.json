@@ -16,5 +16,6 @@
     "Reports": true,
     "Cuentas": true,
     "Proyecto": true,
-    "Personal": true
+    "Personal": true,
+    "Tarea": true
 }

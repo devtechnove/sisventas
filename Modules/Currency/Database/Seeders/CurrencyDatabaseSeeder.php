@@ -26,7 +26,7 @@ class CurrencyDatabaseSeeder extends Seeder
             'thousand_separator' => ',',
             'decimal_separator'  => '.',
             'exchange_rate'      => null,
-            'principal'          => true
+            //'principal'          => true
         ]);
     }
 }
