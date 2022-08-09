@@ -28,31 +28,52 @@
 
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('index.contabilidad') ? 'active' : '' }}" href="{{ url('/panel/contabilidad') }}">
-                            <i class="c-sidebar-nav-icon bi bi-cash-stack" style="line-height: 1;"></i> Cajas
+                            <span class="iconify" data-icon="mdi:cash-register"></span> Cajas
                         </a>
                     </li>
 
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link {{ request()->routeIs('logins.index') ? 'active' : '' }}" href="{{ url('/logins') }}">
-                            <i class="c-sidebar-nav-icon bi bi-credit-card" style="line-height: 1;"></i> Inicio de sesión
+                            <span class="iconify" data-icon="fluent:history-20-filled"></span> Inicio de sesión
                         </a>
                     </li>
                    @endif
-                    @can('access_accounts')
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('cuentas.*')  ? 'open' : '' }}">
+                   @can('access_accounts')
+                   <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('cuentas.*')  ? 'open' : '' }}">
+                       <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="iconify" data-icon="fluent:money-24-regular"></span> Cuentas
+                       </a>
+                       <ul class="c-sidebar-nav-dropdown-items">
+                           <li class="c-sidebar-nav-item">
+                               <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.index') ? 'active' : '' }}" href="{{ route('cuentas.index') }}">
+                                   <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
+                               </a>
+                           </li>
+                            @can('create_accounts')
+                           <li class="c-sidebar-nav-item">
+                               <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.create') ? 'active' : '' }}" href="{{ route('cuentas.create') }}">
+                                   <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nueva cuenta
+                               </a>
+                           </li>
+                           @endcan
+                       </ul>
+                   </li>
+                   @endcan
+                    @can('access_tarea')
+                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('tarea.*')  ? 'open' : '' }}">
                         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Cuenta
+                            <span class="iconify fa-2x" data-icon="fluent:clipboard-task-20-filled"></span> Tareas
                         </a>
                         <ul class="c-sidebar-nav-dropdown-items">
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.index') ? 'active' : '' }}" href="{{ route('cuentas.index') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                <a class="c-sidebar-nav-link {{ request()->routeIs('tarea.index') ? 'active' : '' }}" href="{{ route('tarea.index') }}">
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                 </a>
                             </li>
-                             @can('create_accounts')
+                             @can('create_tarea')
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link {{ request()->routeIs('cuentas.create') ? 'active' : '' }}" href="{{ route('cuentas.create') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva cuenta
+                                <a class="c-sidebar-nav-link {{ request()->routeIs('tarea.create') ? 'active' : '' }}" href="{{ route('tarea.create') }}">
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nueva tarea
                                 </a>
                             </li>
                             @endcan
@@ -64,25 +85,25 @@
                    @can('access_products')
                     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*')  ? 'open' : '' }}">
                         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Productos
+                            <span class="iconify" data-icon="gridicons:product"></span> Productos
                         </a>
                         <ul class="c-sidebar-nav-dropdown-items">
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                 </a>
                             </li>
                              @can('create_products')
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link {{ request()->routeIs('products.create') ? 'active' : '' }}" href="{{ route('products.create') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo producto
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nuevo producto
                                 </a>
                             </li>
                             @endcan
                               @can('access_product_categories')
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'active' : '' }}" href="{{ route('product-categories.index') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Categorías
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Categorías
                                 </a>
                             </li>
                             @endcan
@@ -93,18 +114,18 @@
                     @can('access_adjustments')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('adjustments.*') ? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                <i class="c-sidebar-nav-icon bi bi-clipboard-check" style="line-height: 1;"></i> Ajuste de inventario
+                                <span class="iconify" data-icon="fluent:production-checkmark-24-regular"></span> Ajuste de inventario
                             </a>
                             <ul class="c-sidebar-nav-dropdown-items">
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('adjustments.index') ? 'active' : '' }}" href="{{ route('adjustments.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                     </a>
                                 </li>
                                   @can('create_adjustments')
                                     <li class="c-sidebar-nav-item {{ request()->routeIs('adjustments.create') ? ' active' : '' }}">
                                         <a class="c-sidebar-nav-link" href="{{ route('adjustments.create') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo ajuste
+                                            <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nuevo ajuste
                                         </a>
                                     </li>
                                 @endcan
@@ -114,18 +135,18 @@
                     @can('access_quotations')
                     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('quotations.*') ? 'open' : '' }}">
                         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <i class="c-sidebar-nav-icon bi bi-cart-check" style="line-height: 1;"></i> Presupuestos
+                            <span class="iconify" data-icon="la:file-invoice-dollar"></span> Presupuestos
                         </a>
                         <ul class="c-sidebar-nav-dropdown-items">
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link {{ request()->routeIs('quotations.index') ? 'active' : '' }}" href="{{ route('quotations.index') }}">
-                                    <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                    <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                 </a>
                             </li>
                               @can('create_adjustments')
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('quotations.create') ? 'active' : '' }}" href="{{ route('quotations.create') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo Presupuesto
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nuevo Presupuesto
                                     </a>
                                 </li>
                             @endcan
@@ -135,12 +156,12 @@
                     @can('access_purchases')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchases.*') || request()->routeIs('purchase-payments*')? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                <i class="c-sidebar-nav-icon bi bi-bag" style="line-height: 1;"></i> Compras
+                                <span class="iconify" data-icon="carbon:purchase"></span> Compras
                             </a>
                              <ul class="c-sidebar-nav-dropdown-items">
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('purchases.index') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                     </a>
                                 </li>
                             </ul>
@@ -148,7 +169,7 @@
                                 <ul class="c-sidebar-nav-dropdown-items">
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('purchases.create') ? 'active' : '' }}" href="{{ route('purchases.create') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva compra
+                                            <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nueva compra
                                         </a>
                                     </li>
                                 </ul>
@@ -158,12 +179,12 @@
                     @can('access_sales')
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('sales.*') || request()->routeIs('sale-payments*')? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                    <i class="c-sidebar-nav-icon bi bi-receipt" style="line-height: 1;"></i> Ventas
+                                    <span class="iconify" data-icon="teenyicons:invoice-outline"></span> Ventas
                                 </a>
                                 <ul class="c-sidebar-nav-dropdown-items">
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('sales.index') ? 'active' : '' }}" href="{{ route('sales.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                            <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                         </a>
                                     </li>
                                 </ul>
@@ -171,7 +192,7 @@
                                     <ul class="c-sidebar-nav-dropdown-items">
                                         <li class="c-sidebar-nav-item">
                                             <a class="c-sidebar-nav-link {{ request()->routeIs('sales.create') ? 'active' : '' }}" href="{{ route('sales.create') }}">
-                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nueva venta
+                                                <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nueva venta
                                             </a>
                                         </li>
                                     </ul>
@@ -183,18 +204,18 @@
                         @can('access_personal')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('personal.*')  ? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Empleados
+                                <span class="iconify" data-icon="clarity:employee-group-solid"></span> Empleados
                             </a>
                             <ul class="c-sidebar-nav-dropdown-items">
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('personal.index') ? 'active' : '' }}" href="{{ route('personal.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                     </a>
                                 </li>
                                  @can('create_personal')
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('personal.create') ? 'active' : '' }}" href="{{ route('personal.create') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo empleado
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nuevo empleado
                                     </a>
                                 </li>
                                 @endcan
@@ -204,19 +225,19 @@
                           @can('access_purchases')
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('purchase-returns.*') || request()->routeIs('sale-returns.*' )? 'open' : '' }}">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                <i class="c-sidebar-nav-icon mdi mdi-refresh " style="line-height: 1; font-size:25px;"></i> Devoluciones
+                                <span class="iconify" data-icon="ic:round-assignment-return"></span> Devoluciones
                             </a>
                              <ul class="c-sidebar-nav-dropdown-items">
                                 <li class="c-sidebar-nav-item">
                                      <a class="c-sidebar-nav-link {{ request()->routeIs('purchase-returns.index') ? 'active' : '' }}" href="{{ route('purchase-returns.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Compras
+                                        <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Compras
                                     </a>
                                 </li>
                                  @can('create_sale_returns')
 
                                         <li class="c-sidebar-nav-item">
                                             <a class="c-sidebar-nav-link {{ request()->routeIs('sale-returns.*') ? 'active' : '' }}" href="{{ route('sale-returns.index') }}">
-                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Ventas
+                                                <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Ventas
                                             </a>
                                         </li>
 
@@ -227,7 +248,7 @@
                         @can('access_expenses')
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('expenses.*') || request()->routeIs('expense-categories.*') ? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                    <i class="c-sidebar-nav-icon bi bi-wallet2" style="line-height: 1;"></i> Gastos
+                                    <span class="iconify" data-icon="fluent:money-calculator-24-regular"></span> Gastos
                                 </a>
                                 <ul class="c-sidebar-nav-dropdown-items">
                                     @can('access_expense_categories')
@@ -239,35 +260,35 @@
                                     @endcan
                                      <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('expenses.index') ? 'active' : '' }}" href="{{ route('expenses.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-journals" style="line-height: 1;"></i> Listado general
+                                            <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Listado general
                                         </a>
                                     </li>
                                     @can('create_expenses')
                                         <li class="c-sidebar-nav-item">
                                             <a class="c-sidebar-nav-link {{ request()->routeIs('expenses.create') ? 'active' : '' }}" href="{{ route('expenses.create') }}">
-                                                <i class="c-sidebar-nav-icon bi bi-journal-plus" style="line-height: 1;"></i> Nuevo gasto
+                                                <i class="c-sidebar-nav-icon mdi mdi-circle" style="line-height: 1;"></i> Nuevo gasto
                                             </a>
                                         </li>
                                     @endcan
                                 </ul>
                             </li>
                         @endcan
-                        @can('access_customers|access_suppliers')
+
                             @can('access_customers')
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-people-fill" style="line-height: 1;"></i> Clientes
+                                        <span class="iconify" data-icon="bi:person-badge-fill"></span> Clientes
                                     </a>
                                 </li>
                             @endcan
                             @can('access_suppliers')
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
-                                        <i class="c-sidebar-nav-icon bi bi-people-fill" style="line-height: 1;"></i> Proveedores
+                                        <span class="iconify" data-icon="fa6-solid:truck-fast"></span> Proveedores
                                     </a>
                                 </li>
                             @endcan
-                        @endcan
+
                         @can('access_reports')
                             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('*-report.index') ? 'open' : '' }}">
                                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
@@ -313,19 +334,20 @@
                                     <i class="c-sidebar-nav-icon bi bi-people" style="line-height: 1;"></i> Gestión de usuarios
                                 </a>
                                 <ul class="c-sidebar-nav-dropdown-items">
+
                                     <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link {{ request()->routeIs('users.create') ? 'active' : '' }}" href="{{ route('users.create') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-person-plus" style="line-height: 1;"></i> Create User
+                                        <a class="c-sidebar-nav-link {{ request()->routeIs('users*') ? '' : '' }}" href="{{ route('users.index') }}">
+                                            <i class="c-sidebar-nav-icon bi bi-person-lines-fill" style="line-height: 1;"></i> Listado general
                                         </a>
                                     </li>
                                     <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link {{ request()->routeIs('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-person-lines-fill" style="line-height: 1;"></i> All Users
+                                        <a class="c-sidebar-nav-link {{ request()->routeIs('users.create') ? 'active' : '' }}" href="{{ route('users.create') }}">
+                                            <i class="c-sidebar-nav-icon bi bi-person-plus" style="line-height: 1;"></i> Nuevo usuario
                                         </a>
                                     </li>
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-key" style="line-height: 1;"></i> Roles & Permissions
+                                            <i class="c-sidebar-nav-icon bi bi-key" style="line-height: 1;"></i> Roles & Permisos
                                         </a>
                                     </li>
                                 </ul>

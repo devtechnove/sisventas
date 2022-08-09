@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Roles & Permissions')
+@section('title', 'Roles & Permisos')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <!-- Button trigger modal -->
                         <a href="{{ route('roles.create') }}" class="btn btn-primary">
-                            Add Role <i class="bi bi-plus"></i>
+                            Nuevo Role <i class="bi bi-plus"></i>
                         </a>
 
                         <hr>
