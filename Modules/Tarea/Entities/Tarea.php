@@ -17,8 +17,8 @@ class Tarea extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-   public function personal(): BelongsTo
+   public function personal()
    {
-       return $this->belongsTo(Personal::class, 'personal_id', 'id');
+       return $this->belongsTo(Personal::class, 'personal_id');
    }
 }

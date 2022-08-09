@@ -38,10 +38,12 @@
                              <div class="col-sm-6 mt-1">
                                  <label for="cargo">Cargo del empleado</label>
                                  <select name="cargo" id="" class="form-control">
-                                     <option value="Gerente">Gerente</option>
-                                     <option value="Encargado">Encargado</option>
+                                     <option value="Presidente">Presidente</option>
+                                     <option value="Vice-Presidente">Vice-Presidente</option>
+                                     <option value="Administrador">Administrador</option>
                                      <option value="Supervisor">Supervisor</option>
-                                     <option value="Atención al público">Atención al público</option>
+                                     <option value="Gerente">Gerente</option>
+                                     <option value="Auxiliares">Auxiliares</option>
                                  </select>
                              </div>
                              <div class="col-sm-6 mt-1">
