@@ -30,16 +30,16 @@ class LogSuccessfulLogin
     {
         //dd($_SERVER['REMOTE_ADDR']);
 
-        $yourUserIpAddress = /*$_SERVER['HTTP_X_FORWARDED_FOR']*/ '66.102.0.0';
+        $yourUserIpAddress = $_SERVER['HTTP_X_FORWARDED_FOR'] /*'66.102.0.0'*/;
         $location = Location::get($yourUserIpAddress);
         $login = $login = new LoginModel;
         $login->user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $login->user_location = $location->countryName  . '('.$location->countryCode.')';
         $login->session_token = session('_token');
         $login->ip_address = $_SERVER['REMOTE_ADDR'];
-        $login->login_at = \Carbon\Carbon::now();  
-        
+        $login->login_at = \Carbon\Carbon::now();
+
         $event->user->logins()->save($login);
-        
+
     }
 }
