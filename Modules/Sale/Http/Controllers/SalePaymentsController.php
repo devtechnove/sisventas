@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SalePayment;
+use Modules\Cuentas\Entities\MovimientoCuentas;
+use Modules\Cuentas\Entities\Cuentas;
 
 class SalePaymentsController extends Controller
 {
@@ -47,6 +49,7 @@ class SalePaymentsController extends Controller
         DB::transaction(function () use ($request) {
             SalePayment::create([
                 'date' => $request->date,
+                'idcuenta' => $request->idcuenta,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
                 'note' => $request->note,
@@ -59,12 +62,29 @@ class SalePaymentsController extends Controller
             $due_amount = $sale->due_amount - $request->amount;
 
             if ($due_amount == $sale->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
+
+
+            $mov = new MovimientoCuentas();
+            $mov->cuenta_id = $request->idcuenta;
+            $mov->fecha_emision = $fecha;
+            $mov->mes = date('m');
+            $mov->hora =date('H:i:s');
+            $mov->ano = date('Y');
+            $mov->tipo_movimiento = 'Ingreso';
+            $mov->credito = $request->amount;
+            $mov->debito = '0.00';
+            $mov->descripcion ='Ingreso de cobro';
+            $mov->save();
+
+            $cuenta = Cuentas::find($request->idcuenta);
+            $cuenta->saldo_actual += $request->amount;
+            $cuenta->save();
 
             $sale->update([
                 'paid_amount' => ($sale->paid_amount + $request->amount) * 100,
@@ -91,6 +111,9 @@ class SalePaymentsController extends Controller
     public function update(Request $request, SalePayment $salePayment) {
         abort_if(Gate::denies('access_sale_payments'), 403);
 
+
+
+
         $request->validate([
             'date' => 'required|date',
             'reference' => 'required|string|max:255',
@@ -106,11 +129,11 @@ class SalePaymentsController extends Controller
             $due_amount = ($sale->due_amount + $salePayment->amount) - $request->amount;
 
             if ($due_amount == $sale->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             $sale->update([
@@ -121,12 +144,35 @@ class SalePaymentsController extends Controller
 
             $salePayment->update([
                 'date' => $request->date,
+                'idcuenta' => $request->idcuenta,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
                 'note' => $request->note,
                 'sale_id' => $request->sale_id,
                 'payment_method' => $request->payment_method
             ]);
+
+
+            $mytime =  \Carbon\Carbon::now('America/Caracas');
+            $fecha  =  $mytime->format('Y-m-d');
+
+            $mov = new MovimientoCuentas();
+            $mov->cuenta_id = $request->idcuenta;
+            $mov->fecha_emision = $fecha;
+            $mov->mes = date('m');
+            $mov->hora =date('H:i:s');
+            $mov->ano = date('Y');
+            $mov->tipo_movimiento = 'Ingreso';
+            $mov->credito = $request->amount;
+            $mov->debito = '0.00';
+            $mov->descripcion ='Ingreso de cobro';
+            $mov->save();
+
+            $cuenta = Cuentas::find($request->idcuenta);
+            $cuenta->saldo_actual += $request->amount;
+            $cuenta->save();
+
+
         });
 
         toast('Sale Payment Updated!', 'info');

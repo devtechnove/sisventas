@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-lg-12 table-responsive-sm">
-            <table class="table  table-hover table-outline mb-0 table-sm" id="tableExport" >
+            <table class="table  table-hover table-outline mb-0 table-sm" id="" >
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Fecha</th>
@@ -74,140 +74,139 @@
                                 </td>
                                 <td>
                                     <div class="btn-group dropleft">
-    <button type="button" class="btn btn-ghost-primary dropdown rounded" data-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-three-dots-vertical"></i>
-    </button>
-    <div class="dropdown-menu">
-        <a target="_blank" href="{{ route('sales.pos.pdf', $item->id) }}" class="dropdown-item">
-            <i class="bi bi-file-earmark-pdf mr-2 text-success" style="line-height: 1;"></i> POS Invoice
-        </a>
-        @can('access_sale_payments')
-            <a href="{{ route('sale-payments.index', $item->id) }}" class="dropdown-item">
-                <i class="bi bi-cash-coin mr-2 text-warning" style="line-height: 1;"></i> Show Payments
-            </a>
-        @endcan
-        @can('access_sale_payments')
-            @if($item->due_amount > 0)
-            <a href="{{ route('sale-payments.create', $item->id) }}" class="dropdown-item">
-                <i class="bi bi-plus-circle-dotted mr-2 text-success" style="line-height: 1;"></i> Add Payment
-            </a>
+                                    <button type="button" class="btn btn-ghost-primary dropdown rounded" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a target="_blank" href="{{ route('sales.pos.pdf', $item->id) }}" class="dropdown-item">
+                                            <i class="bi bi-file-earmark-pdf mr-2 text-success" style="line-height: 1;"></i> Factura
+                                        </a>
+                                        @can('access_sale_payments')
+                                            <a href="{{ route('sale-payments.index', $item->id) }}" class="dropdown-item">
+                                                <i class="bi bi-cash-coin mr-2 text-warning" style="line-height: 1;"></i> Ver pagos
+                                            </a>
+                                        @endcan
+                                        @can('access_sale_payments')
+                                            @if($item->due_amount > 0)
+                                            <a href="{{ route('sale-payments.create', $item->id) }}" class="dropdown-item">
+                                                <i class="bi bi-plus-circle-dotted mr-2 text-success" style="line-height: 1;"></i> Agregar pago
+                                            </a>
+                                            @endif
+                                        @endcan
+                                        @can('edit_sales')
+                                            <a href="{{ route('sales.edit', $item->id) }}" class="dropdown-item">
+                                                <i class="bi bi-pencil mr-2 text-primary" style="line-height: 1;"></i> Editar
+                                            </a>
+                                        @endcan
+                                        @can('show_sales')
+                                            <a href="{{ route('sales.show', $item->id) }}" class="dropdown-item">
+                                                <i class="bi bi-eye mr-2 text-info" style="line-height: 1;"></i> Detalle de venta
+                                            </a>
+                                        @endcan
+                                        @can('delete_sales')
+                                            <button id="delete" class="dropdown-item" onclick="
+                                                event.preventDefault();
+                                                if (confirm('Are you sure? It will delete the data permanently!')) {
+                                                document.getElementById('destroy{{ $item->id }}').submit()
+                                                }">
+                                                <i class="bi bi-trash mr-2 text-danger" style="line-height: 1;"></i> Delete
+                                                <form id="destroy{{ $item->id }}" class="d-none" action="{{ route('sales.destroy', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                </form>
+                                            </button>
+                                        @endcan
+                                    </div>
+                                </div>
+
+                            </td>
+                          </tr>
+                    @endforeach
+                </tbody>
             @endif
-        @endcan
-        @can('edit_sales')
-            <a href="{{ route('sales.edit', $item->id) }}" class="dropdown-item">
-                <i class="bi bi-pencil mr-2 text-primary" style="line-height: 1;"></i> Edit
-            </a>
-        @endcan
-        @can('show_sales')
-            <a href="{{ route('sales.show', $item->id) }}" class="dropdown-item">
-                <i class="bi bi-eye mr-2 text-info" style="line-height: 1;"></i> Details
-            </a>
-        @endcan
-        @can('delete_sales')
-            <button id="delete" class="dropdown-item" onclick="
-                event.preventDefault();
-                if (confirm('Are you sure? It will delete the data permanently!')) {
-                document.getElementById('destroy{{ $item->id }}').submit()
-                }">
-                <i class="bi bi-trash mr-2 text-danger" style="line-height: 1;"></i> Delete
-                <form id="destroy{{ $item->id }}" class="d-none" action="{{ route('sales.destroy', $item->id) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                </form>
-            </button>
-        @endcan
-    </div>
-</div>
-
-                                </td>
-    </tr>
-       @endforeach
-    </tbody>
-
-    @endif
-    </table>
+           </table>
     </div>
     <div class="col-lg-12">
 
     </div>
 
 </div>
-                           </div>
-                       </div>
-                       <div class="col-lg-4">
-                           <div class="card card-line-primary">
-                               <div class="card-header">
-                                   Datos de caja
-                               </div>
-                               <table class="table table-responsive-sm table-hover table-outline mb-0 table-sm">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>Código</th>
-                                            <td class="text-center">{{strtoupper($caja->codigo)}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Hora de apertura</th>
-                                            <td class="text-center">{{strtoupper($caja->hora)}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Hora de cierre</th>
-                                            <td class="text-center">
-                                                @if ($caja->hora_cierre == '')
-                                                    <span>Caja abierta</span>
-                                                @else
-                                                    {{$caja->hora_cierre}}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Caja</th>
-                                            <td class="text-center">{{$caja->caja}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Monto apertura</th>
-                                            <td class="text-center">${{$caja->monto}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Monto cierre</th>
-                                            <td class="text-center">
-                                                @if ($caja->monto_cierre == '0.00')
-                                                    <span>Caja abierta</span>
-                                                @else
-                                                    ${{$caja->monto_cierre}}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total en caja</th>
-                                            <td class="text-center">
-                                                 @foreach ($venta as $vent)
-                                                    @php
-                                                      $suma+=$vent->total_amount;//sumanos los valores, ahora solo fata mostrar dicho valor
-                                                    @endphp
-                                                  @endforeach
-                                                 ${{ number_format ($suma ,2)  }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Estado</th>
-                                            <td class="text-center">
-                                                @if ($caja->estado == 'Cerrada')
-                                                    <span class="badge badge-danger">
-                                                        {{$caja->estado}}
-                                                    </span>
-                                                @else
-                                                    <span class="badge badge-success">
-                                                        {{$caja->estado}}
-                                                    </span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    </thead>
-                               </table>
-                           </div>
-                       </div>
-                   </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="card card-line-primary">
+        <div class="card-header">
+            Datos de caja
         </div>
+        <table class="table table-responsive-sm table-hover table-outline mb-0 table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Código</th>
+                    <td class="text-center">{{strtoupper($caja->codigo)}}</td>
+                </tr>
+                <tr>
+                    <th>Hora de apertura</th>
+                    <td class="text-center">{{strtoupper($caja->hora)}}</td>
+                </tr>
+                <tr>
+                    <th>Hora de cierre</th>
+                    <td class="text-center">
+                        @if ($caja->hora_cierre == '')
+                            <span>Caja abierta</span>
+                        @else
+                            {{$caja->hora_cierre}}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Caja</th>
+                    <td class="text-center">{{$caja->caja}}</td>
+                </tr>
+                <tr>
+                    <th>Monto apertura</th>
+                    <td class="text-center">${{$caja->monto}}</td>
+                </tr>
+                <tr>
+                    <th>Monto cierre</th>
+                    <td class="text-center">
+                        @if ($caja->monto_cierre == '0.00')
+                            <span>Caja abierta</span>
+                        @else
+                            ${{$caja->monto_cierre}}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Total en caja</th>
+                    <td class="text-center">
+                            @foreach ($venta as $vent)
+                            @php
+                                $suma+=$vent->total_amount;//sumanos los valores, ahora solo fata mostrar dicho valor
+                            @endphp
+                            @endforeach
+                            ${{ number_format ($suma ,2)  }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Estado</th>
+                    <td class="text-center">
+                        @if ($caja->estado == 'Cerrada')
+                            <span class="badge badge-danger">
+                                {{$caja->estado}}
+                            </span>
+                        @else
+                            <span class="badge badge-success">
+                                {{$caja->estado}}
+                            </span>
+                        @endif
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+</div>
+</div>
 
 @push('page_scripts')
     <script>

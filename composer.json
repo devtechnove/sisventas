@@ -9,6 +9,8 @@
         "barryvdh/laravel-dompdf": "^1.0",
         "barryvdh/laravel-snappy": "^0.4.8",
         "bumbummen99/shoppingcart": "^4.2",
+        "codedge/laravel-fpdf": "^1.9",
+        "crabbly/fpdf-laravel": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

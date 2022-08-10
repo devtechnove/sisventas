@@ -180,6 +180,7 @@ return [
         Laraveles\Spanish\SpanishServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
+        Crabbly\Fpdf\FpdfServiceProvider::class,
     ],
 
     /*

@@ -19,24 +19,37 @@
             <div class="row">
                 <div class="col-lg-12">
                     @include('utils.alerts')
-                    <div class="form-group">
-                        <button class="btn btn-primary">Update Payment <i class="bi bi-check"></i></button>
-                    </div>
+
                 </div>
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="reference">Reference <span class="text-danger">*</span></label>
+                                        <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="{{ $salePayment->reference }}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="date">Date <span class="text-danger">*</span></label>
+                                        <label for="date">Fecha <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="date" required value="{{ $salePayment->getAttributes()['date'] }}">
+                                    </div>
+                                </div>
+                                @php
+                                    $cuenta = \DB::table('cuentas')->get();
+                                @endphp
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="date">Cuenta <span class="text-danger">*</span></label>
+                                        <select name="idcuenta" id="" class="form-control">
+                                            @foreach ($cuenta as $item)
+
+                                            <option value="{{ $item->id }}">{{ $item->nb_nombre }}</option>
+
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -44,13 +57,13 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="due_amount">Due Amount <span class="text-danger">*</span></label>
+                                        <label for="due_amount">Monto de deuda <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="due_amount" required value="{{ format_currency($sale->due_amount) }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="amount">Amount <span class="text-danger">*</span></label>
+                                        <label for="amount">Monto <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input id="amount" type="text" class="form-control" name="amount" required value="{{ old('amount') ?? $salePayment->amount }}">
                                             <div class="input-group-append">
@@ -64,13 +77,13 @@
                                 <div class="col-lg-4">
                                     <div class="from-group">
                                         <div class="form-group">
-                                            <label for="payment_method">Payment Method <span class="text-danger">*</span></label>
+                                            <label for="payment_method">Método de pago <span class="text-danger">*</span></label>
                                             <select class="form-control" name="payment_method" id="payment_method" required>
-                                                <option {{ $salePayment->payment_method == 'Cash' ? 'selected' : '' }} value="Cash">Cash</option>
-                                                <option {{ $salePayment->payment_method == 'Credit Card' ? 'selected' : '' }} value="Credit Card">Credit Card</option>
-                                                <option {{ $salePayment->payment_method == 'Bank Transfer' ? 'selected' : '' }} value="Bank Transfer">Bank Transfer</option>
+                                                <option {{ $salePayment->payment_method == 'Efectivo' ? 'selected' : '' }} value="Efectivo">Efectivo</option>
+                                                <option {{ $salePayment->payment_method == 'Tarjeta de Crédito' ? 'selected' : '' }} value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                                                <option {{ $salePayment->payment_method == 'Transferencia bancaria' ? 'selected' : '' }} value="Transferencia bancaria">Transferencia bancaria</option>
                                                 <option {{ $salePayment->payment_method == 'Cheque' ? 'selected' : '' }} value="Cheque">Cheque</option>
-                                                <option {{ $salePayment->payment_method == 'Other' ? 'selected' : '' }} value="Other">Other</option>
+                                                <option {{ $salePayment->payment_method == 'Otros' ? 'selected' : '' }} value="Otros">Otros</option>
                                             </select>
                                         </div>
                                     </div>
@@ -83,6 +96,11 @@
                             </div>
 
                             <input type="hidden" value="{{ $sale->id }}" name="sale_id">
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <button class="btn btn-primary">Actualizar pago <i class="bi bi-save"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>

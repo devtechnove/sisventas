@@ -18,11 +18,11 @@
     </div><br>
             <div id="ui-view"></div>
             <div class="container-fluid">
-               
+
                 <div class="row" id="contenido" style="display:none">
                     <div class="row">
                         <div class="col-lg-8">
-                            
+
                             <div class="card card-line-primary  ">
                                 <div class="card-header centrar">
                                     <i class="fas fa-calendar-alt"> </i> &nbsp;
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                                     ${{$caja_mes_actual->sum}}
                                                 </td>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -105,7 +105,7 @@
                                             <div class="col-lg-10">
                                                 Filtrar año
                                                <input type="text" name="year" class="form-control">
-                                                
+
                                             </div><br>
                                             <div class="col-lg-2">
                                                 <button class="btn btn-primary mt-1">Filtrar</button>
@@ -133,10 +133,10 @@ window.onload = function(){
            var contenido = document.getElementById('contenido');
 
             contenido.style.display = 'block';
- 
+
             $('#loader').remove();
        }
-        
+
     var base = ["<?php echo $caja_1->sum?>","<?php echo $caja_2->sum?>","<?php echo $caja_3->sum?>","<?php echo $caja_4->sum?>","<?php echo $caja_5->sum?>","<?php echo $caja_6->sum?>","<?php echo $caja_7->sum?>","<?php echo $caja_8->sum?>","<?php echo $caja_9->sum?>","<?php echo $caja_10->sum?>","<?php echo $caja_11->sum?>","<?php echo $caja_12->sum?>"];
 
     var cierre = ["<?php echo $caja_1->sum?>","<?php echo $caja_2->sum?>","<?php echo $caja_3->sum?>","<?php echo $caja_4->sum?>","<?php echo $caja_5->sum?>","<?php echo $caja_6->sum?>","<?php echo $caja_7->sum?>","<?php echo $caja_8->sum?>","<?php echo $caja_9->sum?>","<?php echo $caja_10->sum?>","<?php echo $caja_11->sum?>","<?php echo $caja_12->sum?>"];

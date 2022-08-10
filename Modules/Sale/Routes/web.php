@@ -18,28 +18,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/app/pos', 'PosController@store')->name('app.pos.store');
 
     //Generate PDF
-    Route::get('/sales/pdf/{id}', function ($id) {
-        $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
-        $customer = \Modules\People\Entities\Customer::findOrFail($sale->customer_id);
-        //dd($customer);
-        $view =  \View::make('sale::print', compact('sale','customer'))
-
-        ->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->setPaper('A4', 'landscape');
-        $pdf->loadHTML($view);
-
-        return $pdf->stream('sale-'. $sale->reference .'.pdf');
-    })->name('sales.pdf');
-
-    Route::get('/sales/pos/pdf/{id}', function ($id) {
-        $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
-        $view =  \View::make('sale::print-pos', compact('sale'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-
-        return $pdf->stream('invoice' . $sale->reference . '.pdf');
-    })->name('sales.pos.pdf');
+    Route::get('/sales/pdf/{id}', 'SaleController@pdf')->name('sales.pdf');
+    Route::get('/sales/pos/pdf/{id}', 'SaleController@pdf')->name('sales.pos.pdf');
 
     //Sales
     Route::resource('sales', 'SaleController');

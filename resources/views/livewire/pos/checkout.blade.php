@@ -29,7 +29,7 @@
                     </div>
                  </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-sm">
                         <thead>
                         <tr class="text-center">
                             <th class="align-middle">Producto</th>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <tr>
                                 <th>Impuesto ({{ $global_tax }}%)</th>
                                 <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
