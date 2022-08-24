@@ -64,7 +64,7 @@
                                 <td class="text-center">{{$item->date}}</td>
                                 <td class="text-center">{{ $item->customer_name }}</td>
                                 <td class="text-center">{{$item->reference}}</td>
-                                <td class="text-center">${{ $item->total_amount }}</td>
+                                <td class="text-center">{{format_currency($item->total_amount)}}</td>
                                 <td class="text-center">
                                     @if ($item->status == 'Completado')
                                         <span class="badge badge-primary">Procesado</span>
@@ -164,7 +164,7 @@
                 </tr>
                 <tr>
                     <th>Monto apertura</th>
-                    <td class="text-center">${{$caja->monto}}</td>
+                    <td class="text-center">{{format_currency($caja->monto)}}</td>
                 </tr>
                 <tr>
                     <th>Monto cierre</th>
@@ -184,7 +184,7 @@
                                 $suma+=$vent->total_amount;//sumanos los valores, ahora solo fata mostrar dicho valor
                             @endphp
                             @endforeach
-                            ${{ number_format ($suma ,2)  }}
+                            {{ format_currency ($suma )  }}
                     </td>
                 </tr>
                 <tr>

@@ -105,6 +105,7 @@ class SaleController extends Controller
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
                 'status' => $request->status,
+                'idcuenta' => $cuenta->id,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
@@ -140,6 +141,21 @@ class SaleController extends Controller
                 $linea->total = $request->total_amount;
                 $linea->save();
 
+                $mov = new MovimientoCuentas();
+                $mov->cuenta_id       = $cuenta->id;
+                $mov->fecha_emision   = $fecha;
+                $mov->mes             = date('m');
+                $mov->hora            = date('H:i:s');
+                $mov->ano             = date('Y');
+                $mov->tipo_movimiento = 'Ingreso';
+                $mov->credito         = $request->total_amount;
+                $mov->debito          = '0.00';
+                $mov->descripcion     = $linea->descripcion;
+                $mov->save();
+
+                $cuenta->saldo_actual += $request->total_amount;
+                $cuenta->save();
+
                 if ($request->status == 'Enviado' || $request->status == 'Completado') {
                     $product = Product::findOrFail($cart_item->id);
                     $product->update([
@@ -156,7 +172,8 @@ class SaleController extends Controller
                     'reference' => 'INV/'.$sale->reference,
                     'amount' => $sale->paid_amount,
                     'sale_id' => $sale->id,
-                    'payment_method' => $request->payment_method
+                    'payment_method' => $request->payment_method,
+                    'idcuenta' => $cuenta->id
                 ]);
             }
         });
