@@ -65,7 +65,7 @@ class ProductController extends Controller
         $product->product_image = $fileName;
         $product->save();
 
-        toast('Product Created!', 'success');
+        toast('¡Producto creado!', 'success');
 
         return redirect()->route('products.index');
      }
@@ -87,7 +87,8 @@ class ProductController extends Controller
         //$product->product_image = $fileName;
         $product->save();
 
-        toast('Product Created!', 'success');
+        toast('¡Producto creado!', 'success');
+
         return redirect()->route('products.index');
      }
 
@@ -129,7 +130,8 @@ class ProductController extends Controller
             }
         }
 
-        toast('Product Updated!', 'info');
+       toast('¡Producto actualizado!', 'success');
+
 
         return redirect()->route('products.index');
     }
@@ -140,7 +142,8 @@ class ProductController extends Controller
 
         $product->delete();
 
-        toast('Product Deleted!', 'warning');
+       toast('¡Producto eliminado!', 'success');
+
 
         return redirect()->route('products.index');
     }

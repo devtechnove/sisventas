@@ -63,7 +63,7 @@ class UsersController extends Controller
 
         $user->assignRole($request->role);
 
-        toast("User Created & Assigned '$request->role' Role!", 'success');
+        toast("Usuario creado y asignado '$request->role' Role!", 'success');
         return redirect()->route('users.index');
 
       }
@@ -79,7 +79,7 @@ class UsersController extends Controller
 
             $user->assignRole($request->role);
 
-            toast("User Created & Assigned '$request->role' Role!", 'success');
+             toast("Usuario creado y asignado '$request->role' Role!", 'success');
             return redirect()->route('users.index');
       }
 
@@ -120,7 +120,7 @@ class UsersController extends Controller
              $user->is_active = $request->is_active;
              $user->save();
 
-              toast("User Updated & Assigned '$request->role' Role!", 'info');
+               toast("Usuario modificado y asignado '$request->role' Role!", 'success');
              return redirect()->route('users.index');
            }
            else
@@ -135,7 +135,7 @@ class UsersController extends Controller
 
            $user->syncRoles($request->role);
 
-           toast("User Updated & Assigned '$request->role' Role!", 'info');
+            toast("Usuario modificado y asignado '$request->role' Role!", 'success');
           return redirect()->route('users.index');
        }
 
@@ -150,7 +150,7 @@ class UsersController extends Controller
 
         $user->delete();
 
-        toast('User Deleted!', 'warning');
+        toast('Usuario eliminado!', 'warning');
 
         return redirect()->route('users.index');
     }

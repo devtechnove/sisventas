@@ -163,7 +163,7 @@ class SaleController extends Controller
 
 
 
-        toast('Sale Created!', 'success');
+         toast('Venta creada satisfactoriamente!', 'success');
 
         return redirect()->route('sales.index');
     }
@@ -291,7 +291,7 @@ class SaleController extends Controller
             Cart::instance('sale')->destroy();
         });
 
-        toast('Sale Updated!', 'info');
+         toast('Venta modificada satisfactoriamente!', 'success');
 
         return redirect()->route('sales.index');
     }

@@ -82,7 +82,7 @@ class ExpenseController extends Controller
 
 
 
-        toast('Expense Created!', 'success');
+        toast('Gasto creado!', 'success');
         return redirect()->route('expenses.index');
 
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class ExpenseController extends Controller
             'details' => $request->details
         ]);
 
-        toast('Expense Updated!', 'info');
+        toast('Gasto actualizado!', 'success');
 
         return redirect()->route('expenses.index');
     }
@@ -134,7 +134,7 @@ class ExpenseController extends Controller
 
         $expense->delete();
 
-        toast('Expense Deleted!', 'warning');
+        toast('Gasto eliminadi!', 'success');
 
         return redirect()->route('expenses.index');
     }

@@ -46,7 +46,7 @@ class CustomersController extends Controller
             //'address'        => $request->address
         ]);
 
-        toast('Customer Created!', 'success');
+        toast('Cliente creado!', 'success');
 
 
        if ($request->to_modal) {
@@ -91,7 +91,7 @@ class CustomersController extends Controller
             //'address'        => $request->address
         ]);
 
-        toast('Customer Updated!', 'info');
+        toast('Cliente actualizado!', 'success');
 
         return redirect()->route('customers.index');
     }
@@ -102,7 +102,7 @@ class CustomersController extends Controller
 
         $customer->delete();
 
-        toast('Customer Deleted!', 'warning');
+        toast('Cliente eliminado!', 'success');
 
         return redirect()->route('customers.index');
     }

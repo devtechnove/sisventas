@@ -18,6 +18,9 @@ class CreateExpensesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('cuenta_id');
             $table->date('date');
+            $table->string('mes');
+            $table->string('ano');
+            $table->string('hora');
             $table->string('reference');
             $table->text('details')->nullable();
             $table->integer('amount');

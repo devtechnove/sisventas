@@ -93,7 +93,7 @@ class SalePaymentsController extends Controller
             ]);
         });
 
-        toast('Sale Payment Created!', 'success');
+         toast('Pago por venta creado!', 'success');
 
         return redirect()->route('sales.index');
     }
@@ -175,7 +175,7 @@ class SalePaymentsController extends Controller
 
         });
 
-        toast('Sale Payment Updated!', 'info');
+        toast('Pago por venta modificado!', 'success');
 
         return redirect()->route('sales.index');
     }
@@ -186,7 +186,7 @@ class SalePaymentsController extends Controller
 
         $salePayment->delete();
 
-        toast('Sale Payment Deleted!', 'warning');
+        toast('Pago por venta eliminado!', 'success');
 
         return redirect()->route('sales.index');
     }
