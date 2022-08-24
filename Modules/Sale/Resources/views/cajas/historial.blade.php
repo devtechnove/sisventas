@@ -81,12 +81,12 @@
                                                 {{$item->hora_cierre}}
                                             @endif
                                         </td>
-                                        <td class="text-center">${{$item->monto}} USD</td>
+                                        <td class="text-center">{{format_currency($item->monto)}}</td>
                                         <td class="text-center">
                                             @if ($item->monto_cierre == '0.00' || !$item->monto_cierre)
                                                 <span class="badge badge-dark">Aun no cerrada</span>
                                             @else
-                                            ${{$item->monto_cierre}} USD
+                                            {{format_currency($item->monto_cierre)}}
                                             @endif
                                         </td>
                                         <td class="text-center">{{$item->estado}}</td>

@@ -8,7 +8,7 @@ use Modules\Setting\Database\Seeders\SettingDatabaseSeeder;
 use Modules\User\Database\Seeders\PermissionsTableSeeder;
 use Modules\Expense\Database\Seeders\ExpenseDatabaseSeeder;
 use Modules\Cuentas\Database\Seeders\CuentasDatabaseSeeder;
-use Modules\Product\Database\Seeders\ProductDataSeeder;
+use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingDatabaseSeeder::class);
         $this->call(ExpenseDatabaseSeeder::class);
         $this->call(CuentasDatabaseSeeder::class);
-        $this->call(ProductDataSeeder::class);
+        $this->call(ProductDatabaseSeeder::class);
     }
 }
