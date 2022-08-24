@@ -12,6 +12,9 @@ use Modules\Currency\Entities\Currency;
 use Modules\Cuentas\Entities\Cuentas;
 use Modules\Cuentas\Entities\MovimientoCuentas;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp;
+use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 
 class ExpenseController extends Controller
 {
@@ -48,10 +51,13 @@ class ExpenseController extends Controller
         ]);
 
         try {
-
+         $hora = new DateTime("now", new DateTimeZone('America/Caracas'));
         Expense::create([
             'date' => $request->date,
             'category_id' => $request->category_id,
+            'mes'         => date('m'),
+            'ano'         => date('Y'),
+            'hora'         => $hora->format('H:i:s'),
             'amount' => $request->amount,
             'details' => $request->details,
             'cuenta_id' => $request->cuenta_id,

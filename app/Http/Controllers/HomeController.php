@@ -37,6 +37,8 @@ class HomeController extends Controller
         $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
         $product_costs = 0;
         $sales_completed = Sale::completed()->with('saleDetails')->get();
+         $currentMonthExpenses = Expense::sum('amount') / 100;
+
 
         foreach ($sales_completed as $sale) {
             foreach ($sale->saleDetails as $saleDetail) {
@@ -52,7 +54,8 @@ class HomeController extends Controller
             'sale_returns'     => $sale_returns / 100,
             'purchase_returns' => $purchase_returns / 100,
             'profit'           => $profit,
-            'tasa'             => $tasa
+            'tasa'             => $tasa,
+            'currentMonthExpenses' => $currentMonthExpenses
         ]);
        }
     }

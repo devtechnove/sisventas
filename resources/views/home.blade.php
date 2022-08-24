@@ -62,7 +62,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="font-weight-bolder mb-0">{{ format_currency($revenue) }}</h2>
+                                <h2 class="font-weight-bolder mb-0">{{ format_currency($revenue - $currentMonthExpenses) }}</h2>
                                 <small class="card-text">Ganancias</small>
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
