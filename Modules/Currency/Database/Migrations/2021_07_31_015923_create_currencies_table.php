@@ -21,7 +21,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('thousand_separator');
             $table->string('decimal_separator');
             $table->integer('exchange_rate')->nullable();
-            $table->boolean('principal')->nullable()->default(true);
+            $table->integer('principal')->nullable()->default(1);
             $table->timestamps();
         });
     }

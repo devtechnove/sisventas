@@ -64,9 +64,9 @@
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a class="navbar-brand" href="{{ url('/home') }}">
                     <span class="brand-logo">
-                        <object data="/images/logo/infinity-logo-light.svg" width="50"></object>
+                        <object data="/images/logo/logo_negro.png" width="150"></object>
                      </span>
-                        <h2 class="brand-text mb-0">Infinity | POS</h2>
+
                     </a></li>
             </ul>
         </div>
