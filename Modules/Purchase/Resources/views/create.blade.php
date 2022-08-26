@@ -27,13 +27,13 @@
                             @csrf
 
                             <div class="form-row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="PR">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="supplier_id">Proveedor <span class="text-danger">*</span></label>
@@ -52,11 +52,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="date">Fecha de registro <span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" name="date" required value="{{ now()->format('Y-m-d') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                @php
+                                    $cuenta = \Modules\Cuentas\Entities\Cuentas::pluck('nb_nombre','id');
+                                @endphp
+                                <div class="col-lg-3">
+                                    <div class="from-group">
+                                        <div class="form-group">
+                                            <label for="date">Cuenta bancaria <span class="text-danger">*</span></label>
+                                             {!! Form::select('cuenta_id', $cuenta, null, ['class' => 'form-control','placeholder' =>'Seleccione']) !!}
                                         </div>
                                     </div>
                                 </div>

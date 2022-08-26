@@ -29,6 +29,50 @@ class HomeController extends Controller
         else
         {
 
+        $date_current = Carbon::now()->toDateTimeString();
+
+        $prev_date1 = $this->getPrevDate(1);
+        $prev_date2 = $this->getPrevDate(2);
+        $prev_date3 = $this->getPrevDate(3);
+        $prev_date4 = $this->getPrevDate(4);
+        $prev_date5 = $this->getPrevDate(5);
+        $prev_date6 = $this->getPrevDate(6);
+        $prev_date7 = $this->getPrevDate(7);
+
+        $emp_count_0 = Sale::whereBetween('created_at',[$date_current,$date_current])->sum('total_amount') / 100;
+        $emp_count_1 = Sale::whereBetween('created_at',[$prev_date1,$date_current])->sum('total_amount') / 100;
+        $emp_count_2 = Sale::whereBetween('created_at',[$prev_date2,$prev_date1])->sum('total_amount') / 100;
+        $emp_count_3 = Sale::whereBetween('created_at',[$prev_date3,$prev_date2])->sum('total_amount') / 100;
+        $emp_count_4 = Sale::whereBetween('created_at',[$prev_date4,$prev_date3])->sum('total_amount') / 100;
+        $emp_count_5 = Sale::whereBetween('created_at',[$prev_date5,$prev_date4])->sum('total_amount') / 100;
+        $emp_count_6 = Sale::whereBetween('created_at',[$prev_date6,$prev_date5])->sum('total_amount') / 100;
+        $emp_count_7 = Sale::whereBetween('created_at',[$prev_date7,$prev_date6])->sum('total_amount') / 100;
+
+
+
+        $prev_date1 = $this->getPrevDate(1);
+        $prev_date2 = $this->getPrevDate(2);
+        $prev_date3 = $this->getPrevDate(3);
+        $prev_date4 = $this->getPrevDate(4);
+        $prev_date5 = $this->getPrevDate(5);
+        $prev_date6 = $this->getPrevDate(6);
+        $prev_date7 = $this->getPrevDate(7);
+
+
+
+
+        $purch_count_0 = Purchase::whereBetween('created_at',[$date_current,$date_current])->sum('total_amount') / 100;
+        $purch_count_1 = Purchase::whereBetween('created_at',[$prev_date1,$date_current])->sum('total_amount') / 100;
+        $purch_count_2 = Purchase::whereBetween('created_at',[$prev_date2,$prev_date1])->sum('total_amount') / 100;
+        $purch_count_3 = Purchase::whereBetween('created_at',[$prev_date3,$prev_date2])->sum('total_amount') / 100;
+        $purch_count_4 = Purchase::whereBetween('created_at',[$prev_date4,$prev_date3])->sum('total_amount') / 100;
+        $purch_count_5 = Purchase::whereBetween('created_at',[$prev_date5,$prev_date4])->sum('total_amount') / 100;
+        $purch_count_6 = Purchase::whereBetween('created_at',[$prev_date6,$prev_date5])->sum('total_amount') / 100;
+        $purch_count_7 = Purchase::whereBetween('created_at',[$prev_date7,$prev_date6])->sum('total_amount') / 100;
+
+       // dd($purch_count_2);
+
+
         $tasa = $this->bolivares();
         //dd($tasa);
 
@@ -37,7 +81,9 @@ class HomeController extends Controller
         $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
         $product_costs = 0;
         $sales_completed = Sale::completed()->with('saleDetails')->get();
-         $currentMonthExpenses = Expense::sum('amount') / 100;
+        $currentMonthExpenses = Expense::sum('amount') / 100;
+
+
 
 
         foreach ($sales_completed as $sale) {
@@ -49,13 +95,43 @@ class HomeController extends Controller
         $revenue = ($sales - $sale_returns) / 100;
         $profit = $revenue - $product_costs;
 
+         $date_range = Carbon::today()->subDays(7);
+
+        $sales = Sale::where('date', '<>', $date_range)
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get([
+                //DB::raw(DB::raw("DATE_TRUNC(date,'%d-%m-%y') as date")),
+                DB::raw('sum(cast(total_amount as double precision))'),
+            ])
+            ->pluck('sum', 'date');
+
+
+
         return view('home', [
             'revenue'          => $revenue,
             'sale_returns'     => $sale_returns / 100,
             'purchase_returns' => $purchase_returns / 100,
             'profit'           => $profit,
             'tasa'             => $tasa,
-            'currentMonthExpenses' => $currentMonthExpenses
+            'currentMonthExpenses' => $currentMonthExpenses,
+            'emp_count_1'     =>  $emp_count_1,
+            'emp_count_2'     =>  $emp_count_2,
+            'emp_count_3'     =>  $emp_count_3,
+            'emp_count_4'     =>  $emp_count_4,
+            'emp_count_5'     =>  $emp_count_5,
+            'emp_count_6'     =>  $emp_count_6,
+            'emp_count_7'     =>  $emp_count_7,
+            'emp_count_0'     =>  $emp_count_0,
+            'purch_count_0'   =>  $purch_count_0,
+            'purch_count_1'   =>  $purch_count_1,
+            'purch_count_2'   =>  $purch_count_2,
+            'purch_count_3'   =>  $purch_count_3,
+            'purch_count_4'   =>  $purch_count_4,
+            'purch_count_5'   =>  $purch_count_5,
+            'purch_count_6'   =>  $purch_count_6,
+            'purch_count_7'   =>  $purch_count_7
+
         ]);
        }
     }
@@ -247,5 +323,12 @@ class HomeController extends Controller
         $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))->count();
 
         return $tbolivares;
+    }
+
+     /**
+     *  get the sub month of the given integer
+     */
+    private function getPrevDate($num){
+        return \Carbon\Carbon::now()->subDays($num)->toDateTimeString();
     }
 }

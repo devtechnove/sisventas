@@ -85,7 +85,9 @@
                        Ventas y compras en los útimos 7 días
                     </div>
                     <div class="card-body">
-                        <canvas id="salesPurchasesChart"></canvas>
+                        <div id="chart-container">
+                            <canvas id="employee"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,15 +174,78 @@
 
 @push('page_scripts')
     <script src="{{ asset('js/chart-config.js') }}"></script>
-    <script>
+     <script>
+        // Get Canvas element by its id
+        employee_chart = document.getElementById('employee').getContext('2d');
+        chart = new Chart(employee_chart,{
+          type: 'bar',
+            data:{
+                labels:[
+                    /*
+                        this is blade templating.
+                        we are getting the date by specifying the submonth
+                     */
+
+                    '{{Carbon\Carbon::now()->subDays(6)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(5)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(4)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(3)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(2)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(1)->toFormattedDateString()}}',
+                    '{{Carbon\Carbon::now()->subDays(0)->toFormattedDateString()}}',
+                    ],
+                datasets:[{
+                    label:'Ventas',
+                    data:[
+                        '{{$emp_count_7}}',
+                        '{{$emp_count_6}}',
+                        '{{$emp_count_5}}',
+                        '{{$emp_count_4}}',
+                        '{{$emp_count_3}}',
+                        '{{$emp_count_2}}',
+                        '{{$emp_count_1}}',
+                        '{{$emp_count_0 }}'
+                    ],
+                     backgroundColor: '#00A404',
+                      borderColor: '#00A404',
+                      borderWidth: 1
+                },
+                {
+                      label: 'Compras',
+                      data: [
+                        '{{$purch_count_7}}',
+                        '{{$purch_count_6}}',
+                        '{{$purch_count_5}}',
+                        '{{$purch_count_4}}',
+                        '{{$purch_count_3}}',
+                        '{{$purch_count_2}}',
+                        '{{$purch_count_1}}',
+                        '{{$purch_count_0 }}'
+
+                      ],
+                      backgroundColor: '#FF0000',
+                      borderColor: '#FF0000',
+                      borderWidth: 1
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+     <script>
         var tasa = $('#tasa').val();
-
         console.log(tasa);
-
     if(tasa == 0)
     {
          $('#createModalTasa').modal('show');
-
     }
     else
     {

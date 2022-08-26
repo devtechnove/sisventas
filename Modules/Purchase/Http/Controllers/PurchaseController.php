@@ -15,6 +15,8 @@ use Modules\Purchase\Entities\PurchasePayment;
 use Modules\Purchase\Http\Requests\StorePurchaseRequest;
 use Modules\Purchase\Http\Requests\UpdatePurchaseRequest;
 use Modules\Product\Entities\LineaProducto;
+use Modules\Cuentas\Entities\MovimientoCuentas;
+use Modules\Cuentas\Entities\Cuentas;
 
 class PurchaseController extends Controller
 {
@@ -46,8 +48,12 @@ class PurchaseController extends Controller
             } else {
                 $payment_status = 'Pagado';
             }
+            $mytime =  \Carbon\Carbon::now('America/Caracas');
+         $fecha=$mytime->format('Y-m-d');
+             $cuenta = Cuentas::find($request->cuenta_id);
 
             $purchase = Purchase::create([
+                'idcuenta' => $cuenta->id,
                 'date' => $request->date,
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
@@ -72,13 +78,28 @@ class PurchaseController extends Controller
                 $linea->producto_id = $cart_item->id;
                 $linea->usuario_id = \Auth::id();
                 //$linea->comprobante_id = $purchase->id;
-                $linea->descripcion = "Incremento de stock por compra de artículos: x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
+                $linea->descripcion = "Compra de artículos: x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
                 $linea->fecha = date("Y-m-d H:i:s");;
                 $linea->precioUnitario = $cart_item->price;
                 $linea->cantidad = $cart_item->qty;
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
                 $linea->save();
+
+                $mov = new MovimientoCuentas();
+                $mov->cuenta_id       = $cuenta->id;
+                $mov->fecha_emision   = $fecha;
+                $mov->mes             = date('m');
+                $mov->hora            = date('H:i:s');
+                $mov->ano             = date('Y');
+                $mov->tipo_movimiento = 'Compra';
+                $mov->credito         = '0.00';
+                $mov->debito          = $request->total_amount;
+                $mov->descripcion     = $linea->descripcion;
+                $mov->save();
+
+                $cuenta->saldo_actual -= $request->total_amount;
+                $cuenta->save();
                 PurchaseDetail::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $cart_item->id,
@@ -93,18 +114,22 @@ class PurchaseController extends Controller
                     'product_tax_amount' => $cart_item->options->product_tax * 100,
                 ]);
 
-                if ($request->status == 'Completed') {
+                if ($request->status == 'Completado') {
                     $product = Product::findOrFail($cart_item->id);
+
                     $product->update([
                         'product_quantity' => $product->product_quantity + $cart_item->qty
                     ]);
                 }
             }
 
+
+
             Cart::instance('purchase')->destroy();
 
             if ($purchase->paid_amount > 0) {
                 PurchasePayment::create([
+                    'cuenta_id' => $cuenta->id,
                     'date' => $request->date,
                     'reference' => 'INV/'.$purchase->reference,
                     'amount' => $purchase->paid_amount,
@@ -173,7 +198,7 @@ class PurchaseController extends Controller
             }
 
             foreach ($purchase->purchaseDetails as $purchase_detail) {
-                if ($purchase->status == 'Completed') {
+                if ($purchase->status == 'Completado') {
                     $product = Product::findOrFail($purchase_detail->product_id);
                     $product->update([
                         'product_quantity' => $product->product_quantity - $purchase_detail->quantity
@@ -216,7 +241,7 @@ class PurchaseController extends Controller
                     'product_tax_amount' => $cart_item->options->product_tax * 100,
                 ]);
 
-                if ($request->status == 'Completed') {
+                if ($request->status == 'Completado') {
                     $product = Product::findOrFail($cart_item->id);
                     $product->update([
                         'product_quantity' => $product->product_quantity + $cart_item->qty
