@@ -13,7 +13,7 @@
     <div>
         @can('show_total_stats')
         <div class="row">
-              <div class="col-lg-3 col-sm-6 col-12">
+              <div class="col-lg-5 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                  </div>
-                 <div class="col-lg-3 col-sm-6 col-12">
+                 <div class="col-lg-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -52,17 +52,32 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                     <span class="iconify fa-3x" data-icon="fa-regular:handshake"></span>
+                                     <span class="iconify fa-3x" data-icon="mdi:refresh"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                  </div>
-               <div class="col-lg-3 col-sm-6 col-12">
+                  <div class="col-lg-5 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="font-weight-bolder mb-0">{{ format_currency($revenue - $currentMonthExpenses) }}</h2>
+                                <h2 class="font-weight-bolder mb-0">{{ format_currency($purchase) }}</h2>
+                                <small class="card-text">Compras</small>
+                            </div>
+                            <div class="avatar bg-light-primary p-50 m-0">
+                                <div class="avatar-content">
+                                    <span class="iconify fa-3x" data-icon="fa-regular:handshake"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+               <div class="col-lg-7 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="font-weight-bolder mb-0">{{ format_currency($revenue - $currentMonthExpenses - $purchase) }}</h2>
                                 <small class="card-text">Ganancias</small>
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
@@ -110,7 +125,7 @@
 
     @endif
 
-        @can('show_monthly_cashflow')
+       {{--  @can('show_monthly_cashflow')
         <div class="row">
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm">
@@ -123,7 +138,7 @@
                 </div>
             </div>
         </div>
-        @endcan
+        @endcan --}}
     </div>
     <div class="modal fade" id="createModalTasa" tabindex="-1" role="dialog" aria-labelledby="formModal"
           aria-hidden="true">

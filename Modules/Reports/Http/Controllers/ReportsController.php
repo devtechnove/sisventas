@@ -44,4 +44,10 @@ class ReportsController extends Controller
 
         return view('reports::purchases-return.index');
     }
+
+    public function estadoCuentasReport() {
+        abort_if(Gate::denies('access_reports'), 403);
+
+        return view('reports::estados.index');
+    }
 }

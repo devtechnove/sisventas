@@ -82,6 +82,8 @@ class HomeController extends Controller
         $product_costs = 0;
         $sales_completed = Sale::completed()->with('saleDetails')->get();
         $currentMonthExpenses = Expense::sum('amount') / 100;
+        $purchase = Purchase::sum('total_amount') / 100;
+
 
 
 
@@ -130,7 +132,8 @@ class HomeController extends Controller
             'purch_count_4'   =>  $purch_count_4,
             'purch_count_5'   =>  $purch_count_5,
             'purch_count_6'   =>  $purch_count_6,
-            'purch_count_7'   =>  $purch_count_7
+            'purch_count_7'   =>  $purch_count_7,
+            'purchase'        =>  $purchase
 
         ]);
        }

@@ -25,8 +25,8 @@
         order: [[2, 'desc']],
         dom:
           '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-left"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-        displayLength: 7,
-        lengthMenu: [7, 10, 25, 50, 75, 100],
+        displayLength: 10,
+
 
         buttons: [
           {

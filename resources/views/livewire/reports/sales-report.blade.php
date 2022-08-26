@@ -76,7 +76,7 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <table class="table table-bordered table-striped text-center mb-0">
+                    <table class="table table-bordered table-striped text-center mb-0" id="tableExport">
                         <div wire:loading.flex class="col-12 position-absolute justify-content-center align-items-center" style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Cargando...</span>
@@ -88,6 +88,7 @@
                             <th>Referencia</th>
                             <th>Cliente</th>
                             <th>Estado de la venta</th>
+                            <th>Método de pago</th>
                             <th>Total</th>
                             <th>Pago</th>
                             <th>Deuda</th>
@@ -115,6 +116,7 @@
                                 </span>
                                     @endif
                                 </td>
+                                <td>{{ $sale->payment_method }}</td>
                                 <td>{{ format_currency($sale->total_amount) }}</td>
                                 <td>{{ format_currency($sale->paid_amount) }}</td>
                                 <td>{{ format_currency($sale->due_amount) }}</td>

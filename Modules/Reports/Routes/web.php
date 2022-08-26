@@ -30,4 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Purchases Return Report
     Route::get('/purchases-return-report', 'ReportsController@purchasesReturnReport')
         ->name('purchases-return-report.index');
+
+    Route::get('/estado-cuenta-report', 'ReportsController@estadoCuentasReport')
+        ->name('estado-cuenta-report.index');
 });
