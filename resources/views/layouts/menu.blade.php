@@ -295,9 +295,9 @@
                                     <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Reportes
                                 </a>
                                 <ul class="c-sidebar-nav-dropdown-items">
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link {{ request()->routeIs('profit-loss-report.index') ? 'active' : '' }}" href="{{ route('profit-loss-report.index') }}">
-                                            <i class="c-sidebar-nav-icon bi bi-clipboard-data" style="line-height: 1;"></i> Pérdidas y ganancias
+                                   <li class="c-sidebar-nav-item">
+                                        <a class="c-sidebar-nav-link {{ request()->routeIs('estado-cuenta-report.index') ? 'active' : '' }}" href="{{ route('estado-cuenta-report.index') }}">
+                                            <i class="c-sidebar-nav-icon bi bi-clipboard-data" style="line-height: 1;"></i> Estado de cuenta
                                         </a>
                                     </li>
                                     <li class="c-sidebar-nav-item">

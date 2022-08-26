@@ -56,7 +56,7 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <table class="table table-bordered table-striped text-center mb-0" >
+                    <table class="table table-bordered table-striped text-center mb-0" id="tableExport">
                         <div wire:loading.flex class="col-12 position-absolute justify-content-center align-items-center" style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Cargando...</span>
@@ -65,7 +65,7 @@
                         <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Referencia</th>
+
                             <th>Detalle</th>
                             <th>Estado</th>
                             <th>Crédito</th>
@@ -73,24 +73,41 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($estados as $sale)
+                        @forelse($estados as $sale)
                             <tr>
                                 <td> {{ \Carbon\Carbon::parse($sale->fecha_emision)->format('d M, Y') }}</td>
-                                <td> {{ $sale->tipo_movimiento }}</td>
+
                                 <td> {{ $sale->descripcion }}</td>
                                 <td> {{ $sale->tipo_movimiento }}</td>
                                 <td>{{ format_currency($sale->credito) }}</td>
                                 <td>{{ format_currency($sale->debito) }}</td>
 
                             </tr>
-
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8">
+                                    <span class="text-danger">¡No hay datos de ventas disponibles!</span>
+                                </td>
+                            </tr>
+                        @endforelse
                         </tbody>
-
+                         @foreach ($estados as $vent)
+                            @php
+                                $totalCredito+=$vent->credito;//sumanos los valores, ahora solo fata mostrar dicho valor
+                                $totalDebito+=$vent->debito
+                            @endphp
+                            @endforeach
+                        <tfoot class="table-border-bottom-0">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th>{{ format_currency ($totalCredito )  }} </th>
+                          <th>{{ format_currency ($totalDebito )  }}</th>
+                        </tr>
+                      </tfoot>
                     </table>
-                    <div @class(['mt-3' => $estados->hasPages()])>
-                        {{ $estados->links() }}
-                    </div>
+
                 </div>
             </div>
         </div>
