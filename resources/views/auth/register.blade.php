@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Registro a nuestra app de punto de venta">
+    <meta name="description" content="Sistema automatizado para el control de ventas">
     <meta name="keywords" content="Nuestro producto está para ayudarte en todo lo que necesites implementar en tu negocio.">
     <meta name="author" content="DEVTECH">
     <title>DEVPOS | REGISTRO</title>
@@ -55,7 +55,7 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
                              <a class="brand-logo" href="javascript:void(0);">
-                            <img src="{{ asset('assets/images/logo/logo_negro.png') }}" alt="" height="100">
+                             <img src="{{ asset('images/logo/20220827_155817_00002.png') }}" alt="" height="100">
                         </a>
                         </a>
                         <!-- /Brand logo-->
