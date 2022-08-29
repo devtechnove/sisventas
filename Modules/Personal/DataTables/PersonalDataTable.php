@@ -32,7 +32,7 @@ class PersonalDataTable extends DataTable
     }
 
     public function query(Personal $model) {
-        return $model->newQuery();
+        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery();
     }
 
     public function html() {
@@ -55,18 +55,23 @@ class PersonalDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('name')
+                ->title('Nombres')
                 ->className('text-center align-middle'),
 
             Column::make('lastname')
+                ->title('Apellidos')
                 ->className('text-center align-middle'),
 
             Column::make('cedula')
+                ->title('Cédula')
                 ->className('text-center align-middle'),
 
              Column::make('cargo')
+                ->title('Cargo del empleado')
                 ->className('text-center align-middle'),
 
             Column::computed('action')
+                ->title('Opciones')
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),

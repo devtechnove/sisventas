@@ -44,6 +44,7 @@ class PersonalController extends Controller
         try {
 
             $personal = new Personal();
+            $personal->empresa_id = \Auth::user()->empresa_id;
             $personal->name = $request->name;
             $personal->lastname = $request->lastname;
             $personal->cedula = $request->cedula;
@@ -98,6 +99,7 @@ class PersonalController extends Controller
          try {
 
             $personal =  Personal::find($id);
+            $personal->empresa_id = \Auth::user()->empresa_id;
             $personal->name = $request->name;
             $personal->lastname = $request->lastname;
             $personal->cedula = $request->cedula;
