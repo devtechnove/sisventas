@@ -144,6 +144,7 @@ class HomeController extends Controller
          $date_range = Carbon::today()->subDays(7);
 
         $sales = Sale::where('date', '<>', $date_range)
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')
             ->orderBy('date')
             ->get([
@@ -188,12 +189,14 @@ class HomeController extends Controller
         abort_if(!request()->ajax(), 404);
 
         $currentMonthSales = Sale::whereMonth('date', date('m'))
+                ->where('empresa_id',\Auth::user()->empresa_id)
                 ->whereYear('date', date('Y'))
 
                 ->where('empresa_id',\Auth::user()->empresa_id)
                 ->sum('total_amount') / 100;
 
         $currentMonthPurchases = Purchase::whereMonth('created_at', date('m'))
+                ->where('empresa_id',\Auth::user()->empresa_id)
                 ->whereYear('date', date('Y'))
 
                 ->where('empresa_id',\Auth::user()->empresa_id)
@@ -201,6 +204,7 @@ class HomeController extends Controller
 
 
         $currentMonthExpenses = Expense::whereMonth('date', date('m'))
+                ->where('empresa_id',\Auth::user()->empresa_id)
                 ->whereYear('date', date('Y'))
                 ->sum('amount') / 100;
 
@@ -240,6 +244,7 @@ class HomeController extends Controller
                 DB::raw("to_char(date, 'YYYY-MM') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')->orderBy('date')
             ->get()->pluck('amount', 'date');
 
@@ -248,6 +253,7 @@ class HomeController extends Controller
                 DB::raw("to_char(date, 'YYYY-MM') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')->orderBy('date')
             ->get()->pluck('amount', 'date');
 
@@ -256,6 +262,7 @@ class HomeController extends Controller
                 DB::raw("to_char(date, 'YYYY-MM') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')->orderBy('date')
             ->get()->pluck('amount', 'date');
 
@@ -264,6 +271,7 @@ class HomeController extends Controller
                 //DB::raw("to_char(date, 'YYYY-MM') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')->orderBy('date')
             ->get()->pluck('amount', 'date');
 
@@ -272,6 +280,7 @@ class HomeController extends Controller
                 //DB::raw("to_char(date, 'YYYY-MM') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')->orderBy('date')
             ->get()->pluck('amount', 'date');
 
@@ -311,6 +320,7 @@ class HomeController extends Controller
         $date_range = Carbon::today()->subDays(7);
 
         $sales = Sale::where('date', '<>', $date_range)
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')
             ->orderBy('date')
             ->get([
@@ -343,6 +353,7 @@ class HomeController extends Controller
         $date_range = Carbon::today()->subDays(6)->format('d-m-y');
 
         $purchases = Purchase::whereMonth('date', date('m'))
+            ->where('empresa_id',\Auth::user()->empresa_id)
             ->groupBy('date')
             ->orderBy('date')
             ->get([
