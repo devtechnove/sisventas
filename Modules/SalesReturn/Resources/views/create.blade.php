@@ -27,19 +27,19 @@
                             @csrf
 
                             <div class="form-row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="reference">Referencia <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required readonly value="SLRN">
                                     </div>
                                 </div>
-                                 <div class="col-lg-4">
+                                 <div class="col-lg-3">
                                       <div class="form-group">
                                             <label for="customer_id">Clientes <span class="text-danger">*</span></label>
                                            <div class="input-group">
                                             <select class="form-control" name="customer_id" id="customer_id" required>
                                                  <option value="">Seleccione el cliente</option>
-                                                @foreach(\Modules\People\Entities\Customer::all() as $customer)
+                                                @foreach(\Modules\People\Entities\Customer::where('empresa_id',\Auth::user()->empresa_id)->get() as $customer)
 
                                                     <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                                 @endforeach
@@ -53,13 +53,32 @@
                                         </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="date">Fecha de registro <span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" name="date" required value="{{ now()->format('Y-m-d') }}">
                                         </div>
                                     </div>
+                                </div>
+                                 <div class="col-lg-3">
+                                      <div class="form-group">
+                                            <label for="customer_id">Cuenta bancaria <span class="text-danger">*</span></label>
+                                           <div class="input-group">
+                                            <select class="form-control" name="customer_id" id="customer_id" required>
+                                                 <option value="">Seleccione el cliente</option>
+                                                @foreach(\Modules\People\Entities\Customer::where('empresa_id',\Auth::user()->empresa_id)->get() as $customer)
+
+                                                    <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#proveedorCreateModal">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        </div>
                                 </div>
                             </div>
 

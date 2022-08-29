@@ -40,28 +40,34 @@ class SaleReturnPaymentsDataTable extends DataTable
                     ->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
                 Button::make('print')
                     ->text('<i class="bi bi-printer-fill"></i> Print'),
-                Button::make('reset')
+                /*Button::make('reset')
                     ->text('<i class="bi bi-x-circle"></i> Reset'),
                 Button::make('reload')
                     ->text('<i class="bi bi-arrow-repeat"></i> Reload')
+                */
             );
     }
 
     protected function getColumns() {
         return [
             Column::make('date')
+                ->title('Fecha de pago')
                 ->className('align-middle text-center'),
 
             Column::make('reference')
+                ->title('Referencia')
                 ->className('align-middle text-center'),
 
             Column::computed('amount')
+                ->title('Monto')
                 ->className('align-middle text-center'),
 
             Column::make('payment_method')
+                ->title('Método de pago')
                 ->className('align-middle text-center'),
 
             Column::computed('action')
+                ->title('Opciones')
                 ->exportable(false)
                 ->printable(false)
                 ->className('align-middle text-center'),

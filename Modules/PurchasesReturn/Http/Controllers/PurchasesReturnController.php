@@ -31,7 +31,7 @@ class PurchasesReturnController extends Controller
         abort_if(Gate::denies('create_purchase_returns'), 403);
 
         Cart::instance('purchase_return')->destroy();
-        $cuentas = Cuentas::pluck('nb_nombre','id');
+        $cuentas = Cuentas::where('empresa_id',\Auth::user()->empresa_id)->pluck('nb_nombre','id');
         return view('purchasesreturn::create',compact('cuentas'));
     }
 
@@ -53,6 +53,7 @@ class PurchasesReturnController extends Controller
                 'date' => $request->date,
                 'supplier_id' => $request->supplier_id,
                 'cuenta_id' => $request->cuenta_id,
+                'empresa_id' => \Auth::user()->empresa_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
@@ -81,6 +82,7 @@ class PurchasesReturnController extends Controller
                 $linea->cantidad = $cart_item->qty;
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
+                $linea->empresa_id       = \Auth::user()->empresa_id;
                 $linea->save();
 
                  $mytime =  \Carbon\Carbon::now('America/Caracas');
@@ -90,6 +92,7 @@ class PurchasesReturnController extends Controller
 
                 $mov = new \Modules\Cuentas\Entities\MovimientoCuentas();
                 $mov->cuenta_id       = $request->cuenta_id;
+                $mov->empresa_id       = \Auth::user()->empresa_id;
                 $mov->fecha_emision   = $fecha;
                 $mov->mes             = date('m');
                 $mov->hora            = date('H:i:s');
@@ -107,6 +110,7 @@ class PurchasesReturnController extends Controller
 
                 PurchaseReturnDetail::create([
                     'purchase_return_id' => $purchase_return->id,
+                    'empresa_id' => \Auth::user()->empresa_id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,
@@ -133,6 +137,7 @@ class PurchasesReturnController extends Controller
                 PurchaseReturnPayment::create([
                     'date'               => $request->date,
                     'cuenta_id'               => $request->cuenta_id,
+                    'empresa_id' => \Auth::user()->empresa_id,
                     'reference'          => 'INV/' . $purchase_return->reference,
                     'amount'             => $purchase_return->paid_amount,
                     'purchase_return_id' => $purchase_return->id,

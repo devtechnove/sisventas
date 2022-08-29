@@ -31,6 +31,8 @@ class CreateSaleReturnsTable extends Migration
             $table->string('payment_status');
             $table->string('payment_method');
             $table->text('note')->nullable();
+            $table->unsignedBigInteger('cuenta_id')->nullable();
+            $table->foreign('cuenta_id')->references('id')->on('cuentas')->nullOnDelete();
             $table->foreign('customer_id')->references('id')->on('customers')->nullOnDelete();
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
