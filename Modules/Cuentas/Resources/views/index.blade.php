@@ -50,7 +50,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12 table-responsive-sm">
-                                        <table class="table table-hover table-sm table-outline mb-0">
+                                        <table class="table table-hover table-sm table-outline mb-0" id="tableExport">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="text-center">Banco</th>
@@ -77,10 +77,10 @@
                                                                 {{ $moneda->currency_name }}
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ number_format($item->saldo_apertura) }}
+                                                                {{ format_currency($item->saldo_apertura) }}
                                                             </td>
                                                             <td class="text-center">
-                                                                 {{ number_format($item->saldo_actual) }}
+                                                                 {{ format_currency($item->saldo_actual) }}
                                                             </td>
                                                             <td class="text-center">
                                                                 @if ($item->is_active == 1)

@@ -21,7 +21,7 @@ class CuentasController extends Controller
     public function index(Request $request) {
         abort_if(Gate::denies('access_accounts'), 403);
 
-        $cuentas = Cuentas::get();
+        $cuentas = Cuentas::where('empresa_id',\Auth::user()->empresa_id)->get();
         //DD($cuentas);
         return view('cuentas::index',compact('cuentas'));
     }
@@ -65,6 +65,7 @@ class CuentasController extends Controller
 
                 $cuenta = new Cuentas();
                 $cuenta->nb_nombre = $request->nb_nombre;
+                $cuenta->empresa_id = \Auth::user()->empresa_id;
                 $cuenta->fe_apertura = $request->fe_apertura;
                 $cuenta->nu_cuenta = $request->nu_cuenta;
                 $cuenta->moneda_id = $request->moneda_id;
@@ -91,7 +92,6 @@ class CuentasController extends Controller
 
 
            } catch (\Exception $e) {
-            dd($e);
              toast('¡Algo salió mal!', 'error');
             return redirect()->to('/cuentas');
            }
@@ -148,6 +148,7 @@ class CuentasController extends Controller
 
             $cuenta = Cuentas::find($id);
             $cuenta->nb_nombre = $request->nb_nombre;
+            $cuenta->empresa_id = \Auth::user()->empresa_id;
             $cuenta->fe_apertura = $request->date;
             $cuenta->nu_cuenta = $request->nu_cuenta;
             $cuenta->moneda_id = $request->moneda_id;

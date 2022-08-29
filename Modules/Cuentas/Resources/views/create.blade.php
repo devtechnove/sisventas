@@ -26,7 +26,9 @@
                         <div class="card-body">
                       <div class="row">
                          @php
-                          $monedas  =  \DB::table('currencies')->pluck('currency_name','id');
+                          $monedas  =  \DB::table('currencies')
+                          ->where('empresa_id',\Auth::user()->empresa_id)
+                          ->pluck('currency_name','id');
                          @endphp
                             <div class="col-sm-4">
                               <div class="form-group">
