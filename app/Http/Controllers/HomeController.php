@@ -45,14 +45,30 @@ class HomeController extends Controller
         $prev_date6 = $this->getPrevDate(6);
         $prev_date7 = $this->getPrevDate(7);
 
-        $emp_count_0 = Sale::whereBetween('created_at',[$date_current,$date_current])->sum('total_amount') / 100;
-        $emp_count_1 = Sale::whereBetween('created_at',[$prev_date1,$date_current])->sum('total_amount') / 100;
-        $emp_count_2 = Sale::whereBetween('created_at',[$prev_date2,$prev_date1])->sum('total_amount') / 100;
-        $emp_count_3 = Sale::whereBetween('created_at',[$prev_date3,$prev_date2])->sum('total_amount') / 100;
-        $emp_count_4 = Sale::whereBetween('created_at',[$prev_date4,$prev_date3])->sum('total_amount') / 100;
-        $emp_count_5 = Sale::whereBetween('created_at',[$prev_date5,$prev_date4])->sum('total_amount') / 100;
-        $emp_count_6 = Sale::whereBetween('created_at',[$prev_date6,$prev_date5])->sum('total_amount') / 100;
-        $emp_count_7 = Sale::whereBetween('created_at',[$prev_date7,$prev_date6])->sum('total_amount') / 100;
+        $emp_count_0 = Sale::whereBetween('created_at',[$date_current,$date_current])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_1 = Sale::whereBetween('created_at',[$prev_date1,$date_current])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_2 = Sale::whereBetween('created_at',[$prev_date2,$prev_date1])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_3 = Sale::whereBetween('created_at',[$prev_date3,$prev_date2])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_4 = Sale::whereBetween('created_at',[$prev_date4,$prev_date3])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_5 = Sale::whereBetween('created_at',[$prev_date5,$prev_date4])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_6 = Sale::whereBetween('created_at',[$prev_date6,$prev_date5])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $emp_count_7 = Sale::whereBetween('created_at',[$prev_date7,$prev_date6])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
 
 
 
@@ -67,14 +83,30 @@ class HomeController extends Controller
 
 
 
-        $purch_count_0 = Purchase::whereBetween('created_at',[$date_current,$date_current])->sum('total_amount') / 100;
-        $purch_count_1 = Purchase::whereBetween('created_at',[$prev_date1,$date_current])->sum('total_amount') / 100;
-        $purch_count_2 = Purchase::whereBetween('created_at',[$prev_date2,$prev_date1])->sum('total_amount') / 100;
-        $purch_count_3 = Purchase::whereBetween('created_at',[$prev_date3,$prev_date2])->sum('total_amount') / 100;
-        $purch_count_4 = Purchase::whereBetween('created_at',[$prev_date4,$prev_date3])->sum('total_amount') / 100;
-        $purch_count_5 = Purchase::whereBetween('created_at',[$prev_date5,$prev_date4])->sum('total_amount') / 100;
-        $purch_count_6 = Purchase::whereBetween('created_at',[$prev_date6,$prev_date5])->sum('total_amount') / 100;
-        $purch_count_7 = Purchase::whereBetween('created_at',[$prev_date7,$prev_date6])->sum('total_amount') / 100;
+        $purch_count_0 = Purchase::whereBetween('created_at',[$date_current,$date_current])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_1 = Purchase::whereBetween('created_at',[$prev_date1,$date_current])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_2 = Purchase::whereBetween('created_at',[$prev_date2,$prev_date1])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_3 = Purchase::whereBetween('created_at',[$prev_date3,$prev_date2])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_4 = Purchase::whereBetween('created_at',[$prev_date4,$prev_date3])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_5 = Purchase::whereBetween('created_at',[$prev_date5,$prev_date4])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_6 = Purchase::whereBetween('created_at',[$prev_date6,$prev_date5])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
+        $purch_count_7 = Purchase::whereBetween('created_at',[$prev_date7,$prev_date6])
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount') / 100;
 
        // dd($purch_count_2);
 
@@ -82,9 +114,15 @@ class HomeController extends Controller
         $tasa = $this->bolivares();
         //dd($tasa);
 
-        $sales = Sale::completed()->sum('total_amount');
-        $sale_returns = SaleReturn::completed()->sum('total_amount');
-        $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
+        $sales = Sale::completed()
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount');
+        $sale_returns = SaleReturn::completed()
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount');
+        $purchase_returns = PurchaseReturn::completed()
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->sum('total_amount');
         $product_costs = 0;
         $sales_completed = Sale::completed()->with('saleDetails')->get();
         $currentMonthExpenses = Expense::sum('amount') / 100;
@@ -151,10 +189,14 @@ class HomeController extends Controller
 
         $currentMonthSales = Sale::whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
+
+                ->where('empresa_id',\Auth::user()->empresa_id)
                 ->sum('total_amount') / 100;
 
         $currentMonthPurchases = Purchase::whereMonth('created_at', date('m'))
                 ->whereYear('date', date('Y'))
+
+                ->where('empresa_id',\Auth::user()->empresa_id)
                 ->sum('total_amount') / 100;
 
 
