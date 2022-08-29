@@ -6,6 +6,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\Product\Entities\Product;
+use Modules\Cuentas\Entities\Cuentas;
 use Modules\Quotation\Entities\Quotation;
 use Modules\Quotation\Http\Requests\StoreQuotationSaleRequest;
 
@@ -20,6 +21,7 @@ class QuotationSalesController extends Controller
         Cart::instance('sale')->destroy();
 
         $cart = Cart::instance('sale');
+
 
         foreach ($quotation_details as $quotation_detail) {
             $cart->add([

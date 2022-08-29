@@ -50,7 +50,7 @@ class PurchaseController extends Controller
             }
             $mytime =  \Carbon\Carbon::now('America/Caracas');
          $fecha=$mytime->format('Y-m-d');
-             $cuenta = Cuentas::find($request->cuenta_id);
+             $cuenta = Cuentas::where('empresa_id',\Auth::user()->empresa_id)->find($request->cuenta_id);
 
             $purchase = Purchase::create([
                 'idcuenta' => $cuenta->id,
@@ -64,6 +64,7 @@ class PurchaseController extends Controller
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
                 'status' => $request->status,
+                'empresa_id' => \Auth::user()->empresa_id ,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
@@ -84,10 +85,12 @@ class PurchaseController extends Controller
                 $linea->cantidad = $cart_item->qty;
                 $linea->subTotal = $cart_item->options->sub_total;
                 $linea->total = $request->total_amount;
+                $linea->empresa_id = \Auth::user()->empresa_id;
                 $linea->save();
 
                 $mov = new MovimientoCuentas();
                 $mov->cuenta_id       = $cuenta->id;
+                $mov->empresa_id       = \Auth::user()->empresa_id;
                 $mov->fecha_emision   = $fecha;
                 $mov->mes             = date('m');
                 $mov->hora            = date('H:i:s');
@@ -102,6 +105,7 @@ class PurchaseController extends Controller
                 $cuenta->save();
                 PurchaseDetail::create([
                     'purchase_id' => $purchase->id,
+                    'empresa_id' => \Auth::user()->empresa_id ,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,
@@ -130,6 +134,7 @@ class PurchaseController extends Controller
             if ($purchase->paid_amount > 0) {
                 PurchasePayment::create([
                     'cuenta_id' => $cuenta->id,
+                    'empresa_id' => \Auth::user()->empresa_id ,
                     'date' => $request->date,
                     'reference' => 'INV/'.$purchase->reference,
                     'amount' => $purchase->paid_amount,
@@ -229,6 +234,7 @@ class PurchaseController extends Controller
             foreach (Cart::instance('purchase')->content() as $cart_item) {
                 PurchaseDetail::create([
                     'purchase_id' => $purchase->id,
+                    'empresa_id' => \Auth::user()->empresa_id ,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,
@@ -252,7 +258,7 @@ class PurchaseController extends Controller
             Cart::instance('purchase')->destroy();
         });
 
-        ttoast('¡Compra actualizada!', 'success');
+        toast('¡Compra actualizada!', 'success');
 
         return redirect()->route('purchases.index');
     }

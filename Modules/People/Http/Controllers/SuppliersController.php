@@ -47,7 +47,7 @@ class SuppliersController extends Controller
             'supplier_phone' => $request->supplier_phone,
             'supplier_email' => $request->supplier_email,
             'supplier_rif'   => $request->supplier_rif,
-            //'country'        => $request->country,
+            'empresa_id'     => \Auth::user()->empresa_id,
             'address'        => $request->address
         ]);
 

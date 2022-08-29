@@ -67,6 +67,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                  @php
+                                    $cuenta = \Modules\Cuentas\Entities\Cuentas::where('empresa_id',\Auth::user()->empresa_id)->pluck('nb_nombre','id');
+                                @endphp
+                                <div class="col-lg-12">
+                                    <div class="from-group">
+                                        <div class="form-group">
+                                            <label for="date">Cuenta bancaria <span class="text-danger">*</span></label>
+                                             {!! Form::select('cuenta_id', $cuenta, null, ['class' => 'form-control','placeholder' =>'Seleccione']) !!}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <livewire:product-cart :cartInstance="'sale'"/>

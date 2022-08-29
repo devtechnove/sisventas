@@ -129,6 +129,22 @@ class ProductDatabaseSeeder extends Seeder
         $prod->save();
 
 
+         $prod = new Product();
+        $prod->empresa_id = 1;
+        $prod->category_id = 1;
+        $prod->product_name = 'Carpeta marron (OFICIO)';
+        $prod->product_code = '654852-8';
+        $prod->product_barcode_symbology = 'C128';
+        $prod->product_quantity = '100';
+        $prod->product_cost = 0.50 ;
+        $prod->product_price = 7.50 ;
+        $prod->product_stock_alert = 0 ;
+        $prod->product_order_tax = 0 ;
+        $prod->product_tax_type = 1;
+        $prod->product_unit = 'UNID';
+        $prod->save();
+
+
         $prod = new Product();
         $prod->empresa_id = 2;
         $prod->category_id = 2;

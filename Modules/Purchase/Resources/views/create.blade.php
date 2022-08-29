@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 @php
-                                    $cuenta = \Modules\Cuentas\Entities\Cuentas::pluck('nb_nombre','id');
+                                    $cuenta = \Modules\Cuentas\Entities\Cuentas::where('empresa_id',\Auth::user()->empresa_id)->pluck('nb_nombre','id');
                                 @endphp
                                 <div class="col-lg-3">
                                     <div class="from-group">

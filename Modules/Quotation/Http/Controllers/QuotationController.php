@@ -38,6 +38,7 @@ class QuotationController extends Controller
         DB::transaction(function () use ($request) {
             $quotation = Quotation::create([
                 'date' => $request->date,
+                'empresa_id' => \Auth::user()->empresa_id,
                 'customer_id' => $request->customer_id,
                 'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
                 'tax_percentage' => $request->tax_percentage,
@@ -53,6 +54,7 @@ class QuotationController extends Controller
             foreach (Cart::instance('quotation')->content() as $cart_item) {
                 QuotationDetails::create([
                     'quotation_id' => $quotation->id,
+                    'empresa_id' => \Auth::user()->empresa_id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,

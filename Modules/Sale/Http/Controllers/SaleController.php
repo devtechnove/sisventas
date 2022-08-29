@@ -92,6 +92,7 @@ class SaleController extends Controller
 
             $sale = Sale::create([
                 'date' => $request->date,
+                'empresa_id' => \Auth::user()->empresa_id,
                 'idcaja' => $caja->id,
                 'idtasa' => $tbolivares->id,
                 'mes' => date('m'),
@@ -117,6 +118,7 @@ class SaleController extends Controller
                  $product = Product::find($cart_item->id);
                 SaleDetails::create([
                     'sale_id' => $sale->id,
+                     'empresa_id' => \Auth::user()->empresa_id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,
@@ -131,6 +133,7 @@ class SaleController extends Controller
 
                 $linea = new LineaProducto();
                 $linea->producto_id = $cart_item->id;
+                $linea->empresa_id = \Auth::user()->empresa_id;
                 $linea->usuario_id = \Auth::id();
                 $linea->comprobante_id = $sale->id;
                 $linea->descripcion = "x $cart_item->qty  $product->product_name  -  TOTAL $ $request->total_amount";
@@ -151,6 +154,7 @@ class SaleController extends Controller
                 $mov->credito         = $request->total_amount;
                 $mov->debito          = '0.00';
                 $mov->descripcion     = $linea->descripcion;
+                $mov->empresa_id       = \Auth::user()->empresa_id;
                 $mov->save();
 
                 $cuenta->saldo_actual += $request->total_amount;
@@ -173,6 +177,7 @@ class SaleController extends Controller
                     'amount' => $sale->paid_amount,
                     'sale_id' => $sale->id,
                     'payment_method' => $request->payment_method,
+                     'empresa_id' => \Auth::user()->empresa_id,
                     'idcuenta' => $cuenta->id
                 ]);
             }

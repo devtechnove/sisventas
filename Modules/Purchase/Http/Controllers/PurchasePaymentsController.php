@@ -134,11 +134,11 @@ class PurchasePaymentsController extends Controller
             $due_amount = ($purchase->due_amount + $purchasePayment->amount) - $request->amount;
 
             if ($due_amount == $purchase->total_amount) {
-                $payment_status = 'Unpaid';
+                $payment_status = 'Sin pagar';
             } elseif ($due_amount > 0) {
-                $payment_status = 'Partial';
+                $payment_status = 'Parcial';
             } else {
-                $payment_status = 'Paid';
+                $payment_status = 'Pagado';
             }
 
             $purchase->update([
