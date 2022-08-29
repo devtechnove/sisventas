@@ -83,7 +83,7 @@
 
 
                    @can('access_products')
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*')  ? 'open' : '' }}">
+                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*')  ? 'open' : '' }} {{  request()->routeIs('product-categories.*')  ? 'open' : '' }}">
                         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                             <span class="iconify" data-icon="gridicons:product"></span> Productos
                         </a>

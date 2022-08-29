@@ -12,10 +12,14 @@ use Modules\Product\DataTables\ProductCategoriesDataTable;
 class CategoriesController extends Controller
 {
 
-    public function index(ProductCategoriesDataTable $dataTable) {
+    public function index() {
         abort_if(Gate::denies('access_product_categories'), 403);
 
-        return $dataTable->render('product::categories.index');
+        $categorias = Category::where('empresa_id',\Auth::user()->empresa_id)
+        ->with('products')
+        ->get();
+
+        return view('product::categories.index',compact('categorias'));
     }
 
 
@@ -29,6 +33,7 @@ class CategoriesController extends Controller
 
         Category::create([
             'category_code' => $request->category_code,
+            'empresa_id' => \Auth::user()->empresa_id,
             'category_name' => $request->category_name,
         ]);
 
@@ -36,6 +41,10 @@ class CategoriesController extends Controller
 
 
         return redirect()->back();
+    }
+
+     public function query(Category $model) {
+        return $model->newQuery()->withCount('products');
     }
 
 
@@ -58,6 +67,7 @@ class CategoriesController extends Controller
 
         Category::findOrFail($id)->update([
             'category_code' => $request->category_code,
+            'empresa_id' => \Auth::user()->empresa_id,
             'category_name' => $request->category_name,
         ]);
 
@@ -70,10 +80,14 @@ class CategoriesController extends Controller
     public function destroy($id) {
         abort_if(Gate::denies('access_product_categories'), 403);
 
-        $category = Category::findOrFail($id);
+        $category = Category::with('products')->findOrFail($id);
 
-        if ($category->products()->isNotEmpty()) {
-            return back()->withErrors('Can\'t delete beacuse there are products associated with this category.');
+        $products = \DB::table('products')
+        ->where('category_id',$id)
+        ->sum('category_id');
+
+        if ($products > 0) {
+            return back()->withErrors('No se puede eliminar porque hay productos asociados a esta categoría.');
         }
 
         $category->delete();
