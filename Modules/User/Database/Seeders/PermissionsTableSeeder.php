@@ -147,6 +147,22 @@ class PermissionsTableSeeder extends Seeder
                                  'edit_tarea',
                                  'delete_tarea',
 
+                                   /* Empresas */
+                                'acceso_empresa',
+                                'Ver Empresa',
+                                'Registrar Empresa',
+                                'Editar Empresa',
+                                'Eliminar Empresa',
+
+
+                                /* Planes */
+                                'acceso_planes',
+                                'Ver Planes',
+                                'Registrar Planes',
+                                'Editar Planes',
+                                'Eliminar Planes',
+
+
                               ];
 
 
@@ -270,11 +286,17 @@ class PermissionsTableSeeder extends Seeder
                                 'access_tarea',
                                 'edit_tarea',
 
+                                 /* Empresas */
+                                'acceso_empresa',
+                                'Ver Empresa',
+                                'Editar Empresa',
 
 
+                                /* Planes */
+                                'acceso_planes',
+                                'Ver Planes',
 
-
-
+                                'Editar Planes',
 
 
                               ];
@@ -395,6 +417,15 @@ class PermissionsTableSeeder extends Seeder
 
 
 
+                                /*Empresa*/
+
+                                'acceso_empresa',
+                                'Editar Empresa',
+
+                                  /* Planes */
+                                'acceso_planes',
+                                'Ver Planes',
+                                'Editar Planes',
 
 
 
@@ -526,6 +557,17 @@ class PermissionsTableSeeder extends Seeder
                                  'show_tarea',
                                  'edit_tarea',
                                  'delete_tarea',
+
+                                  /*Empresa*/
+
+                                'acceso_empresa',
+                                'Editar Empresa',
+
+                                  /* Planes */
+                                'acceso_planes',
+                                'Ver Planes',
+                                'Editar Planes',
+
 
 
 

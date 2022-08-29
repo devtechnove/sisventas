@@ -21,6 +21,8 @@ class CreateContabilidadsTable extends Migration
             $table->string('modo');
             $table->integer('idcaja')->unsigned();
             $table->foreign('idcaja')->references('id')->on('cajas');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

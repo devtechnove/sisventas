@@ -40,6 +40,8 @@ class CreateSalesTable extends Migration
             $table->foreign('idcaja')->references('id')->on('cajas')->nullOnDelete();
             $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
             $table->foreign('idtasa')->references('id')->on('tasas')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

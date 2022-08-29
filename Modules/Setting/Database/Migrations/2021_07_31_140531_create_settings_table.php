@@ -24,6 +24,8 @@ class CreateSettingsTable extends Migration
             $table->string('notification_email');
             $table->text('footer_text');
             $table->text('company_address');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

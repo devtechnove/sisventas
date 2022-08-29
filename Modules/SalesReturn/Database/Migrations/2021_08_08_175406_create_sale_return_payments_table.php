@@ -22,6 +22,8 @@ class CreateSaleReturnPaymentsTable extends Migration
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('sale_return_id')->references('id')->on('sale_returns')->cascadeOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

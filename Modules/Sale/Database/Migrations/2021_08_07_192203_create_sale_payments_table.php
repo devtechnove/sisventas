@@ -24,6 +24,8 @@ class CreateSalePaymentsTable extends Migration
             $table->text('note')->nullable();
             $table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
             $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

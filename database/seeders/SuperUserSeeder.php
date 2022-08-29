@@ -17,27 +17,43 @@ class SuperUserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@test.com',
-            'password' => Hash::make(12345678),
-            //'is_active' => true
-        ]);
+        $user = new User();
+        $user->name              = 'Marcos Gonzalez';
+        $user->empresa_id        = 2;
+        $user->email             = 'mgonzalez@mail.com';
+        $user->email_verified_at = date('Y-m-d H:i:s') ;
+        $user->password          = Hash::make('admin123');
+        $user->status            = 1;
+        $user->role_id           = 1;
+        $user->save();
+
+        $user->assignRole('Administrador');
 
 
+        $user = new User();
+        $user->name              = 'Theizer Gonzalez';
+        $user->empresa_id        = 1;
+        $user->email             = 'devtechve@gmail.com';
+        $user->email_verified_at = date('Y-m-d H:i:s') ;
+        $user->password          = Hash::make('admin123');
+        $user->status            = 1;
+        $user->role_id           = 1;
+        $user->save();
 
         $user->assignRole('Super Administrador');
 
 
          $category = Category::create([
             'category_code' => '242353',
-            'category_name' => 'Productos de almacén'
+            'category_name' => 'Productos de almacén',
+            'empresa_id'    => 2
 
         ]);
 
           $category = Category::create([
             'category_code' => '254864',
-            'category_name' => 'Servicios'
+            'category_name' => 'Servicios',
+            'empresa_id'    => 2
 
         ]);
 

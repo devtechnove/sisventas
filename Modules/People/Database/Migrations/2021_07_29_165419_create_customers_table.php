@@ -19,6 +19,8 @@ class CreateCustomersTable extends Migration
             $table->string('customer_documento');
             $table->string('customer_phone');
             $table->text('address');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

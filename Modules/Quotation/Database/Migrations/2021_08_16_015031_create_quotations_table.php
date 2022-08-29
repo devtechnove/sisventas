@@ -28,6 +28,8 @@ class CreateQuotationsTable extends Migration
             $table->string('status');
             $table->text('note')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

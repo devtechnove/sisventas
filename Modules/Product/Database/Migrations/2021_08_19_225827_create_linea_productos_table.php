@@ -35,7 +35,8 @@ class CreateLineaProductosTable extends Migration
             $table->double('subTotal')->nullable();
             $table->double('iva')->nullable();
             $table->double('total')->nullable();
-
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->index(['fecha']);
         });
     }

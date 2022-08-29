@@ -29,6 +29,8 @@ class CreateCajasTable extends Migration
             $table->string('estado');
             $table->string('caja');
             $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

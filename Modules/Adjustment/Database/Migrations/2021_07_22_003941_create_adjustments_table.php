@@ -18,6 +18,8 @@ class CreateAdjustmentsTable extends Migration
             $table->date('date');
             $table->string('reference');
             $table->text('note')->nullable();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

@@ -26,6 +26,8 @@ class CreateTareasTable extends Migration
                    ->references('id')
                    ->on('personals')
                    ->cascadeOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

@@ -33,7 +33,9 @@ class CreatePurchaseReturnsTable extends Migration
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
-             $table->foreign('cuenta_id')->references('id')->on('cuentas')->nullOnDelete();
+            $table->foreign('cuenta_id')->references('id')->on('cuentas')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

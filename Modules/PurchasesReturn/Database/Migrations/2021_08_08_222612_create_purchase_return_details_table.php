@@ -30,6 +30,8 @@ class CreatePurchaseReturnDetailsTable extends Migration
                 ->on('purchase_returns')->cascadeOnDelete();
             $table->foreign('product_id')->references('id')
                 ->on('products')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 
-Auth::routes(['register' => false]);
+Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')

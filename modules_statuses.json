@@ -17,5 +17,7 @@
     "Cuentas": true,
     "Proyecto": true,
     "Personal": true,
-    "Tarea": true
+    "Tarea": true,
+    "Empresa":true,
+    "Planes":true
 }

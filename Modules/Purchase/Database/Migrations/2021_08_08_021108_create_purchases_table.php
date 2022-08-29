@@ -34,6 +34,8 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('idcuenta');
             $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

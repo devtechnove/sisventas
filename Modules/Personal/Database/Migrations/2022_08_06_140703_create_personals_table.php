@@ -21,6 +21,8 @@ class CreatePersonalsTable extends Migration
             $table->string('telefono');
             $table->string('cargo');
             $table->integer('status');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

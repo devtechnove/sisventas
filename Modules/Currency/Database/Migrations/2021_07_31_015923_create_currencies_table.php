@@ -22,6 +22,8 @@ class CreateCurrenciesTable extends Migration
             $table->string('decimal_separator');
             $table->integer('exchange_rate')->nullable();
             $table->integer('principal')->nullable()->default(1);
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

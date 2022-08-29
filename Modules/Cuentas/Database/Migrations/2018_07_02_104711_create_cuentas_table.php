@@ -24,6 +24,8 @@ class CreateCuentasTable extends Migration
             $table->double('saldo_actual', 5, 2)->nullable();
             $table->string('tx_nota')->nullable();
             $table->smallInteger('is_active')->nullable();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

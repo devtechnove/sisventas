@@ -1,0 +1,13 @@
+{
+    "name": "Planes",
+    "alias": "planes",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Planes\\Providers\\PlanesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
