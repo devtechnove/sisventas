@@ -284,9 +284,12 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_personal',
                                 'delete_personal',
 
-                                //Tareas
-                                'access_tarea',
-                                'edit_tarea',
+                                 //Tarea
+                                 'access_tarea',
+                                 'create_tarea',
+                                 'show_tarea',
+                                 'edit_tarea',
+                                 'delete_tarea',
 
                                  /* Empresas */
                                 'acceso_empresa',
@@ -420,9 +423,13 @@ class PermissionsTableSeeder extends Seeder
                                 'edit_caja',
                                 'delete_caja',
 
-                                //Tareas
-                                'access_tarea',
-                                'edit_tarea',
+                                 //Tarea
+                                 'access_tarea',
+                                 'create_tarea',
+                                 'show_tarea',
+                                 'edit_tarea',
+                                 'delete_tarea',
+
 
 
 

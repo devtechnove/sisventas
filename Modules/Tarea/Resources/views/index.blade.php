@@ -22,7 +22,7 @@
                    @endcan
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-hover table-outline mb-0">
+                  <table class="table table-hover table-outline mb-0" id="tableExport">
                     <thead class="thead-light">
                         <tr> 
                             <th class="text-center">Título</th>

@@ -19,7 +19,7 @@ class TareaController extends Controller
     {
         abort_if(Gate::denies('access_tarea'), 403);
 
-        $tareas = Tarea::get();
+        $tareas = Tarea::where('empresa_id',\Auth::user()->empresa_id)->get();
         //dd($tareas);
         return view('tarea::index', compact('tareas'));
     }
@@ -52,6 +52,7 @@ class TareaController extends Controller
             $tarea->personal_id = $request->personal_id;
             $tarea->porcentaje = $request->porcentaje;
             $tarea->estado_tarea = $request->estado_tarea;
+            $tarea->empresa_id   = \Auth::user()->empresa_id;
             $tarea->fecha_inicio = $request->fecha_inicio;
             $tarea->fecha_fin = $request->fecha_fin;
             $tarea->personal_id = $request->personal_id;
@@ -107,6 +108,7 @@ class TareaController extends Controller
            
            $tarea->titulo = $request->titulo;
            $tarea->descripcion = $request->descripcion;
+           $tarea->empresa_id = \Auth::user()->empresa_id;
            $tarea->personal_id = $request->personal_id;
            $tarea->porcentaje = $request->porcentaje;
            $tarea->estado_tarea = $request->estado_tarea;
