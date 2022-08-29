@@ -12,24 +12,24 @@
 
 @section('content')
     <div class="container-fluid">
-        <form id="product-form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="product-form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div class="row">
-
                 <div class="col-lg-12">
+                    @include('utils.alerts')
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_name">Nombre <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="product_name" required value="{{ old('product_name') }}">
+                                        <input type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" required value="{{ old('product_name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_code">Código del producto <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="product_code" required value="{{ old('product_code') }}">
+                                        <input type="text" class="form-control @error('product_code') is-invalid @enderror" name="product_code" required value="{{ old('product_code') }}">
                                     </div>
                                 </div>
                             </div>
@@ -65,13 +65,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_cost">Costo del producto <span class="text-danger">*</span></label>
-                                        <input id="product_cost" type="text" class="form-control" name="product_cost" required value="{{ old('product_cost') }}">
+                                        <input id="product_cost" type="text" class="form-control @error('product_cost') is-invalid @enderror" name="product_cost" required value="{{ old('product_cost') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_price">Precio de venta <span class="text-danger">*</span></label>
-                                        <input id="product_price" type="text" class="form-control" name="product_price" required value="{{ old('product_price') }}">
+                                        <input id="product_price" type="text" class="form-control @error('product_price') is-invalid @enderror" name="product_price" required value="{{ old('product_price') }}">
                                     </div>
                                 </div>
                             </div>
@@ -80,13 +80,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_quantity">Cantidad inicial <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="product_quantity" required value="{{ old('product_quantity') }}" min="1">
+                                        <input type="number" class="form-control @error('product_quantity') is-invalid @enderror" name="product_quantity" required value="{{ old('product_quantity') }}" min="1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_stock_alert">Cantidad de alerta<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="product_stock_alert" required value="{{ old('product_stock_alert') }}" min="0" max="100">
+                                        <input type="number" class="form-control @error('product_stock_alert') is-invalid @enderror" name="product_stock_alert" required value="{{ old('product_stock_alert') }}" min="0" max="100">
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-lg-12">
-                             @include('utils.alerts')
+
                              <div class="form-group">
                               <button class="btn btn-primary">
                                 Crear producto

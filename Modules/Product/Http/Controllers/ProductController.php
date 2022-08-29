@@ -32,7 +32,14 @@ class ProductController extends Controller
 
     public function store(Request $request) {
 
-    //dd(($request->has('document')));
+
+
+          $request->validate([
+
+            'product_code' => 'required|unique:products',
+        ]);
+
+
 
         if ($request->has('document')) {
 

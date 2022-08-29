@@ -24,10 +24,11 @@ class SearchProduct extends Component
     }
 
     public function updatedQuery() {
-        $this->search_results = Product::where('product_name', 'like', '%' . $this->query . '%')
+        $this->search_results = Product::where('empresa_id',\Auth::user()->empresa_id)
+            ->where('product_name', 'like', '%' . $this->query . '%')
             ->orWhere('product_code', 'like', '%' . $this->query . '%')
-            ->where('empresa_id',\Auth::user()->empresa_id)
             ->take($this->how_many)->get();
+
     }
 
     public function loadMore() {
