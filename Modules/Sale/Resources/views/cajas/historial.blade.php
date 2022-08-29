@@ -49,11 +49,8 @@
                  Hisitorial de cajas
             </div>
             <div class="card-body">
-
-
-
                     <div class="col-lg-12 cajas">
-                        <table class="table table-responsive-sm table-hover table-outline mb-0 table-sm">
+                        <table class="table table-responsive-sm table-hover table-outline mb-0 table-sm" id="tableExport">
                             <thead class="thead-light">
                                 <tr>
                                     <th class="text-center">Identificador</th>

@@ -62,6 +62,19 @@ class VerificationController extends Controller
          $empresa->save();
 
 
+        $cuenta = new \Modules\Cuentas\Entities\Cuentas();
+        $cuenta->nb_nombre = 'Banco de Venezuela';
+        $cuenta->fe_apertura = date('Y-m-d');
+        $cuenta->nu_cuenta = '0102-0000-00-00000-00000';
+        $cuenta->moneda_id = 1 ;
+        $cuenta->saldo_apertura = 25000;
+        $cuenta->saldo_actual = 25000;
+        $cuenta->tx_nota ='Cuenta corriente' ;
+        $cuenta->is_active = 1 ;
+        $cuenta->empresa_id = $empresa->id;
+        $cuenta->save();
+
+
 
 
         if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {

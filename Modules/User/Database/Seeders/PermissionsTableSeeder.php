@@ -163,6 +163,8 @@ class PermissionsTableSeeder extends Seeder
                                 'Eliminar Planes',
 
 
+
+
                               ];
 
 
@@ -298,6 +300,13 @@ class PermissionsTableSeeder extends Seeder
 
                                 'Editar Planes',
 
+                                //Accounts
+                                'access_accounts',
+                                'create_accounts',
+                                'show_accounts',
+                                'edit_accounts',
+                                'delete_accounts',
+
 
                               ];
 
@@ -426,6 +435,13 @@ class PermissionsTableSeeder extends Seeder
                                 'acceso_planes',
                                 'Ver Planes',
                                 'Editar Planes',
+
+                                //Accounts
+                                'access_accounts',
+                                'create_accounts',
+                                'show_accounts',
+                                'edit_accounts',
+                                'delete_accounts',
 
 
 
@@ -567,6 +583,13 @@ class PermissionsTableSeeder extends Seeder
                                 'acceso_planes',
                                 'Ver Planes',
                                 'Editar Planes',
+
+                                //Accounts
+                                'access_accounts',
+                                'create_accounts',
+                                'show_accounts',
+                                'edit_accounts',
+                                'delete_accounts',
 
 
 

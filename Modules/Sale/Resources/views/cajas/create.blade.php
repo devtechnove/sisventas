@@ -49,7 +49,20 @@
                         {{ csrf_field() }}
     
                         <div class="row">
+                             <div class="col-sm-12">
+                                <div class="card card-line-primary">
 
+                                    <div class="card-body">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                                <label for="select_cuenta">Cuenta</label>
+                                                 {!! Form::select('cuenta_id', $cuenta, null, [
+                                                 'class' => 'form-control','placeholder' =>'Seleccione']) !!}
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-5 col-md-5 col-sm-12">
                                 <input type="hidden" name="monto" id="monto" value="0">
                                 <div class="card card-line-primary">
@@ -95,22 +108,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="card card-line-primary">
 
-                                                <div class="card-body">
-                                                  <div class="row">
-                                                      <div class="col-sm-12">
-                                                            <label for="select_cuenta">Cuenta</label>
-                                                             {!! Form::select('cuenta_id', $cuenta, null, [
-                                                             'class' => 'form-control','placeholder' =>'Seleccione']) !!}
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-lg-12 col-md-7 col-sm-12">
                                         <div class="card card-line-primary">
                                             <div class="card-body"> 

@@ -34,6 +34,7 @@ class ContabilidadController extends Controller
 
         //$config = DB::table('configuraciones')->first();
         $cajas = DB::table('cajas')
+        ->where('empresa_id',\Auth::user()->empresa_id)
         ->orderBy('id','DESC')
         ->get();
         //dd($cajas);
@@ -52,7 +53,8 @@ class ContabilidadController extends Controller
 
         //$cajas = explode(",",$config->cajas);
 
-         $cuenta = Cuentas::pluck('nb_nombre','id');
+         $cuenta = Cuentas::where('empresa_id',\Auth::user()->empresa_id)->pluck('nb_nombre','id');
+         //dd($cuenta);
 
         
         $mytime = Carbon::now('America/Caracas');
@@ -141,6 +143,7 @@ class ContabilidadController extends Controller
             $caja->mes=$today['mon'];
             $caja->monto_cierre = '0';
             $caja->year = $today['year'];
+            $caja->empresa_id = \Auth::user()->empresa_id;
             $caja->save();
 
             //$user = User::findOrFail(auth()->user()->id);
@@ -154,6 +157,7 @@ class ContabilidadController extends Controller
                 $contabilidad->cantidad = $cantidades[$cont];
                 $contabilidad->idcaja =$caja->id;
                 $contabilidad->modo = 'Apertura';
+                $contabilidad->empresa_id = \Auth::user()->empresa_id;
                 $contabilidad->save();
 
                 $cont = $cont+1;
@@ -165,7 +169,6 @@ class ContabilidadController extends Controller
 
             return Redirect::to('panel/contabilidad');
         } catch (\Exception $e) {
-            dd($e);
             Session::flash('danger', 'Hubo un error al completar el formulario');
             return redirect()->back();
         }
@@ -183,6 +186,7 @@ class ContabilidadController extends Controller
         ->first();
 
         $venta = Sale::where('date',$caja->fecha)
+        ->where('empresa_id',\Auth::user()->empresa_id)
         ->get();
 
         $mytime = Carbon::now('America/Caracas');
@@ -219,6 +223,7 @@ class ContabilidadController extends Controller
             if ($request->get('monto') == 0 ) {
              $caja->monto_cierre = $request->total_cierre;
              $caja->estado = 'Cerrada';
+             $caja->empresa_id = \Auth::user()->empresa_id;
              $caja->hora_cierre= $hora->format('H:i:s');
              $caja->update();
 
@@ -231,6 +236,7 @@ class ContabilidadController extends Controller
                 $contabilidad->cantidad = $cantidades[$cont];
                 $contabilidad->idcaja =$caja->id;
                 $contabilidad->modo = 'Clausura';
+                $contabilidad->empresa_id = \Auth::user()->empresa_id;
                 $contabilidad->save();
 
                 $cont = $cont+1;
@@ -257,6 +263,7 @@ class ContabilidadController extends Controller
                 $contabilidad->cantidad = $cantidades[$cont];
                 $contabilidad->idcaja =$caja->id;
                 $contabilidad->modo = 'Clausura';
+                $contabilidad->empresa_id = \Auth::user()->empresa_id;
                 $contabilidad->save();
 
                 $cont = $cont+1;
@@ -296,7 +303,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',$today['mon']-1],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id','=',\Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -306,7 +315,8 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',$today['mon']],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id','=',\Auth::user()->empresa_id]
         ])
         ->first();
 
@@ -321,7 +331,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',1],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -331,7 +343,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',2],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -342,7 +356,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',3],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -353,7 +369,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',4],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -364,7 +382,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',5],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -383,7 +403,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',7],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -393,7 +415,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',8],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -404,7 +428,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',9],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -414,7 +440,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',10],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -425,7 +453,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',11],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first(); 
 
@@ -435,7 +465,9 @@ class ContabilidadController extends Controller
         ->select(DB::raw('sum(cast(monto_cierre as double precision))'))
         ->where([
             ['mes','=',12],
-            ['year','=',$current_year]
+            ['year','=',$current_year],
+            ['empresa_id' , '=', \Auth::user()->empresa_id]
+
         ])
         ->first();
 
@@ -450,6 +482,7 @@ class ContabilidadController extends Controller
 
         $cajas = DB::table('cajas')
         ->where('fecha','LIKE','%'.$buscar.'%')
+        ->where('empresa_id',\Auth::user()->empresa_id)
         ->orderby('id','desc')
         ->paginate(15);
 
@@ -479,6 +512,7 @@ class ContabilidadController extends Controller
         $idcaja = $caja->{'id'};
 
         $gastos = Gastos::where('idcaja','=',$idcaja)
+        ->where('empresa_id',\Auth::user()->empresa_id)
         ->orderby('id','desc')
         ->get();
 
@@ -497,6 +531,7 @@ class ContabilidadController extends Controller
             $gasto->idcaja = $request->get('idcaja');
             $gasto->detalle = $request->get('detalle');
             $gasto->precio_gasto = $request->get('precio_gasto');
+            $gasto->empresa_id = \Auth::user()->empresa_id;
             $gasto->nota = $request->get('nota');
             $gasto->save();
 

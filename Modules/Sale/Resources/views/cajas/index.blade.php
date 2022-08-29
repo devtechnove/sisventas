@@ -75,10 +75,7 @@
                         <div class="card">
                             <div class="card-header">
                                 PANEL DE CONTABILIDAD
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-4 form-group">
+                                 <div class="col-lg-4 form-group mt-2">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 {!! Form::open(array('url'=>'panel/contabilidad','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}
@@ -88,16 +85,18 @@
                                                         <button class="btn btn-primary" >
                                                             <i class="zmdi zmdi-search"></i>
                                                         </button>
-                                                        
+
                                                     </span>
                                                 </div>
                                                 {{Form::close()}}
                                             </div>
                                         </div>
                                     </div>
-                                   
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
                                     <div class="col-lg-12 table-responsive-sm">
-                                        <table class="table table-hover table-outline mb-0 table-sm">
+                                        <table class="table table-hover table-outline mb-0 table-sm" id="tableExport">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="text-center">Identificador</th>
@@ -112,8 +111,9 @@
                                                 </tr>
                                             </thead>
                                             @if (count($cajas)>0)
+                                              <tbody>
                                                 @foreach ($cajas as $item)
-                                                    <tbody>
+
                                                         <tr>
                                                             <td class="text-center">{{strtoupper($item->codigo)}}</td>
                                                             <td class="text-center">{{$item->fecha}}</td>
@@ -158,14 +158,10 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </tbody>
+
                                                 @endforeach
-                                            @else
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="8" class="text-center">No se aperturó alguna caja este día.</td>
-                                                    </tr>
-                                                </tbody>
+                                                  </tbody>
+
                                             @endif
                                         </table>
                                        
