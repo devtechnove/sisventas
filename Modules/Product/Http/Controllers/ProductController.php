@@ -18,8 +18,9 @@ class ProductController extends Controller
 
     public function index(ProductDataTable $dataTable) {
         abort_if(Gate::denies('access_products'), 403);
+        $productos = Product::where('empresa_id',\Auth::user()->empresa_id)->get();
 
-        return $dataTable->render('product::products.index');
+        return view('product::products.index',compact('productos'));
     }
 
 
@@ -51,6 +52,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->category_id = $request->category_id;
+        $product->empresa_id = \Auth::user()->empresa_id;
         $product->product_name = $request->product_name;
         $product->product_code = $request->product_code;
         $product->product_barcode_symbology = $request->product_barcode_symbology;
@@ -73,6 +75,7 @@ class ProductController extends Controller
      {
           $product = new Product();
         $product->category_id = $request->category_id;
+        $product->empresa_id = \Auth::user()->empresa_id;
         $product->product_name = $request->product_name;
         $product->product_code = $request->product_code;
         $product->product_barcode_symbology = $request->product_barcode_symbology;
@@ -110,26 +113,8 @@ class ProductController extends Controller
 
 
     public function update(Request $request, Product $product) {
-        $product->update($request->except('document'));
 
-        if ($request->has('document')) {
-            if (count($product->getMedia('images')) > 0) {
-                foreach ($product->getMedia('images') as $media) {
-                    if (!in_array($media->file_name, $request->input('document', []))) {
-                        $media->delete();
-                    }
-                }
-            }
-
-            $media = $product->getMedia('images')->pluck('file_name')->toArray();
-
-            foreach ($request->input('document', []) as $file) {
-                if (count($media) === 0 || !in_array($file, $media)) {
-                    $product->addMedia(Storage::path('temp/dropzone/' . $file))->toMediaCollection('images');
-                }
-            }
-        }
-
+       $product->update($request->except('document'));
        toast('¡Producto actualizado!', 'success');
 
 
