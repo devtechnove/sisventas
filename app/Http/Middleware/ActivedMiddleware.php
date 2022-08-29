@@ -17,6 +17,8 @@ class ActivedMiddleware
     public function handle(Request $request, Closure $next)
     {
 
+        dd(auth()->user()->status);
+
          try {
 
 

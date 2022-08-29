@@ -41,7 +41,7 @@ class LoginController extends Controller
     }
 
     protected function authenticated(Request $request, $user) {
-        if ($user->is_active != 1) {
+        if ($user->status != 1) {
             Auth::logout();
             \Alert::alert('¡Tu cuenta está desactivada!', 'Por favor, contacta a tu proveedor.', 'error');
             return back();
