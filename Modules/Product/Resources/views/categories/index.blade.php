@@ -16,54 +16,16 @@
             <div class="col-12">
                 @include('utils.alerts')
                 <div class="card">
-                    <div class="card-header">
-                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-relief-primary float-right" data-toggle="modal" data-target="#categoryCreateModal">
-                           Nueva categoría <i class="bi bi-plus"></i>
-                        </button>
-                    </div>
                     <div class="card-body">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryCreateModal">
+                            Nueva categoría <i class="bi bi-plus"></i>
+                        </button>
+
+                        <hr>
 
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered"  id="tableExport">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th>Cantidad de productos</th>
-                                        <th>Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($categorias as $element)
-                                        <tr class="text-center">
-                                         <td>{{ $element->category_code }}</td>
-                                         <td>{{ $element->category_name }}</td>
-                                         <td>{{ $element->products->sum('category_id') /2 }}</td>
-                                         <td>
-                                             <div class="btn-group">
-                                                 <a href="{{ route('product-categories.edit', $element->id) }}" class="btn btn-relief-info">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <button id="delete" class="btn btn-relief-danger" onclick="
-                                                event.preventDefault();
-                                                if (confirm('¿Estás seguro(a)? ¡Se eliminará definitivamente!')) {
-                                                    document.getElementById('destroy{{ $element->id }}').submit();
-                                                }
-                                                ">
-                                                <i class="bi bi-trash"></i>
-                                                <form id="destroy{{ $element->id }}" class="d-none" action="{{ route('product-categories.destroy', $element->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                </form>
-                                            </button>
-                                             </div>
-
-                                         </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            {!! $dataTable->table() !!}
                         </div>
                     </div>
                 </div>
@@ -73,7 +35,7 @@
 
     <!-- Create Modal -->
     <div class="modal fade" id="categoryCreateModal" tabindex="-1" role="dialog" aria-labelledby="categoryCreateModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="categoryCreateModalLabel">Nueva categoría</h5>
@@ -103,5 +65,5 @@
 @endsection
 
 @push('page_scripts')
-
+    {!! $dataTable->scripts() !!}
 @endpush

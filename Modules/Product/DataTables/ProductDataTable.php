@@ -37,7 +37,7 @@ class ProductDataTable extends DataTable
 
     public function query(Product $model)
     {
-        return $model->newQuery()->with('category');
+        return $model->newQuery()->with('category')->where('empresa_id',\Auth::user()->empresa_id);
     }
 
     public function html()

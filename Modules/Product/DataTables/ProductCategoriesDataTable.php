@@ -21,7 +21,7 @@ class ProductCategoriesDataTable extends DataTable
     }
 
     public function query(Category $model) {
-        return $model->newQuery()->withCount('products');
+        return $model->newQuery()->withCount('products')->where('empresa_id',\Auth::user()->empresa_id);
     }
 
     public function html() {
@@ -48,15 +48,19 @@ class ProductCategoriesDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('category_code')
+                ->title('Código')
                 ->addClass('text-center'),
 
             Column::make('category_name')
+                ->title('Descripción')
                 ->addClass('text-center'),
 
             Column::make('products_count')
+                ->title('Cantidad de productos asociados')
                 ->addClass('text-center'),
 
             Column::computed('action')
+                ->title('Opciones')
                 ->exportable(false)
                 ->printable(false)
                 ->addClass('text-center'),

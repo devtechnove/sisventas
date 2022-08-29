@@ -16,11 +16,10 @@ use Modules\Upload\Entities\Upload;
 class ProductController extends Controller
 {
 
-    public function index(ProductDataTable $dataTable) {
+   public function index(ProductDataTable $dataTable) {
         abort_if(Gate::denies('access_products'), 403);
-        $productos = Product::where('empresa_id',\Auth::user()->empresa_id)->get();
 
-        return view('product::products.index',compact('productos'));
+        return $dataTable->render('product::products.index');
     }
 
 

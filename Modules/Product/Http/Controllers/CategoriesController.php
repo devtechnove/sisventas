@@ -12,14 +12,10 @@ use Modules\Product\DataTables\ProductCategoriesDataTable;
 class CategoriesController extends Controller
 {
 
-    public function index() {
+     public function index(ProductCategoriesDataTable $dataTable) {
         abort_if(Gate::denies('access_product_categories'), 403);
 
-        $categorias = Category::where('empresa_id',\Auth::user()->empresa_id)
-        ->with('products')
-        ->get();
-
-        return view('product::categories.index',compact('categorias'));
+        return $dataTable->render('product::categories.index');
     }
 
 

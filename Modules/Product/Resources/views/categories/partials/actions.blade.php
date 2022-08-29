@@ -1,7 +1,8 @@
-<a href="{{ route('product-categories.edit', $data->id) }}" class="btn btn-info btn-sm">
+<div class="btn-group">
+    <a href="{{ route('product-categories.edit', $data->id) }}" class="btn btn-info ">
     <i class="bi bi-pencil"></i>
 </a>
-<button id="delete" class="btn btn-danger btn-sm" onclick="
+<button id="delete" class="btn btn-danger " onclick="
     event.preventDefault();
     if (confirm('Are you sure? It will delete the data permanently!')) {
         document.getElementById('destroy{{ $data->id }}').submit();
@@ -13,3 +14,5 @@
         @method('delete')
     </form>
 </button>
+
+</div>
