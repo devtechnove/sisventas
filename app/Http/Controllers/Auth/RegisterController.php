@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Modules\Empresa\Entities\Empresa;
 
 class RegisterController extends Controller
 {
@@ -51,6 +52,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'razon_social' => ['required', 'string', 'max:255'],
+            'documento' => ['required', 'string', 'max:255','unique:empresas'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,14 +67,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'is_active' => 1
-        ]);
 
-        $user->assignRole('Admin');
+
+
+       $empresa = new Empresa();
+       $empresa->razon_social    = $data['razon_social'];
+       $empresa->documento       = $data['documento'];
+       $empresa->email        = $data['email'];
+       $empresa->is_active       = 0;
+       $empresa->plan_id         = 5;
+       $empresa->save();
+
+
+       $user = new  User();
+       $user->name         = $data['name'];
+       $user->email        = $data['email'];
+       $user->password     =  Hash::make($data['password']);
+       $user->empresa_id   = $empresa->id;
+       $user->role_id      = 2;
+       $user->status       = 0;
+       $user->save();
+
+        $user->assignRole('Administrador');
+
+
+
 
         return $user;
     }

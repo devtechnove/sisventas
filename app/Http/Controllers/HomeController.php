@@ -19,6 +19,12 @@ use Modules\SalesReturn\Entities\SaleReturnPayment;
 class HomeController extends Controller
 {
 
+
+
+
+
+
+
     public function index() {
 
      if (\Auth::user()->hasRole('Vendedor')) {

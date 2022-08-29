@@ -26,7 +26,18 @@ class CurrencyDatabaseSeeder extends Seeder
             'thousand_separator' => ',',
             'decimal_separator'  => '.',
             'exchange_rate'      => null,
-            //'principal'          => true
+            'empresa_id'         => 1
+        ]);
+
+
+            Currency::create([
+            'currency_name'      => 'Bolívar Soberano',
+            'code'               => Str::upper('VES'),
+            'symbol'             => 'Bs',
+            'thousand_separator' => ',',
+            'decimal_separator'  => '.',
+            'exchange_rate'      => null,
+            'empresa_id'         => 2
         ]);
     }
 }

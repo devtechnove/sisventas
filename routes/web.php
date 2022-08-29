@@ -15,8 +15,11 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/home', 'HomeController@index')
-        ->name('home');
+         ->name('home')
+         ->middleware('verified')
+         ->middleware('actived');
 
     Route::get('/sales-purchases/chart-data', 'HomeController@salesPurchasesChart')
         ->name('sales-purchases.chart');
