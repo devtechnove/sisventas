@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Adjustment')
+@section('title', 'ADJUSTE DE INVENTARIO')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">

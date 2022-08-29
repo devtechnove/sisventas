@@ -19,8 +19,8 @@ class AdjustmentController extends Controller
 
     public function index(AdjustmentsDataTable $dataTable) {
         abort_if(Gate::denies('access_adjustments'), 403);
-
-        return $dataTable->render('adjustment::index');
+        $ajustes = Adjustment::where('empresa_id',\Auth::user()->empresa_id)->get();
+        return $dataTable->render('adjustment::index',compact('ajustes'));
     }
 
 
@@ -45,8 +45,9 @@ class AdjustmentController extends Controller
 
         DB::transaction(function () use ($request) {
             $adjustment = Adjustment::create([
-                'date' => $request->date,
-                'note' => $request->note
+                'date'       => $request->date,
+                'empresa_id' => \Auth::user()->empresa_id,
+                'note'       => $request->note
             ]);
 
             foreach ($request->product_ids as $key => $id) {
@@ -66,6 +67,7 @@ class AdjustmentController extends Controller
                     $linea->usuario_id = \Auth::id();
                     $linea->descripcion =  "Ingreso de stock: " . $request->quantities[$key];
                     $linea->fecha = date("Y-m-d H:i:s");
+                    $linea->empresa_id = \Auth::user()->empresa_id;
                     $linea->stock =  $product->product_quantity;
                     $linea->precioUnitario = $product->product_price;
                     $linea->cantidad = $request->quantities[$key];
@@ -81,6 +83,7 @@ class AdjustmentController extends Controller
                     $linea->producto_id = $id;
                     $linea->usuario_id = \Auth::id();
                     $linea->descripcion =  "Disminución de stock: " . $request->quantities[$key];
+                    $linea->empresa_id = \Auth::user()->empresa_id;
                     $linea->fecha = date("Y-m-d H:i:s");
                     $linea->stock =  $product->product_quantity;
                     $linea->precioUnitario = $product->product_price;
@@ -131,6 +134,7 @@ class AdjustmentController extends Controller
             $adjustment->update([
                 'reference' => $request->reference,
                 'date'      => $request->date,
+                'empresa_id' => \Auth::user()->empresa_id,
                 'note'      => $request->note
             ]);
 
@@ -138,6 +142,7 @@ class AdjustmentController extends Controller
                 $product = Product::findOrFail($adjustedProduct->product->id);
 
                 if ($adjustedProduct->type == 'add') {
+
                     $product->update([
                         'product_quantity' => $product->product_quantity - $adjustedProduct->quantity
                     ]);
