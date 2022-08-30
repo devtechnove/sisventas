@@ -15,7 +15,7 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
-    <!-- END: Vendor CSS-->
+    <!-- END: Vendor  CSS-->
 
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap.css">
@@ -34,6 +34,7 @@
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
     <!-- END: Custom CSS-->
 
 </head>
@@ -42,6 +43,13 @@
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+     <!-- Loader -->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -94,6 +102,8 @@
     <!-- BEGIN: Page JS-->
     <script src="/app-assets/js/scripts/pages/page-auth-login.js"></script>
     <!-- END: Page JS-->
+
+    <script src="/js/app.js"></script>
 
     <script>
         $(window).on('load', function() {

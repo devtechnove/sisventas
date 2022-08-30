@@ -4,36 +4,6 @@ var __webpack_exports__ = {};
   !*** ./resources/js/chart-config.js ***!
   \**************************************/
 $(document).ready(function () {
-  var salesPurchasesBar = document.getElementById('salesPurchasesChart');
-  $.get('/sales-purchases/chart-data', function (response) {
-    console.log(response.purchases.original.data)
-    var salesPurchasesChart = new Chart(salesPurchasesBar, {
-      type: 'bar',
-      data: {
-        labels: response.sales.original.days,
-        datasets: [{
-          label: 'Ventas',
-          data: response.sales.original.data,
-          backgroundColor: '#00A404',
-          borderColor: '#00A404',
-          borderWidth: 1
-        }, {
-          label: 'Compras',
-          data: response.purchases.original.data,
-          backgroundColor: '#FF0000',
-          borderColor: '#FF0000',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  });
   var overviewChart = document.getElementById('currentMonthChart');
   $.get('/current-month/chart-data', function (response) {
     var currentMonthChart = new Chart(overviewChart, {
@@ -48,29 +18,7 @@ $(document).ready(function () {
       }
     });
   });
-  var paymentChart = document.getElementById('paymentChart');
-  $.get('/payment-flow/chart-data', function (response) {
-    console.log(response);
-    var cashflowChart = new Chart(paymentChart, {
-      type: 'line',
-      data: {
-        labels: response.months,
-        datasets: [{
-          label: 'Pagos realizados',
-          data: response.payment_sent,
-          fill: false,
-          borderColor: '#EA580C',
-          tension: 0
-        }, {
-          label: 'Pagos recibidos',
-          data: response.payment_received,
-          fill: false,
-          borderColor: '#2563EB',
-          tension: 0
-        }]
-      }
-    });
-  });
+
 });
 /******/ })()
 ;

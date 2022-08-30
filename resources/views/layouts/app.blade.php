@@ -48,6 +48,7 @@
     <link href="{{asset('css/system.css')}}" rel="stylesheet">
     <link href="{{asset('css/mdb-file-upload.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-icons.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
 
     @yield('third_party_stylesheets')
 
@@ -78,7 +79,11 @@
     </style>
 
 
-
+    <div id="preloader">
+            <div id="status">
+                <div class="spinner"></div>
+            </div>
+        </div>
     @include('layouts.header')
     @include('layouts.menu')
     <!-- BEGIN: Content-->
@@ -108,7 +113,7 @@
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-    @include('layouts.footer')
+
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
@@ -144,6 +149,7 @@
     <script src="/js/iconify.js"></script>
     <script src="/js/system.js"></script>
     <script src="{{asset('js/mdb-file-upload.min.js')}}"></script>
+    <script src="/js/app.js"></script>
     <!-- END: Page JS-->
 
     <script>
