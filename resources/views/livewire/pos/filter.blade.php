@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label>Cantidad de productos</label>
                 <select wire:model="showCount" class="form-control">
-                    <option value="9">9 Productos</option>
+                    <option value="12">12 Productos</option>
                     <option value="15">15 Productos</option>
                     <option value="21">21 Productos</option>
                     <option value="30">30 Productos</option>

@@ -29,8 +29,8 @@ class ExpenseController extends Controller
     public function create() {
         abort_if(Gate::denies('create_expenses'), 403);
 
-        $moneda = Currency::where('principal',true)->first();
-        $cuentas = Cuentas::pluck('nb_nombre','id');
+        $moneda = Currency::where('empresa_id',\Auth::user()->empresa_id)->where('principal',true)->first();
+        $cuentas = Cuentas::where('empresa_id',\Auth::user()->empresa_id)->pluck('nb_nombre','id');
 
         return view('expense::expenses.create',compact('moneda','cuentas'));
     }
@@ -55,6 +55,7 @@ class ExpenseController extends Controller
         Expense::create([
             'date' => $request->date,
             'category_id' => $request->category_id,
+            'empresa_id' => \Auth::user()->empresa_id,
             'mes'         => date('m'),
             'ano'         => date('Y'),
             'hora'         => $hora->format('H:i:s'),
@@ -69,6 +70,7 @@ class ExpenseController extends Controller
 
             $mov = new MovimientoCuentas();
             $mov->cuenta_id       = $request->cuenta_id;
+            $mov->empresa_id      = \Auth::user()->empresa_id;
             $mov->fecha_emision   = $fecha;
             $mov->mes             = date('m');
             $mov->hora            = date('H:i:s');

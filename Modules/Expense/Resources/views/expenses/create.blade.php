@@ -48,7 +48,7 @@
                                         <label for="category_id">Categoría <span class="text-danger">*</span></label>
                                         <select name="category_id" id="category_id" class="form-control" required>
                                             <option value="" selected>Selecciona la categoría del gasto</option>
-                                            @foreach(\Modules\Expense\Entities\ExpenseCategory::all() as $category)
+                                            @foreach(\Modules\Expense\Entities\ExpenseCategory::where('empresa_id',\Auth::user()->empresa_id)->get() as $category)
                                                 <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>

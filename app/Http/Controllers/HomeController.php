@@ -114,18 +114,18 @@ class HomeController extends Controller
         $tasa = $this->bolivares();
         //dd($tasa);
 
-        $sales = Sale::completed()
+        $sales = Sale::where('empresa_id',\Auth::user()->empresa_id)->completed()
         ->where('empresa_id',\Auth::user()->empresa_id)
         ->sum('total_amount');
-        $sale_returns = SaleReturn::completed()
+        $sale_returns = SaleReturn::where('empresa_id',\Auth::user()->empresa_id)->completed()
         ->where('empresa_id',\Auth::user()->empresa_id)
         ->sum('total_amount');
-        $purchase_returns = PurchaseReturn::completed()
+        $purchase_returns = PurchaseReturn::where('empresa_id',\Auth::user()->empresa_id)->completed()
         ->where('empresa_id',\Auth::user()->empresa_id)
         ->sum('total_amount');
         $product_costs = 0;
-        $sales_completed = Sale::completed()->with('saleDetails')->get();
-        $currentMonthExpenses = Expense::sum('amount') / 100;
+        $sales_completed = Sale::completed()->with('saleDetails')->where('empresa_id',\Auth::user()->empresa_id)->get();
+        $currentMonthExpenses = Expense::where('empresa_id',\Auth::user()->empresa_id)->sum('amount') / 100;
         $purchase = Purchase::where('empresa_id',\Auth::user()->empresa_id)
          ->sum('total_amount') / 100;
 
@@ -156,30 +156,127 @@ class HomeController extends Controller
 
 
 
-        return view('home', [
-            'revenue'          => $revenue,
-            'sale_returns'     => $sale_returns / 100,
-            'purchase_returns' => $purchase_returns / 100,
-            'profit'           => $profit,
-            'tasa'             => $tasa,
-            'currentMonthExpenses' => $currentMonthExpenses,
-            'emp_count_1'     =>  $emp_count_1,
-            'emp_count_2'     =>  $emp_count_2,
-            'emp_count_3'     =>  $emp_count_3,
-            'emp_count_4'     =>  $emp_count_4,
-            'emp_count_5'     =>  $emp_count_5,
-            'emp_count_6'     =>  $emp_count_6,
-            'emp_count_7'     =>  $emp_count_7,
-            'emp_count_0'     =>  $emp_count_0,
-            'purch_count_0'   =>  $purch_count_0,
-            'purch_count_1'   =>  $purch_count_1,
-            'purch_count_2'   =>  $purch_count_2,
-            'purch_count_3'   =>  $purch_count_3,
-            'purch_count_4'   =>  $purch_count_4,
-            'purch_count_5'   =>  $purch_count_5,
-            'purch_count_6'   =>  $purch_count_6,
-            'purch_count_7'   =>  $purch_count_7,
-            'purchase'        =>  $purchase
+        $start_date = date("Y").'-'.'01'.'-'.'01';
+        $end_date = '2022-12-31';  //date("Y").'-'.date("m").'-'.cal_days_in_month(CAL_GREGORIAN,date("m"),date(""));;
+        $start_date_mes = date("Y").'-'.date("m").'-'.'01';
+        $yearly_sale_amount = [];
+        $month[] = date("F", strtotime($start_date));
+
+
+        $revenue_mes = \DB::table('linea_productos')
+                        ->whereDate('fecha', '>=' , $start_date_mes)
+                        ->whereDate('fecha', '<=' , $end_date)
+                        ->sum('total');
+
+        $recent_sale = \DB::table('sales')
+                       ->orderBy('id', 'desc')
+                       ->where('empresa_id', \Auth::user()->empresa_id)
+                       ->take(5)->get();
+
+         $recent_purchase = Purchase::with('purchaseDetails')
+                       ->where('empresa_id',\Auth::user()->empresa_id)
+                       ->take(5)
+                       ->get();
+
+         $products = Product::orderBy('id', 'desc')
+                       ->where('empresa_id', \Auth::user()->empresa_id)
+                       ->take(5)
+                       ->get();
+
+
+        //dd($products);
+         $recent_expense = Expense::with('category')
+                       ->whereDate('date', '>=' , $start_date)
+                       ->where('empresa_id', \Auth::user()->empresa_id)
+                       ->whereDate('date', '<=' , $end_date)
+                       ->get();
+        //dd($recent_expense);
+         $best_selling_qty = \DB::table('sale_details')
+                       ->where('empresa_id',\Auth::user()->empresa_id)
+                       ->select(\DB::raw('product_id, sum(quantity) as sold_qty'))
+                       ->whereDate('created_at', '>=' , $start_date)
+                       ->whereDate('created_at', '<=' , $end_date)
+                       ->groupBy('product_id')
+                       ->orderBy('sold_qty', 'desc')
+                       ->take(5)
+                       ->get();
+        //dd($best_selling_qty);
+         $yearly_best_selling_qty = \DB::table('sale_details')
+                       ->where('empresa_id',\Auth::user()->empresa_id)
+                      ->select(\DB::raw('product_id, sum(quantity) as sold_qty'))
+                      ->whereDate('created_at', '>=' , date("Y").'-01-01')
+                      ->whereDate('created_at', '<=' , date("Y").'-12-31')
+                      ->groupBy('product_id')
+                      ->orderBy('sold_qty', 'desc')
+                      ->take(5)
+                      ->get();
+    //dd($yearly_best_selling_qty);
+        $yearly_best_selling_price = \DB::table('sale_details')
+                      ->where('empresa_id',\Auth::user()->empresa_id)
+                      ->select(\DB::raw('product_id, sum(sub_total / 100) as total_price'))
+                      ->whereDate('created_at', '>=' , date("Y").'-01-01')
+                      ->whereDate('created_at', '<=' , date("Y").'-12-31')
+                      ->groupBy('product_id')
+                      ->orderBy('total_price', 'desc')
+                      ->take(5)
+                      ->get();
+
+
+        $today = getdate();
+        $current_month = $today['mon'];
+        $current_year = $today['year'];
+        $data_month = [
+                        'Enero',
+                        'Febrero',
+                        'Marzo',
+                        'Abril',
+                        'Mayo',
+                        'Junio',
+                        'Julio',
+                        'Agosto',
+                        'Septiembre',
+                        'Octubre',
+                        'Noviembre',
+                        'Diciembre'
+                    ];
+        $current_month = $today['mon'];
+
+         $mes_actual = $data_month[$current_month - 1];
+
+        return view('home',
+                         [
+            'revenue'                   => $revenue,
+            'sale_returns'              => $sale_returns / 100,
+            'purchase_returns'          => $purchase_returns / 100,
+            'profit'                    => $profit,
+            'tasa'                      => $tasa,
+            'currentMonthExpenses'      => $currentMonthExpenses,
+            'emp_count_1'               =>  $emp_count_1,
+            'emp_count_2'               =>  $emp_count_2,
+            'emp_count_3'               =>  $emp_count_3,
+            'emp_count_4'               =>  $emp_count_4,
+            'emp_count_5'               =>  $emp_count_5,
+            'emp_count_6'               =>  $emp_count_6,
+            'emp_count_7'               =>  $emp_count_7,
+            'emp_count_0'               =>  $emp_count_0,
+            'purch_count_0'             =>  $purch_count_0,
+            'purch_count_1'             =>  $purch_count_1,
+            'purch_count_2'             =>  $purch_count_2,
+            'purch_count_3'             =>  $purch_count_3,
+            'purch_count_4'             =>  $purch_count_4,
+            'purch_count_5'             =>  $purch_count_5,
+            'purch_count_6'             =>  $purch_count_6,
+            'purch_count_7'             =>  $purch_count_7,
+            'purchase'                  =>  $purchase,
+            'revenue_mes'               => $revenue_mes,
+            'recent_sale'               => $recent_sale,
+            'recent_purchase'           => $recent_purchase,
+            'products'                  => $products,
+            'recent_expense'            => $recent_expense,
+            'best_selling_qty'          => $best_selling_qty,
+            'yearly_best_selling_qty'   => $yearly_best_selling_qty,
+            'mes_actual'                => $mes_actual,
+            'yearly_best_selling_price' => $yearly_best_selling_price
 
         ]);
        }
@@ -383,7 +480,10 @@ class HomeController extends Controller
 
       public function bolivares()
     {
-        $tbolivares = \DB::table('tasas')->where('fecha_emision',date('Y-m-d'))->count();
+        $tbolivares = \DB::table('tasas')
+        ->where('fecha_emision',date('Y-m-d'))
+        ->where('empresa_id',\Auth::user()->empresa_id)
+        ->count();
 
         return $tbolivares;
     }

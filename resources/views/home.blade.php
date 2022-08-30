@@ -77,7 +77,16 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="font-weight-bolder mb-0">{{ format_currency($revenue - $currentMonthExpenses - $purchase) }}</h2>
+                                @php
+                                  $totales =   $revenue - $currentMonthExpenses - $purchase
+                                @endphp
+                                <h2 class="font-weight-bolder mb-0">
+                                    @if ($totales < 0)
+                                        {{ format_currency('0.00') }}
+                                    @else
+                                        {{ format_currency($totales) }}
+                                    @endif
+                                </h2>
                                 <small class="card-text">Ganancias</small>
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
@@ -88,6 +97,7 @@
                         </div>
                     </div>
                  </div>
+
              </div>
         @endcan
 
@@ -124,6 +134,298 @@
         </div>
 
     @endif
+    <div class="row">
+        <div class="col-md-7">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4>Transacciones recientes</h4>
+                  <div class="right-column">
+                    <div class="badge badge-primary">Últimos 5 registros</div>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#sale-latest" role="tab" data-toggle="tab">Ventas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#purchase-latest" role="tab" data-toggle="tab">Compras</a>
+                  </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="#products-latest" role="tab" data-toggle="tab">Productos</a>
+                  </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="#expeses-latest" role="tab" data-toggle="tab">Gastos</a>
+                  </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="#tasa-latest" role="tab" data-toggle="tab">Tasa del día</a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade show active" id="sale-latest">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>Fecha</th>
+                              <th>Estado de la venta</th>
+                               <th>Método de pago</th>
+                              <th>Total cancelado</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($recent_sale as $sale)
+
+                            <tr>
+                              <td>{{ $sale->date }}</td>
+                              <td>{{ $sale->payment_method }}</td>
+                              @if($sale->status == 'Completado')
+                              <td><div class="badge badge-success">Procesado</div></td>
+
+                              @else
+                              <td><div class="badge badge-danger">Cancelado</div></td>
+
+                              @endif
+
+                              <td>{{ format_currency($sale->paid_amount / 100) }}</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="quotation-latest">
+                      <div class="table-responsive">
+                       <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>{{trans('file.date')}}</th>
+                              <th>{{trans('file.status')}}</th>
+                              <th>{{trans('file.grand total')}}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="purchase-latest">
+                      <div class="table-responsive">
+                       <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>Fecha</th>
+                              <th>Código</th>
+                              <th>Proveedor</th>
+                              <th>Estado</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($recent_purchase as $purchase)
+                            <?php $supplier = DB::table('proveedors')->where('empresa_id',\Auth::user()->empresa_id)->find($purchase->proveedor_id); ?>
+                            <tr>
+                              <td>{{ $purchase->fecha }}</td>
+                              <td>{{$purchase->correlativo}}</td>
+                              @if($supplier)
+                                <td>{{$supplier->company_name}}</td>
+                              @else
+                                <td>N/A</td>
+                              @endif
+                              @if($purchase->estado_compra == 1)
+                              <td><div class="badge badge-success">Recibido</div></td>
+                              @elseif($purchase->estado_compra == 2)
+                              <td><div class="badge badge-success">Parcial</div></td>
+                              @elseif($purchase->estado_compra == 3)
+                              <td><div class="badge badge-danger">Pendiente</div></td>
+                              @else
+                              <td><div class="badge badge-danger">Ordenado</div></td>
+                              @endif
+
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="products-latest">
+
+                      <div class="table-responsive">
+                       <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>Código</th>
+                              <th>Producto</th>
+
+                              <th>Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($products as $producto)
+
+                            <tr>
+                              <td>{{$producto->product_code}}</td>
+                              <td>{{ $producto->product_name }}</td>
+                              <td>{{$producto->product_quantity}}</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="expeses-latest">
+
+                      <div class="table-responsive">
+                       <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>Fecha</th>
+                              <th>Referencia</th>
+                              <th>Descripción</th>
+                              <th>Estado</th>
+                              <th>Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($recent_expense as $producto)
+
+                            <tr>
+                              <td>{{ $producto->fecha }} {{ $producto->hora }}</td>
+                              <td>{{ $producto->reference }}</td>
+                              <td>{{ $producto->details }}</td>
+                              <td><div class="badge badge-success">Realizado</div></td>
+                              <td>{{ format_currency($producto->amount) }}</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tasa-latest">
+                    @php
+                        $tasas = App\Models\Tasa::take(5)->orderBy('id','DESC')->where('empresa_id',\Auth::user()->empresa_id)->get()
+                    @endphp
+                      <div class="table-responsive">
+                       <table class="table table-hover table-bordered table-sm text-center">
+                          <thead>
+                            <tr>
+                              <th>Fecha</th>
+                              <th>Tasa (Bs)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($tasas as $tasa)
+
+                            <tr>
+                              <td>{{ $tasa->fecha_emision }}</td>
+                              <td>{{ $tasa->amount }}Bs.</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div class="col-md-5">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4>Lo mejor vendido en el mes {{$mes_actual}}</h4>
+                  <div class="right-column">
+                    <div class="badge badge-primary">Las últimas 5</div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-sm text-center">
+                      <thead>
+                        <tr>
+                          <th>SL No</th>
+                          <th>Detalle del producto</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($best_selling_qty as $key=>$sale)
+                        <?php $product = DB::table('products')->where('empresa_id',\Auth::user()->empresa_id)->find($sale->product_id); ?>
+                        <tr>
+                          <td>{{$key + 1}}</td>
+                          <td>{{$product->product_name}}</td>
+                          <td>{{$sale->sold_qty}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4>Lo mejor vendido {{ $mes_actual }} (Cantidad)</h4>
+                  <div class="right-column">
+                    <div class="badge badge-primary">Las últimas 5</div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-sm text-center">
+                      <thead>
+                        <tr>
+                          <th>SL No</th>
+                          <th>Detalle del producto</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($yearly_best_selling_qty as $key => $sale)
+                       <?php $product = DB::table('products')->where('empresa_id',\Auth::user()->empresa_id)->find($sale->product_id); ?>
+                        <tr>
+                          <td>{{$key + 1}}</td>
+                          <td>{{$product->product_name}}</td>
+                          <td>{{$sale->sold_qty}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4>Lo mejor vendido {{ $mes_actual }} (Precio)</h4>
+                  <div class="right-column">
+                    <div class="badge badge-primary">Las últimas 5</div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-sm text-center">
+                      <thead>
+                        <tr>
+                          <th>SL No</th>
+                          <th>Detalle del producto</th>
+                          @if(\Auth::user()->hasRole('Administrador'))
+                          <th>Total ($)</th>
+                          @endif
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($yearly_best_selling_price as $key => $sale)
+                        <?php $product = DB::table('products')->where('empresa_id',\Auth::user()->empresa_id)->find($sale->product_id); ?>
+                        <tr>
+                          <td>{{$key + 1}}</td>
+                          <td>{{$product->product_name}}</td>
+                          @if(\Auth::user()->hasRole('Administrador'))
+                               <td>{{number_format((float)$sale->total_price, 2, '.', '')}}</td>
+                          @endif
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+    </div>
 
        {{--  @can('show_monthly_cashflow')
         <div class="row">

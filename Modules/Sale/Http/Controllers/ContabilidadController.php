@@ -115,7 +115,8 @@ class ContabilidadController extends Controller
             $valid_caja = DB::table('cajas')
             ->where([
                 ['estado','<>','Cerrada'],
-                ['fecha','=',$fecha]
+                ['fecha','=',$fecha],
+                ['empresa_id','=',\Auth::user()->empresa_id]
             ])
             ->first();
            // dd($valid_caja);

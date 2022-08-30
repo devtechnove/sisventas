@@ -30,7 +30,8 @@ class PosController extends Controller
             ->where([
                 //['caja','=',$request->get('caja')],
                 ['fecha','=',$fecha],
-                ['estado','=','Abierta']
+                ['estado','=','Abierta'],
+                ['empresa_id','=',\Auth::user()->empresa_id]
             ])
             ->first();
 
@@ -65,7 +66,8 @@ class PosController extends Controller
             ->where([
                 //['caja','=',$request->get('caja')],
                 ['fecha','=',$fecha],
-                ['estado','=','Abierta']
+                ['estado','=','Abierta'],
+                ['empresa_id','=',\Auth::user()->empresa_id]
             ])
             ->first();
 
@@ -89,7 +91,8 @@ class PosController extends Controller
               ->where([
                 //['caja','=',$request->get('caja')],
                 ['fecha','=',$fecha],
-                ['estado','=','Abierta']
+                ['estado','=','Abierta'],
+                ['empresa_id','=',\Auth::user()->empresa_id]
             ])
             ->first();
 
@@ -102,6 +105,7 @@ class PosController extends Controller
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
                 'idcaja' => $caja->id,
+                'empresa_id' => \Auth::user()->empresa_id,
                 'idtasa' => $tbolivares->id,
                 'idcuenta' => $cuenta->id,
                 'mes' => date('m'),
@@ -132,6 +136,7 @@ class PosController extends Controller
             foreach (Cart::instance('sale')->content() as $cart_item) {
                 SaleDetails::create([
                     'sale_id' => $sale->id,
+                    'empresa_id' => \Auth::user()->empresa_id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
                     'product_code' => $cart_item->options->code,
@@ -149,6 +154,7 @@ class PosController extends Controller
                 $linea = new LineaProducto();
                 $linea->producto_id = $cart_item->id;
                 $linea->usuario_id = \Auth::id();
+                $linea->empresa_id = \Auth::user()->empresa_id;
                 $linea->comprobante_id = $sale->id;
                 $linea->descripcion = "$product->product_name x $cart_item->qty  -  TOTAL CANCELADO = Bs. $request->total_amount";
                 $linea->fecha = date("Y-m-d H:i:s");;
@@ -161,6 +167,7 @@ class PosController extends Controller
 
                 $mov = new MovimientoCuentas();
                 $mov->cuenta_id       = $request->cuenta_id;
+                $mov->empresa_id = \Auth::user()->empresa_id;
                 $mov->fecha_emision   = $fecha;
                 $mov->mes             = date('m');
                 $mov->hora            = date('H:i:s');
@@ -191,6 +198,7 @@ class PosController extends Controller
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
                     'date' => now()->format('Y-m-d'),
+                    'empresa_id' => \Auth::user()->empresa_id,
                     'idcuenta' => $request->cuenta_id,
                     'reference' => 'INV/'.$sale->reference,
                     'amount' => $sale->paid_amount,

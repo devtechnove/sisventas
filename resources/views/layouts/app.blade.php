@@ -163,6 +163,10 @@
         })
     </script>
 
+    <div class="text-center">
+        @include('layouts.footer')
+    </div>
+
     @include('sweetalert::alert')
 
     @yield('third_party_scripts')

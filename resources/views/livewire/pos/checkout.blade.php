@@ -17,7 +17,7 @@
                        <div class="input-group">
                         <select class="form-control" wire:model="customer_id" id="customer_id" required>
                             <option value="">Seleccione un cliente</option>
-                            @foreach(\Modules\People\Entities\Customer::all() as $customer)
+                            @foreach(\Modules\People\Entities\Customer::where('empresa_id',\Auth::user()->empresa_id)->get() as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                             @endforeach
                         </select>

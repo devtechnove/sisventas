@@ -19,7 +19,7 @@ class ProductList extends Component
 
     public $categories;
     public $category_id;
-    public $limit = 9;
+    public $limit = 12;
 
     public function mount($categories) {
         $this->categories = $categories;
@@ -29,7 +29,7 @@ class ProductList extends Component
     public function render() {
         return view('livewire.pos.product-list', [
             'products' => Product::when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
+                return $query->where('empresa_id',\Auth::user()->empresa_id)->where('category_id', $this->category_id);
             })
             ->paginate($this->limit)
         ]);

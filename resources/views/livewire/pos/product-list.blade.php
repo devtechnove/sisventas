@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 @forelse($products as $product)
-                    <div wire:click.prevent="selectProduct({{ $product }})" class="col-lg-4 col-md-6" style="cursor: pointer;">
+                    <div wire:click.prevent="selectProduct({{ $product }})" class="col-lg-2 col-md-6" style="cursor: pointer;">
                         <div class="card border-0 shadow h-100">
                             <div class="position-relative">
                                 <img width="90" src="{{ asset('/images/products/'.$product->product_image)}}" class="card-img-top" alt="Product Image">
@@ -17,7 +17,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="mb-2">
-                                    <h6 style="font-size: 13px;" class="card-title mb-0">{{ $product->product_name }}</h6>
+                                    <h6 style="font-size: 10px;" class="card-title mb-0">{{ $product->product_name }}</h6>
                                     <span class="badge badge-success">
                                     {{ $product->product_code }}
                                 </span>
