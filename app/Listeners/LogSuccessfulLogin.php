@@ -38,6 +38,7 @@ class LogSuccessfulLogin
         $login->session_token = session('_token');
         $login->ip_address = $_SERVER['REMOTE_ADDR'];
         $login->login_at = \Carbon\Carbon::now();
+        $login->empresa_id = \Auth::user()->empresa_id;
 
         $event->user->logins()->save($login);
 

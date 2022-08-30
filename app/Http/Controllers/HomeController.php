@@ -126,7 +126,8 @@ class HomeController extends Controller
         $product_costs = 0;
         $sales_completed = Sale::completed()->with('saleDetails')->get();
         $currentMonthExpenses = Expense::sum('amount') / 100;
-        $purchase = Purchase::sum('total_amount') / 100;
+        $purchase = Purchase::where('empresa_id',\Auth::user()->empresa_id)
+         ->sum('total_amount') / 100;
 
 
 

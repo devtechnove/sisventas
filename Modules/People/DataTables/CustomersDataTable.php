@@ -22,7 +22,7 @@ class CustomersDataTable extends DataTable
     }
 
     public function query(Customer $model) {
-        return $model->newQuery();
+        return $model->where('empresa_id',\Auth::user()->empresa_id )->newQuery();
     }
 
     public function html() {
@@ -45,15 +45,19 @@ class CustomersDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('customer_name')
+                ->title('Nombre completo')
                 ->className('text-center align-middle'),
 
             Column::make('customer_documento')
+                ->title('Documento de identidad')
                 ->className('text-center align-middle'),
 
             Column::make('customer_phone')
+                ->title('Teléfono')
                 ->className('text-center align-middle'),
 
             Column::computed('action')
+                ->title('Opciones')
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),

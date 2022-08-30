@@ -26,6 +26,8 @@ class CreateLoginsTable extends Migration
             $table->string('ano')->default(date('Y'));
             $table->timestamp('login_at')->useCurrent();
             $table->dateTime('logout_at')->nullable();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

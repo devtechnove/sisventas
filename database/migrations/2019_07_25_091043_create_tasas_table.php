@@ -17,6 +17,8 @@ class CreateTasasTable extends Migration
             $table->increments('id');
             $table->decimal('amount',15,2);
             $table->string('fecha_emision');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

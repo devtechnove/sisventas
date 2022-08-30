@@ -28,6 +28,7 @@ class ExpenseCategoriesController extends Controller
 
         ExpenseCategory::create([
             'category_name' => $request->category_name,
+            'empresa_id'    => \Auth::user()->empresa_id,
             'category_description' => $request->category_description
         ]);
 
@@ -55,6 +56,7 @@ class ExpenseCategoriesController extends Controller
 
         $expenseCategory->update([
             'category_name' => $request->category_name,
+            'empresa_id'    => \Auth::user()->empresa_id,
             'category_description' => $request->category_description
         ]);
 

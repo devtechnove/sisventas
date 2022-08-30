@@ -24,7 +24,7 @@ class ExpensesDataTable extends DataTable
     }
 
     public function query(Expense $model) {
-        return $model->newQuery()->with('category');
+        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery()->with('category');
     }
 
     public function html() {

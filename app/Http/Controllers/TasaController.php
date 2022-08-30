@@ -41,6 +41,7 @@ class TasaController extends Controller
             $tasa = new Tasa();
             $tasa->fecha_emision = date('Y-m-d');
             $tasa->amount = $request->amount;
+            $tasa->empresa_id = \Auth::user()->empresa_id;
             $tasa->save();
 
 

@@ -21,7 +21,7 @@ class ExpenseCategoriesDataTable extends DataTable
     }
 
     public function query(ExpenseCategory $model) {
-        return $model->newQuery()->withCount('expenses');
+        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery()->withCount('expenses');
     }
 
     public function html() {
@@ -45,15 +45,19 @@ class ExpenseCategoriesDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('category_name')
+                ->title('Cateogoría')
                 ->addClass('text-center'),
 
             Column::make('category_description')
+                ->title('Descripción')
                 ->addClass('text-center'),
 
             Column::make('expenses_count')
+                ->title('Cantidad de gastos')
                 ->addClass('text-center'),
 
             Column::computed('action')
+                ->title('Opciones')
                 ->exportable(false)
                 ->printable(false)
                 ->addClass('text-center'),

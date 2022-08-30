@@ -22,7 +22,7 @@ class SuppliersDataTable extends DataTable
     }
 
     public function query(Supplier $model) {
-        return $model->newQuery();
+        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery();
     }
 
     public function html() {

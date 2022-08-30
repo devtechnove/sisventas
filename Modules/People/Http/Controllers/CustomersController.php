@@ -42,7 +42,7 @@ class CustomersController extends Controller
             'customer_documento' => $request->customer_documento,
             'customer_phone' => $request->customer_phone,
             'address'           => $request->address,
-            //'country'        => $request->country,
+            'empresa_id'        => \Auth::user()->empresa_id,
             //'address'        => $request->address
         ]);
 
@@ -87,7 +87,7 @@ class CustomersController extends Controller
             'customer_documento' => $request->customer_documento,
             'customer_phone' => $request->customer_phone,
             'address'           => $request->address,
-            //'country'        => $request->country,
+            'empresa_id'        => \Auth::user()->empresa_id,
             //'address'        => $request->address
         ]);
 
