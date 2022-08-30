@@ -24,7 +24,7 @@ class UsersDataTable extends DataTable
                 return view('user::users.partials.actions', compact('data'));
             })
             ->addColumn('status', function ($data) {
-                if ($data->is_active == 1) {
+                if ($data->status == 1) {
                     $html = '<span class="badge badge-success">Activo</span>';
                 } else {
                     $html = '<span class="badge badge-danger">Inactivo</span>';
@@ -41,7 +41,7 @@ class UsersDataTable extends DataTable
     }
 
     public function query(User $model) {
-        return $model->newQuery()
+        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery()
             ->with(['roles' => function ($query) {
                 $query->select('name')->get();
             }]);

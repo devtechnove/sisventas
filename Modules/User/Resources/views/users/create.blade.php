@@ -56,18 +56,27 @@
                                 <label for="role">Role <span class="text-danger">*</span></label>
                                 <select class="form-control" name="role" id="role" required>
                                     <option value="" selected disabled>Seleccione</option>
-                                    @foreach(\Spatie\Permission\Models\Role::where('name', '!=', 'Super Admin')->get() as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @foreach(\Spatie\Permission\Models\Role::where('id', '>', 1)->get() as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                               <div class="form-group">
+                                <label for="role">Empresa <span class="text-danger">*</span></label>
+                                <select class="form-control" name="empresa_id" id="empresa_id" required>
+                                    <option value="" selected disabled>Seleccione</option>
+                                    @foreach(\Modules\Empresa\Entities\Empresa::where('id', '=',\Auth::user()->empresa_id)->get() as $empresa)
+                                        <option value="{{ $empresa->id }}">{{ $empresa->razon_social }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="is_active">Status <span class="text-danger">*</span></label>
-                                <select class="form-control" name="is_active" id="is_active" required>
+                          <div class="form-group">
+                                <label for="role">Status <span class="text-danger">*</span></label>
+                                <select class="form-control" name="status"  required>
                                     <option value="" selected disabled>Seleccione</option>
-                                    <option value="true">Activo</option>
-                                    <option value="false">Inactivo</option>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
                                 </select>
                             </div>
                         </div>

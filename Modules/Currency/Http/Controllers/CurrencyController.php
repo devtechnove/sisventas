@@ -42,6 +42,7 @@ class CurrencyController extends Controller
             'currency_name' => $request->currency_name,
             'code' => Str::upper($request->code),
             'symbol' => $request->symbol,
+            'empresa_id' => \Auth::user()->empresa_id,
             'thousand_separator' => $request->thousand_separator,
             'decimal_separator' => $request->decimal_separator,
             'exchange_rate' => $request->exchange_rate

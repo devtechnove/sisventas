@@ -54,11 +54,13 @@ class UsersController extends Controller
         $file->move(public_path('images/perfiles'), $fileName);
 
         $user = new User();
-        $user->name      = $request->name;
+        $user->name            = $request->name;
+        $user->empresa_id      = $request->empresa_id;
         $user->image     = $fileName;
         $user->email     = $request->email;
+        $user->role_id = $request->role;
         $user->password  = Hash::make($request->password);
-        $user->is_active = $request->is_active;
+        $user->status = $request->status;
         $user->save();
 
         $user->assignRole($request->role);
@@ -71,10 +73,11 @@ class UsersController extends Controller
       {
             $user = new User();
             $user->name      = $request->name;
-            //$user->image     = $fileName;
+            $user->empresa_id      = $request->empresa_id;
             $user->email     = $request->email;
             $user->password  = Hash::make($request->password);
-            $user->is_active = $request->is_active;
+            $user->role_id = $request->role;
+            $user->status = $request->status;
             $user->save();
 
             $user->assignRole($request->role);
