@@ -13,7 +13,7 @@
     <div>
         @can('show_total_stats')
         <div class="row">
-              <div class="col-lg-5 col-sm-6 col-12">
+              <div class="col-lg-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -22,7 +22,7 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                   <span class="iconify fa-3x" data-icon="mdi:sale"></span>
+                                   <iconify-icon icon="mdi:sale" class="fa-2x"></iconify-icon>
                                 </div>
                             </div>
                         </div>
@@ -37,13 +37,13 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                   <span class="iconify fa-3x" data-icon="akar-icons:shipping-box-v2"></span>
+                                  <iconify-icon icon="akar-icons:shipping-box-v2" class="fa-2x"></iconify-icon>
                                 </div>
                             </div>
                         </div>
                     </div>
                  </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+                <div class="col-lg-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -52,13 +52,13 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                     <span class="iconify fa-3x" data-icon="mdi:refresh"></span>
+                                      <iconify-icon icon="mdi:refresh" class="fa-2x"></iconify-icon>
                                 </div>
                             </div>
                         </div>
                     </div>
                  </div>
-                  <div class="col-lg-5 col-sm-6 col-12">
+                  <div class="col-lg-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -67,13 +67,28 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                    <span class="iconify fa-3x" data-icon="fa-regular:handshake"></span>
+                                    <iconify-icon icon="fa-regular:handshake" class="fa-2x"></iconify-icon>
                                 </div>
                             </div>
                         </div>
                     </div>
                  </div>
-               <div class="col-lg-7 col-sm-6 col-12">
+                 <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="font-weight-bolder mb-0">{{ format_currency($expense) }}</h2>
+                                <small class="card-text">Gastos</small>
+                            </div>
+                            <div class="avatar bg-light-primary p-50 m-0">
+                                <div class="avatar-content">
+                                    <iconify-icon icon="ic:baseline-point-of-sale" class="fa-2x"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+               <div class="col-lg-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -91,7 +106,7 @@
                             </div>
                             <div class="avatar bg-light-primary p-50 m-0">
                                 <div class="avatar-content">
-                                    <span class="iconify fa-3x" data-icon="fa6-solid:sack-dollar"></span>
+                                     <iconify-icon icon="fa6-solid:sack-dollar" class="fa-2x"></iconify-icon>
                                 </div>
                             </div>
                         </div>
@@ -223,23 +238,22 @@
                           </thead>
                           <tbody>
                             @foreach($recent_purchase as $purchase)
-                            <?php $supplier = DB::table('proveedors')->where('empresa_id',\Auth::user()->empresa_id)->find($purchase->proveedor_id); ?>
+                            <?php $supplier = DB::table('suppliers')->where('empresa_id',\Auth::user()->empresa_id)->find($purchase->supplier_id); ?>
                             <tr>
-                              <td>{{ $purchase->fecha }}</td>
-                              <td>{{$purchase->correlativo}}</td>
+                              <td>{{ $purchase->date }}</td>
+                              <td>{{$purchase->reference}}</td>
                               @if($supplier)
-                                <td>{{$supplier->company_name}}</td>
+                                <td>{{$supplier->supplier_name}}</td>
                               @else
                                 <td>N/A</td>
                               @endif
-                              @if($purchase->estado_compra == 1)
-                              <td><div class="badge badge-success">Recibido</div></td>
-                              @elseif($purchase->estado_compra == 2)
-                              <td><div class="badge badge-success">Parcial</div></td>
-                              @elseif($purchase->estado_compra == 3)
-                              <td><div class="badge badge-danger">Pendiente</div></td>
+                              @if($purchase->status == 'Completado')
+                              <td><div class="badge badge-success">Completado</div></td>
+                              @elseif($purchase->status == 'Ordenado')
+                              <td><div class="badge badge-info">Parcial</div></td>
                               @else
-                              <td><div class="badge badge-danger">Ordenado</div></td>
+                              <td><div class="badge badge-danger">Pendiente</div></td>
+
                               @endif
 
                             </tr>

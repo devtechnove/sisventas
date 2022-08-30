@@ -55,7 +55,7 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
                              <a class="brand-logo" href="javascript:void(0);">
-                             <img src="{{ asset('images/logo/20220827_155817_00002.png') }}" alt="" height="100">
+                             <img src="{{ asset('images/logo/20220827_155817_00002.png') }}" alt="" class="img-responsive" height="50">
                         </a>
                         </a>
                         <!-- /Brand logo-->

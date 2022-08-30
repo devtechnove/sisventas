@@ -54,7 +54,7 @@
                 <div class="auth-wrapper auth-v2">
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
-                           <img src="{{ asset('assets/images/logo/logo_negro.png') }}" alt="" height="100">
+                           <img src="{{ asset('assets/images/logo/logo_negro.png') }}" class="img-responsive" height="100">
                            
                         </a>
                         <!-- /Brand logo-->

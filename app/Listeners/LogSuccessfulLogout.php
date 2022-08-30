@@ -43,6 +43,8 @@ class LogSuccessfulLogout
         {
             $login->logout_at = \Carbon\Carbon::now();
             $login->save();
+
+            \Alert::alert('¡Vuelve pronto!', 'Su sesión ha finalizado satisfactoriamente.', 'success');
         }
 
        } catch (\Exception $e) {

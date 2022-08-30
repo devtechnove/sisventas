@@ -146,6 +146,7 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
+    <script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
     <script src="/js/iconify.js"></script>
     <script src="/js/system.js"></script>
     <script src="{{asset('js/mdb-file-upload.min.js')}}"></script>

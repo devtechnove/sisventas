@@ -129,6 +129,9 @@ class HomeController extends Controller
         $purchase = Purchase::where('empresa_id',\Auth::user()->empresa_id)
          ->sum('total_amount') / 100;
 
+         $expense = Expense::where('empresa_id',\Auth::user()->empresa_id)
+         ->sum('amount') / 100;
+
 
 
 
@@ -276,7 +279,8 @@ class HomeController extends Controller
             'best_selling_qty'          => $best_selling_qty,
             'yearly_best_selling_qty'   => $yearly_best_selling_qty,
             'mes_actual'                => $mes_actual,
-            'yearly_best_selling_price' => $yearly_best_selling_price
+            'yearly_best_selling_price' => $yearly_best_selling_price,
+            'expense'                   => $expense
 
         ]);
        }
