@@ -65,7 +65,6 @@
                         <thead>
                         <tr>
                             <th>Fecha</th>
-
                             <th>Detalle</th>
                             <th>Estado</th>
                             <th>Crédito</th>
@@ -73,30 +72,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($estados as $sale)
+                        @foreach($estados as $sale)
                             <tr>
                                 <td> {{ \Carbon\Carbon::parse($sale->fecha_emision)->format('d M, Y') }}</td>
-
                                 <td> {{ $sale->descripcion }}</td>
                                 <td> {{ $sale->tipo_movimiento }}</td>
                                 <td>{{ format_currency($sale->credito) }}</td>
                                 <td>{{ format_currency($sale->debito) }}</td>
 
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8">
-                                    <span class="text-danger">¡No hay datos de ventas disponibles!</span>
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                         </tbody>
                          @foreach ($estados as $vent)
                             @php
                                 $totalCredito+=$vent->credito;//sumanos los valores, ahora solo fata mostrar dicho valor
                                 $totalDebito+=$vent->debito
                             @endphp
-                            @endforeach
+                         @endforeach
                         <tfoot class="table-border-bottom-0">
                         <tr>
                           <th></th>

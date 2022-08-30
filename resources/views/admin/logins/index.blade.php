@@ -27,8 +27,8 @@
       </div>
        <!-- /.card-header -->
           <div class="card-body ">
-
-          <table  class="table table table-striped table-responsive" style="width:100%" id="tableExport">
+            <div class="table-responsive">
+              <table  class="table table table-striped table-hover table-bordered" id="tableExport">
               <thead>
               <tr>
               <th>#</th>
@@ -55,6 +55,7 @@
               </tr>
               </tbody>
           </table>
+          </div>
           </div>
           <!-- /.card-body -->
       </div>
