@@ -26,6 +26,9 @@ class PermissionsTableSeeder extends Seeder
                                  //User Mangement
                                 'edit_own_profile',
                                 'access_user_management',
+
+                                 //Roles Mangement
+                                'access_roles_management',
                                 //Dashboard
                                 'show_total_stats',
                                 'show_month_overview',

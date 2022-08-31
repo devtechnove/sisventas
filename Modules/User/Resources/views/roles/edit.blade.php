@@ -128,6 +128,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                  <!-- User Management Permission -->
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <div class="card h-100 border-0 shadow">
+                                        <div class="card-header">
+                                            Gestión de roles
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                               id="access_roles_management" name="permissions[]"
+                                                               value="access_roles_management" {{ $role->hasPermissionTo('access_roles_management') ? 'checked' : '' }}>
+                                                        <label class="custom-control-label" for="access_roles_management">Acesso</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Products Permission -->
                                 <div class="col-lg-4 col-md-6 mb-3">

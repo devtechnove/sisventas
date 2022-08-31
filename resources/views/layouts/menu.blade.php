@@ -345,11 +345,13 @@
                                             <i class="c-sidebar-nav-icon bi bi-person-plus" style="line-height: 1;"></i> Nuevo usuario
                                         </a>
                                     </li>
+                                 @can('access_roles_management')
                                     <li class="c-sidebar-nav-item">
                                         <a class="c-sidebar-nav-link {{ request()->routeIs('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
                                             <i class="c-sidebar-nav-icon bi bi-key" style="line-height: 1;"></i> Roles & Permisos
                                         </a>
                                     </li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
