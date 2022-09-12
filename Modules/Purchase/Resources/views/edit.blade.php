@@ -66,7 +66,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Estado de pedido <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="status" id="status" required>
+                                        <select class="form-control" name="status"  required>
                                             <option {{ $purchase->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
                                             <option {{ $purchase->status == 'Ordenado' ? 'selected' : '' }} value="Ordenado">Ordenado</option>
                                             <option {{ $purchase->status == 'Completado' ? 'selected' : '' }} value="Completado">Completado</option>

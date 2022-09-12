@@ -51,10 +51,11 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
+                 @include('sweetalert::alert')
                 <div class="auth-wrapper auth-v2">
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
-                           <img src="{{ asset('assets/images/logo/logo_negro.png') }}" class="img-responsive" height="100">
+                           <img src="{{ asset('images/logo/20220827_155817_00002.png') }}" alt="" class="img-responsive" height="50">
                            
                         </a>
                         <!-- /Brand logo-->

@@ -149,7 +149,7 @@
         </div>
 
     @endif
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-7">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -441,7 +441,7 @@
             </div>
     </div>
 
-       {{--  @can('show_monthly_cashflow')
+        @can('show_monthly_cashflow')
         <div class="row">
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm">

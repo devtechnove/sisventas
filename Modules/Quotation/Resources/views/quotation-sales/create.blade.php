@@ -72,7 +72,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="status" id="status" required>
+                                        <select class="form-control" name="status"  required>
                                             <option value="Pendiente">Pendiente</option>
                                             <option value="Enviado">Enviado</option>
                                             <option value="Completado">Completado</option>

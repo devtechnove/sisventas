@@ -61,7 +61,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Estado de la devolución <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="status" id="status" required>
+                                        <select class="form-control" name="status" required>
                                             <option {{ $sale_return->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
                                             <option {{ $sale_return->status == 'Enviado' ? 'selected' : '' }} value="Enviado">Enviado</option>
                                             <option {{ $sale_return->status == 'Completado' ? 'selected' : '' }} value="Completado">Completado</option>

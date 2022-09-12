@@ -91,7 +91,7 @@ class RegisterController extends Controller
         $user->assignRole('Administrador');
 
 
-
+        \Alert::alert('¡Bienvenido (a)!', '¡Por favor verifica tu cuenta!', 'success');
 
         return $user;
     }

@@ -61,7 +61,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="status">Estado de la cotización <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="status" id="status" required>
+                                        <select class="form-control" name="status" required>
                                             <option {{ $quotation->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
                                             <option {{ $quotation->status == 'Enviado' ? 'selected' : '' }} value="Enviado">Enviado</option>
                                         </select>
