@@ -41,10 +41,20 @@ class UsersDataTable extends DataTable
     }
 
     public function query(User $model) {
-        return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery()
+        if (\Auth::user()->hasRole('Super Administrador')) {
+
+            return $model->newQuery()
             ->with(['roles' => function ($query) {
                 $query->select('name')->get();
             }]);
+        }
+        else
+        {
+            return $model->where('empresa_id',\Auth::user()->empresa_id)->newQuery()
+            ->with(['roles' => function ($query) {
+                $query->select('name')->get();
+            }]);
+        }
     }
 
     public function html() {
