@@ -60,7 +60,7 @@ class UsersController extends Controller
         $user->email     = $request->email;
         $user->role_id = $request->role;
         $user->password  = Hash::make($request->password);
-        $user->status = $request->status;
+        $user->status = $request->is_active;
         $user->save();
 
         $user->assignRole($request->role);
@@ -77,7 +77,7 @@ class UsersController extends Controller
             $user->email     = $request->email;
             $user->password  = Hash::make($request->password);
             $user->role_id = $request->role;
-            $user->status = $request->status;
+            $user->status = $request->is_active;
             $user->save();
 
             $user->assignRole($request->role);
@@ -120,7 +120,7 @@ class UsersController extends Controller
              $user->image     = $fileName;
              $user->email     = $request->email;
              //$user->password  = Hash::make($request->password);
-             $user->status = $request->status;
+             $user->status = $request->is_active;
              $user->save();
 
                toast("Usuario modificado y asignado '$request->role' Role!", 'success');
@@ -133,7 +133,7 @@ class UsersController extends Controller
             //$user->image     = $fileName;
             $user->email     = $request->email;
             //$user->password  = Hash::make($request->password);
-            $user->status = $request->status;
+            $user->status = $request->is_active;
             $user->save();
 
            $user->syncRoles($request->role);
