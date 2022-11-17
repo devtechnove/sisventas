@@ -50,8 +50,8 @@
                             <div class="form-group">
                                 <label for="is_active">Estado del usuario <span class="text-danger">*</span></label>
                                 <select class="form-control" name="is_active" id="is_active" required>
-                                    <option value="true" {{ $user->is_active == true ? 'selected' : ''}}>Activo</option>
-                                    <option value="false" {{ $user->is_active == false ? 'selected' : ''}}>Inactivo</option>
+                                    <option value="1" {{ $user->is_active == 1 ? 'selected' : ''}}>Activo</option>
+                                    <option value="0" {{ $user->is_active == 0 ? 'selected' : ''}}>Inactivo</option>
                                 </select>
                             </div>
                         </div>
