@@ -36,7 +36,14 @@ class SalesDataTable extends DataTable
     }
 
     public function query(Sale $model) {
-        return $model->newQuery();
+       if (\Auth::user()->hasRole('Super Administrador')) {
+            return $model->newQuery();
+       }
+       else
+       {
+          return $model->where('empresa_id',\Auth::user()->empresa_id)
+          ->newQuery();
+       }
     }
 
     public function html() {
