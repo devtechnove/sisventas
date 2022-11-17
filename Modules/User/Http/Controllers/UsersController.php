@@ -133,7 +133,7 @@ class UsersController extends Controller
             //$user->image     = $fileName;
             $user->email     = $request->email;
             //$user->password  = Hash::make($request->password);
-            $user->is_active = $request->is_active;
+            $user->status = $request->status;
             $user->save();
 
            $user->syncRoles($request->role);
