@@ -70,6 +70,8 @@ class SalePaymentsController extends Controller
                 $payment_status = 'Pagado';
             }
 
+            $mytime =  \Carbon\Carbon::now('America/Caracas');
+            $fecha  =  $mytime->format('Y-m-d');
 
             $mov = new MovimientoCuentas();
             $mov->cuenta_id = $request->idcuenta;
