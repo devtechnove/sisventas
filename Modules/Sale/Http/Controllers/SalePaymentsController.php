@@ -74,6 +74,7 @@ class SalePaymentsController extends Controller
             $fecha  =  $mytime->format('Y-m-d');
 
             $mov = new MovimientoCuentas();
+            $mov->empresa_id = \Auth::user()->empresa_id;
             $mov->cuenta_id = $request->idcuenta;
             $mov->fecha_emision = $fecha;
             $mov->mes = date('m');
@@ -161,6 +162,7 @@ class SalePaymentsController extends Controller
             $fecha  =  $mytime->format('Y-m-d');
 
             $mov = new MovimientoCuentas();
+            $mov->empresa_id = \Auth::user()->empresa_id;
             $mov->cuenta_id = $request->idcuenta;
             $mov->fecha_emision = $fecha;
             $mov->mes = date('m');
