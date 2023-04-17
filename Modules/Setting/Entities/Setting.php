@@ -8,7 +8,7 @@ use Modules\Currency\Entities\Currency;
 use App\Traits\Tenantable;
 class Setting extends Model
 {
-    use HasFactory, Tenantable;
+    use HasFactory;
 
     protected $guarded = [];
 

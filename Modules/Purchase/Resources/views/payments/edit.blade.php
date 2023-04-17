@@ -95,17 +95,20 @@
     </div>
 @endsection
 
+
+@php
+    $moneda = \Modules\Currency\Entities\Currency::where('empresa_id',\Auth::user()->empresa_id)->first();
+@endphp 
 @push('page_scripts')
     <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#amount').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
+            $('#paid_amount').maskMoney({
+                prefix:'{{ $moneda->symbol }}',
+                    thousands:'{{ $moneda->thousand_separator }}',
+                    decimal:'{{ $moneda->decimal_separator }}',
+                    allowZero: true,
             });
-
-            $('#amount').maskMoney('mask');
 
             $('#getTotalAmount').click(function () {
                 $('#amount').maskMoney('mask', {{ $purchase->due_amount }});

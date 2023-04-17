@@ -3,7 +3,7 @@
 if (!function_exists('settings')) {
     function settings() {
         $settings = cache()->remember('settings', 24*60, function () {
-            return \Modules\Setting\Entities\Setting::firstOrFail();
+            return \Modules\Setting\Entities\Setting::where('empresa_id',\Auth::user()->empresa_id)->firstOrFail();
         });
 
         return $settings;
@@ -17,10 +17,11 @@ if (!function_exists('format_currency')) {
         }
 
         $settings = settings();
+        $moneda = \Modules\Currency\Entities\Currency::where('empresa_id',\Auth::user()->empresa_id)->first();
         $position = $settings->default_currency_position;
-        $symbol = $settings->currency->symbol;
-        $decimal_separator = $settings->currency->decimal_separator;
-        $thousand_separator = $settings->currency->thousand_separator;
+        $symbol = $moneda->symbol;
+        $decimal_separator = $moneda->decimal_separator;
+        $thousand_separator = $moneda->thousand_separator;
 
         if ($position == 'prefix') {
             $formatted_value = $symbol . number_format((float) $value, 2, $decimal_separator, $thousand_separator);

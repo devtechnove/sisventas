@@ -73,15 +73,17 @@
         </form>
     </div>
 @endsection
-
+@php
+    $moneda = \Modules\Currency\Entities\Currency::where('empresa_id',\Auth::user()->empresa_id)->first();
+@endphp 
 @push('page_scripts')
     <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#amount').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
+                 prefix:'{{ $moneda->symbol }}',
+                thousands:'{{ $moneda->thousand_separator }}',
+                decimal:'{{ $moneda->decimal_separator }}',
             });
 
             $('#amount').maskMoney('mask');

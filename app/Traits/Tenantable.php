@@ -22,13 +22,9 @@ trait Tenantable
         });
 
         static::addGlobalScope('user_filter', function (Builder $builder) {
-            if (auth()->user()->hasRole('Super Administrador')) {
-                return;
-            }
-            else
-            {
+
                  $builder->where((new static())->getTable() . '.empresa_id', \Auth::user()->empresa_id);
-            }
+
         });
     }
 }

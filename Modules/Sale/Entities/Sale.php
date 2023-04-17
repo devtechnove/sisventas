@@ -8,7 +8,7 @@ use Modules\People\Entities\Customer;
 use App\Traits\Tenantable;
 class Sale extends Model
 {
-    use HasFactory, Tenantable;
+    use HasFactory,Tenantable;
 
     protected $guarded = [];
 

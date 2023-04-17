@@ -61,7 +61,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Estado de venta <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="status" id="status" required>
+                                        <select class="form-control" name="status"  required>
                                             <option {{ $sale->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
                                             <option {{ $sale->status == 'Enviado' ? 'selected' : '' }} value="Enviado">Enviado</option>
                                             <option {{ $sale->status == 'Completado' ? 'selected' : '' }} value="Completado">Completado</option>
@@ -102,18 +102,23 @@
     </div>
 @endsection
 
+@php
+    $moneda = \Modules\Currency\Entities\Currency::where('empresa_id',\Auth::user()->empresa_id)->first();
+@endphp
 @push('page_scripts')
     <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#paid_amount').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
+                prefix:'{{ $moneda->symbol }}',
+                thousands:'{{ $moneda->thousand_separator }}',
+                decimal:'{{ $moneda->decimal_separator }}',
                 allowZero: true,
             });
 
-            $('#paid_amount').maskMoney('mask');
+            $('#getTotalAmount').click(function () {
+                $('#paid_amount').maskMoney('mask', {{ Cart::instance('sale')->total() }});
+            });
 
             $('#sale-form').submit(function () {
                 var paid_amount = $('#paid_amount').maskMoney('unmasked')[0];

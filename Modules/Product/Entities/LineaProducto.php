@@ -11,12 +11,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Modules\Product\Entities\Producto;
 use Modules\Sale\Entities\Sale;
 use App\Models\User;
-
+use App\Traits\Tenantable;
 
 class LineaProducto extends Model implements HasMedia
 {
 
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Tenantable;
 
     protected $table = 'linea_productos';
 
