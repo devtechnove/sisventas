@@ -20,14 +20,9 @@ class LoginController extends Controller
     public function index()
     {
 
-       if (\Auth::user()->hasRole('Super Admnistrador')) {
-            $logins = Login::get();
-       }
 
-       else
-       {
-          $logins = Login::where('empresa_id',\Auth::user()->empresa_id)->get();
-       }
+          $logins = Login::get();
+
         return view('admin.logins.index',compact('logins'));
     }
 

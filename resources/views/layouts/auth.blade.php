@@ -62,7 +62,7 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo-->
                         <a class="brand-logo" href="javascript:void(0);">
-                            <img src="{{ asset('images/logo/20220827_155817_00002.png') }}" class="img-responsive" height="50">
+                            <img height="50" src="{{ asset('images/logo/20220827_155817_00002.png') }}" class="img-responsive" height="50">
                         </a>
                         <!-- /Brand logo-->
                         <!-- Left Text-->

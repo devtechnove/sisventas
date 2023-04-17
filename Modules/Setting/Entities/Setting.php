@@ -5,10 +5,10 @@ namespace Modules\Setting\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Currency\Entities\Currency;
-
+use App\Traits\Tenantable;
 class Setting extends Model
 {
-    use HasFactory;
+    use HasFactory, Tenantable;
 
     protected $guarded = [];
 

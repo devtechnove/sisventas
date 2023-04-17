@@ -5,10 +5,10 @@ namespace Modules\Sale\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Product;
-
+use App\Traits\Tenantable;
 class SaleDetails extends Model
 {
-    use HasFactory;
+    use HasFactory, Tenantable;
 
     protected $guarded = [];
 

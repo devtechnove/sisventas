@@ -344,7 +344,7 @@ class SaleController extends Controller
             $pdf->AddPage();
             $pdf->Ln(1);
 
-            $pdf->Image('images/logo/logo.jpg',65,10,70,35,'JPG');
+            $pdf->Image('images/logo/20220827_155817_00002.png',55,5,100,35,'PNG');
             $pdf->Ln(45);
             $pdf->SetFont('Arial','B',16);
             $pdf->Cell(190,5,utf8_decode('Factura a') );
@@ -406,7 +406,9 @@ class SaleController extends Controller
                 $total += $pago + $iva;
 
                 $pdf->Ln(6);
+                $pdf->SetFont('Arial','B',5);
                 $pdf->Cell(30,6,$value->product->product_name,1,0,'C');
+                $pdf->SetFont('Arial','B',10);
                 $pdf->Cell(25,6,$value->quantity,1,0,'C');
                 $pdf->Cell(30,6,format_currency($value->unit_price),1,0,'C');
                 $pdf->Cell(30,6,$venta->discount_percentage,1,0,'C');

@@ -4,10 +4,10 @@ namespace Modules\Sale\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\Tenantable;
 class Contabilidad extends Model
 {
-   // use HasFactory;
+    use HasFactory, Tenantable;
 
 
     protected $table = "contabilidad";
@@ -15,8 +15,8 @@ class Contabilidad extends Model
 
     public $timestamps = false;
 
-    protected $fillable=[   
-        'denominacion', 
+    protected $fillable=[
+        'denominacion',
         'valor',
         'cantidad',
         'cantidad',

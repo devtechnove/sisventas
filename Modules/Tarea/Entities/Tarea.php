@@ -5,10 +5,10 @@ namespace Modules\Tarea\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Personal\Entities\Personal;
-
+use App\Traits\Tenantable;
 class Tarea extends Model
 {
-    use HasFactory;
+    use HasFactory, Tenantable;
 
     protected $fillable = [];
 

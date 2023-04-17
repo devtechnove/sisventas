@@ -4,7 +4,7 @@
                 <li class="nav-item mr-auto">
                     <a class="navbar-brand" href="/home">
                     <span class="brand-logo">
-                    <object data="/images/logo/20220827_155817_00001.png" height="37"></object>
+                    <object data="/images/logo/20220827_155817_00001.png" height="45"></object>
                     </span>
                      <h2 class="white-text ml-1">DEVPOS </h2>
                     </a>

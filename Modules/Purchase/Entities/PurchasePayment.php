@@ -5,10 +5,10 @@ namespace Modules\Purchase\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
-
+use App\Traits\Tenantable;
 class PurchasePayment extends Model
 {
-    use HasFactory;
+    use HasFactory, Tenantable;
 
     protected $guarded = [];
 

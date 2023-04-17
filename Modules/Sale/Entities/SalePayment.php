@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
 use Modules\Cuentas\Entities\Cuentas;
-
+use App\Traits\Tenantable;
 class SalePayment extends Model
 {
 
-    use HasFactory;
+    use HasFactory, Tenantable;
 
     protected $guarded = [];
     protected $dates = ['date'];

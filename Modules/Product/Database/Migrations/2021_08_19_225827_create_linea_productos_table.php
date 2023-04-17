@@ -24,8 +24,8 @@ class CreateLineaProductosTable extends Migration
             // Cinoribante asociado : NULLABLE
             $table->integer('comprobante_id')->unsigned()->nullable();
             //$table->foreign('comprobante_id')->references('id')->on('comprobantes');
-            
-            $table->string('descripcion');            
+
+            $table->string('descripcion');
             $table->DateTime('fecha')->default(date("Y-m-d H:i:s"));
             $table->double('stock')->default(0);
 
