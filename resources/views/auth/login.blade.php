@@ -17,7 +17,7 @@
                         class="form-control
                         @error('email') is-invalid @enderror"
                         name="email"
-                        value="{{ old('email') }}"
+                        value="mgonzalez@mail.com"
                         required
                         placeholder="example@mail.com"
                         autocomplete="off"
@@ -45,6 +45,7 @@
                            id="password"
                            type="password"
                            name="password"
+                           value="admin123"
                            placeholder="············"
                            aria-describedby="password"
                            tabindex="2"/>
