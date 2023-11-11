@@ -14,7 +14,7 @@ class CreateSaleDetailsTable extends Migration
     public function up()
     {
         Schema::create('sale_details', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('product_name');
@@ -26,8 +26,7 @@ class CreateSaleDetailsTable extends Migration
             $table->integer('product_discount_amount');
             $table->string('product_discount_type')->default('fixed');
             $table->integer('product_tax_amount');
-            $table->foreign('sale_id')->references('id')
-                ->on('sales')->cascadeOnDelete();
+            //$table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
             $table->foreign('product_id')->references('id')
                 ->on('products')->nullOnDelete();
                 $table->unsignedBigInteger('empresa_id');

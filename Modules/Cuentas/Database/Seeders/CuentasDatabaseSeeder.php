@@ -23,8 +23,8 @@ class CuentasDatabaseSeeder extends Seeder
         $cuenta->fe_apertura = date('Y-m-d');
         $cuenta->nu_cuenta = '0102-0000-00-00000-00000';
         $cuenta->moneda_id = 1 ;
-        $cuenta->saldo_apertura = 25000 ;
-        $cuenta->saldo_actual = 25000 ;
+        $cuenta->saldo_apertura = 0.00;
+        $cuenta->saldo_actual = 0.00;
         $cuenta->tx_nota ='Cuenta corriente' ;
         $cuenta->is_active = 1 ;
         $cuenta->empresa_id = 1 ;

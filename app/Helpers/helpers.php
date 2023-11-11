@@ -3,7 +3,7 @@
 if (!function_exists('settings')) {
     function settings() {
         $settings = cache()->remember('settings', 24*60, function () {
-            return \Modules\Setting\Entities\Setting::where('empresa_id',\Auth::user()->empresa_id)->firstOrFail();
+            return \Modules\Setting\Entities\Setting::with(['currency'])->where('empresa_id',\Auth::user()->empresa_id)->firstOrFail();
         });
 
         return $settings;

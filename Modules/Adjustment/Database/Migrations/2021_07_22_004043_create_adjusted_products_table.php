@@ -16,10 +16,12 @@ class CreateAdjustedProductsTable extends Migration
         Schema::create('adjusted_products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('adjustment_id');
+            $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->string('type');
             $table->foreign('adjustment_id')->references('id')->on('adjustments')->onDelete('cascade');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

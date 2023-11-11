@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->date('date');
             $table->string('mes');
             $table->string('year');
@@ -36,10 +36,10 @@ class CreateSalesTable extends Migration
             $table->string('payment_status');
             $table->string('payment_method');
             $table->text('note')->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers')->nullOnDelete();
-            $table->foreign('idcaja')->references('id')->on('cajas')->nullOnDelete();
-            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
-            $table->foreign('idtasa')->references('id')->on('tasas')->nullOnDelete();
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('idcaja')->references('id')->on('cajas');
+            $table->foreign('idcuenta')->references('id')->on('cuentas');
+            //$table->foreign('idtasa')->references('id')->on('tasas');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();

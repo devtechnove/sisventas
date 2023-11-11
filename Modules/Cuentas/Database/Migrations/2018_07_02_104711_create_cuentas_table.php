@@ -12,7 +12,7 @@ class CreateCuentasTable extends Migration
      * @return void
      */
     public function up()
-    { 
+    {
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
             $table->string('nb_nombre', 100)->nullable();
@@ -20,8 +20,8 @@ class CreateCuentasTable extends Migration
             $table->string('fe_apertura')->nullable();
             $table->string('nu_cuenta')->nullable();
             $table->string('moneda_id')->nullable();
-            $table->double('saldo_apertura', 5, 2)->nullable();
-            $table->double('saldo_actual', 5, 2)->nullable();
+            $table->double('saldo_apertura')->nullable();
+            $table->double('saldo_actual')->nullable();
             $table->string('tx_nota')->nullable();
             $table->smallInteger('is_active')->nullable();
             $table->unsignedBigInteger('empresa_id');

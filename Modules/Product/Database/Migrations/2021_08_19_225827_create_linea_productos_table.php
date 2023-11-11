@@ -16,13 +16,13 @@ class CreateLineaProductosTable extends Migration
         Schema::create('linea_productos', function (Blueprint $table) {
             $table->increments('id');
             // Producto asociado
-            $table->integer('producto_id')->unsigned();
+            $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('products');
             // Usuario asociado
-            $table->integer('usuario_id')->unsigned();
+            $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
             // Cinoribante asociado : NULLABLE
-            $table->integer('comprobante_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('comprobante_id')->nullable();
             //$table->foreign('comprobante_id')->references('id')->on('comprobantes');
 
             $table->string('descripcion');

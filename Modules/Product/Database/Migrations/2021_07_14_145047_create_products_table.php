@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->integer('product_stock_alert')->nullable();
             $table->integer('product_order_tax')->nullable();
             $table->tinyInteger('product_tax_type')->nullable();
-            $table->text('product_note')->nullable();
-            $table->text('product_image')->nullable()->default('fallback_product_image.png');
+            $table->string('product_note')->nullable();
+            $table->string('product_image')->nullable()->default('fallback_product_image.png');
             $table->foreign('category_id')->references('id')->on('categories')->restrictOnDelete();
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();

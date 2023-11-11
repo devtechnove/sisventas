@@ -16,9 +16,9 @@ class CreateParroquiasTable extends Migration
         Schema::create('parroquias', function (Blueprint $table) {
            $table->increments('id');
            $table->string('parroquia');
-           $table->integer('municipio_id')->unsigned();
-           $table->foreign('municipio_id')->references('id')->on('municipios');
-           $table->integer('user_id')->unsigned()->default(1);
+           $table->unsignedBigInteger('municipio_id')->unsigned();
+           //$table->foreign('municipio_id')->references('id')->on('municipios');
+           $table->unsignedBigInteger('user_id')->unsigned()->default(1);
            $table->foreign('user_id')->references('id')->on('users');
            $table->smallInteger('status')->default(0);
            $table->timestamps();

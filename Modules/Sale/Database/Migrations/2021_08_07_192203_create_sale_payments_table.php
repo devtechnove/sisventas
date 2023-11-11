@@ -14,7 +14,7 @@ class CreateSalePaymentsTable extends Migration
     public function up()
     {
         Schema::create('sale_payments', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('idcuenta');
             $table->integer('amount');
@@ -22,8 +22,8 @@ class CreateSalePaymentsTable extends Migration
             $table->string('reference');
             $table->string('payment_method');
             $table->text('note')->nullable();
-            $table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
-            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
+            //$table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
+            $table->foreign('idcuenta')->references('id')->on('cuentas');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();

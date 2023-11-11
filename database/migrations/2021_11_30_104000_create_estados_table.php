@@ -17,7 +17,7 @@ class CreateEstadosTable extends Migration
            $table->increments('id');
            $table->string('name');
            $table->string('iso_3166-2')->nullable();
-           $table->integer('user_id')->unsigned()->default(1);
+           $table->unsignedBigInteger('user_id')->default(1);
            $table->foreign('user_id')->references('id')->on('users');
            $table->smallInteger('status')->default(0);
            $table->timestamps();

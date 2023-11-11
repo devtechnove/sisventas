@@ -18,6 +18,7 @@ class AdjustmentController extends Controller
 {
 
     public function index(AdjustmentsDataTable $dataTable) {
+        //dd(settings());
         abort_if(Gate::denies('access_adjustments'), 403);
         $ajustes = Adjustment::where('empresa_id',\Auth::user()->empresa_id)->get();
         return $dataTable->render('adjustment::index',compact('ajustes'));

@@ -32,8 +32,8 @@ class CreatePurchasesTable extends Migration
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->unsignedBigInteger('idcuenta');
-            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
+            $table->foreign('idcuenta')->references('id')->on('cuentas');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();

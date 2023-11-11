@@ -19,7 +19,7 @@ class CreateContabilidadsTable extends Migration
             $table->string('valor');
             $table->string('cantidad');
             $table->string('modo');
-            $table->integer('idcaja')->unsigned();
+            $table->unsignedBigInteger('idcaja');
             $table->foreign('idcaja')->references('id')->on('cajas');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();

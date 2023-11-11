@@ -113,7 +113,7 @@ class ProductController extends Controller
 
     public function edit(Product $product) {
         abort_if(Gate::denies('edit_products'), 403);
-
+        $settings = \Modules\Setting\Entities\Setting::where('empresa_id',\Auth::user()->empresa_id)->first();
         return view('product::products.edit', compact('product'));
     }
 

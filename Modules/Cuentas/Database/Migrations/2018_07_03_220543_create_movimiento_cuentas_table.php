@@ -24,9 +24,9 @@ class CreateMovimientoCuentasTable extends Migration
             $table->string('tipo_movimiento');
             $table->double('credito', 5, 2);
             $table->double('debito', 5, 2);
-            $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');
+            //$table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');
             $table->unsignedBigInteger('empresa_id');
-            $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
+            //$table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();
         });
     }

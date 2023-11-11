@@ -24,10 +24,22 @@ class SuperUserSeeder extends Seeder
         $user->email_verified_at = date('Y-m-d H:i:s') ;
         $user->password          = Hash::make('admin123');
         $user->status            = 1;
-        $user->role_id           = 1;
+        $user->role_id           = 2;
         $user->save();
 
         $user->assignRole('Administrador');
+
+        $user = new User();
+        $user->name              = 'Theizer Gonzalez';
+        $user->empresa_id        = 2;
+        $user->email             = 'tgonzalez@mail.com';
+        $user->email_verified_at = date('Y-m-d H:i:s') ;
+        $user->password          = Hash::make('admin123');
+        $user->status            = 1;
+        $user->role_id           = 1;
+        $user->save();
+
+        $user->assignRole('Super Administrador');
 
 
         $user = new User();

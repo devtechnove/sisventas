@@ -14,7 +14,7 @@ class CreateCajasTable extends Migration
     public function up()
     {
         Schema::create('cajas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('codigo');
             $table->unsignedBigInteger('idcuenta');
             $table->string('fecha');
@@ -22,13 +22,13 @@ class CreateCajasTable extends Migration
             $table->string('hora');
             $table->integer('mes');
             $table->integer('year');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->double('monto');
             $table->double('monto_cierre');
             $table->string('estado');
             $table->string('caja');
-            $table->foreign('idcuenta')->references('id')->on('cuentas')->nullOnDelete();
+            $table->foreign('idcuenta')->references('id')->on('cuentas');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->restrictOnDelete();
             $table->timestamps();

@@ -11,4 +11,13 @@ class Currency extends Model
 
     protected $guarded = [];
 
+    /**
+     * Get all of the settings for the Currency
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function settings()
+    {
+        return $this->hasMany(Setting::class, 'currency_id', 'id');
+    }
 }

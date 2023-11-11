@@ -15,7 +15,7 @@ class CreateMovimientoTareasTable extends Migration
     {
         Schema::create('movimiento_tareas', function (Blueprint $table) {
             $table->id();
-            $table->integer('tarea_id');
+            $table->unsignedBigInteger('tarea_id');
             $table->string('descripcion');
             $table->string('fecha');
             $table->foreign('tarea_id')

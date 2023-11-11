@@ -17,7 +17,7 @@ class CreateTareasTable extends Migration
             $table->id();
             $table->string('titulo', 100)->nullable();
             $table->string('descripcion');
-            $table->integer('personal_id');
+            $table->unsignedBigInteger('personal_id');
             $table->integer('porcentaje');
             $table->integer('estado_tarea');
             $table->string('fecha_inicio');
