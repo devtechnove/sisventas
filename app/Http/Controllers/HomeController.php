@@ -153,7 +153,7 @@ class HomeController extends Controller
             ->orderBy('date')
             ->get([
                 //DB::raw(DB::raw("DATE_TRUNC(date,'%d-%m-%y') as date")),
-                DB::raw('sum(cast(total_amount as double precision))'),
+                DB::raw('sum(cast(total_amount as double))'),
             ])
             ->pluck('sum', 'date');
 
@@ -427,7 +427,7 @@ class HomeController extends Controller
             ->orderBy('date')
             ->get([
                 //DB::raw(DB::raw("DATE_TRUNC(date,'%d-%m-%y') as date")),
-                DB::raw('sum(cast(total_amount as double precision))'),
+                DB::raw('sum(cast(total_amount as double))'),
             ])
             ->pluck('sum', 'date');
         //dd($sales);
